@@ -1,0 +1,411 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="banner bg-color-full" id="banner">
+    <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item banner-max-height active">
+                <img class="d-block w-100 h-100" src="static/img/banner/banner-2.jpg" alt="banner">
+                <div class="carousel-caption banner-slider-inner d-flex text-center"></div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-inner" dir="ltr">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="b-text">پیدا کردن شغلت</h3>
+                <p>پیدا کردن شغل و پروژه با بهتری شرایط ممکن</p>
+                <div class="inline-search-area ml-auto mr-auto none-768">
+                    <div class="search-boxs">
+                        <div class="search-col">
+                            <input type="text" name="search" class="form-control has-icon b-radius" placeholder="Job title, Keywords or company name">
+                        </div>
+                        <div class="search-col">
+                            <select class="selectpicker search-fields" name="location">
+                                <option>ایران</option>
+                                <option>چین</option>
+                                <option>هند</option>
+                            </select>
+                        </div>
+                        <div class="find">
+                            <button class="btn button-theme btn-search btn-block b-radius">
+                                <i class="fa fa-search"></i><strong>جستوجو</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-counter-box none-768">
+                    <div class="counter-box">
+                        <h1 class="counter">2967</h1>
+                        <p>تعداد کل شغل ها</p>
+                    </div>
+                    <div class="counter-box">
+                        <h1 class="counter">167</h1>
+                        <p>تعداد کمپانی ها</p>
+                    </div>
+                    <div class="counter-box">
+                        <h1 class="counter">150</h1>
+                        <p>تعداد فریلنسر ها</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner end -->
+
+<!-- Popular categories strat -->
+<div class="popular-categories content-area-7">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>دسته بندی های محبوب</h1>
+            <p>خیلی راحت میتونی کار یا پروژت رو اینجا پیدا کنی.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="categorie-box">
+                    <i class="flaticon-money"></i>
+                    <h5>تلگرام</h5>
+                    <span>(2143)</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="categorie-box">
+                    <i class="flaticon-mortarboard"></i>
+                    <h5>DevOps</h5>
+                    <span>(742)</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="categorie-box">
+                    <i class="flaticon-shout"></i>
+                    <h5>بک اند </h5>
+                    <span>(341)</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="categorie-box">
+                    <i class="flaticon-radar"></i>
+                    <h5>فرانت  کار</h5>
+                    <span>(410)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popular categories end -->
+
+<!-- Job section strat -->
+<div class="job-section content-area-5 bg-grea">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>فرصت های ویژه</h1>
+            <p>
+                .با قرار گرفتن پروژه هاتون داخل بوردر میتونید خیلی سریع به فرد مورد نظرتون برسید
+            </p>
+        </div>
+        <div class="row" dir="ltr">
+            <div class="col-lg-12">
+                <div class="job-box">
+                    <div class="company-logo">
+                        <img src="static/img/company-logo/logo-1.png" alt="logo">
+                    </div>
+                    <div class="description">
+                        <div class="float-left">
+                            <h5 class="title"><a href="job-details.html">
+                                فوتبال360
+                            </a></h5>
+                            <div class="candidate-listing-footer">
+                                <ul>
+                                    <li><i class="flaticon-pin"></i> ایران، تهران</li>
+                                    <li><i class="flaticon-work"></i>Senior</li>
+                                    <li><i class="flaticon-time"></i>دوره کاری</li>
+                                </ul>
+                                <h6>Deadline: Jan 31, 2019</h6>
+                            </div>
+                        </div>
+                        <div class="div-right">
+                            <a href="#" class="apply-button">ارسال درخواست</a>
+                            <a href="#"><i class="flaticon-heart favourite"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-box">
+                    <div class="company-logo">
+                        <img src="static/img/company-logo/logo-3.png" alt="logo">
+                    </div>
+                    <div class="description">
+                        <div class="float-left">
+                            <h5 class="title"><a href="job-details.html">استخدام برنامه‌نویس فرانت اند (تبریز)</a></h5>
+                            <div class="candidate-listing-footer">
+                                <ul>
+                                    <li><i class="flaticon-pin"></i> ایران، تبریز</li>
+                                    <li><i class="flaticon-work"></i>Senior</li>
+                                    <li><i class="flaticon-time"></i>فول تایم</li>
+                                </ul>
+                                <h6>Deadline: Jan 31, 2019</h6>
+                            </div>
+                        </div>
+                        <div class="div-right">
+                            <a href="#" class="apply-button">ارسال درخواست</a>
+                            <a href="#"><i class="flaticon-heart favourite"></i></a>
+                        </div>
+                    </div>
+                </div>                
+                <div class="text-center clearfix">
+                    <a href="job-list.html" class="browse-all">نمایش تمام شغل ها</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Job section end -->
+
+<!-- Counters strat -->
+<div class="counters bg-color-full-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="counter-box">
+                    <i class="flaticon-user"></i>
+                    <h1 class="counter">1967</h1>
+                    <p>یوزر</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="counter-box">
+                    <i class="flaticon-work"></i>
+                    <h1 class="counter">667</h1>
+                    <p>شغل</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="counter-box">
+                    <i class="flaticon-document"></i>
+                    <h1 class="counter">475</h1>
+                    <p>رزومه</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="counter-box">
+                    <i class="flaticon-factory"></i>
+                    <h1 class="counter">475</h1>
+                    <p>شرکت</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counters end -->
+
+<!-- Testimonial start -->
+<div class="testimonial">
+    <div class="container">
+        <div class="main-title">
+            <h1>فریلنسر های محبوب</h1>
+        </div>
+        <div class="slick-slider-area" dir="ltr">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                <div class="slick-slide-item">
+                    <div class="testimonial-inner">
+                        <div class="content-box">
+                            <p>
+                                من همیشه به دنبال انجام دادن پروژه هام با بهترین کیفیت
+                                ممکن بودم و سعی میکنم هر روز بهتر عمل بکنم.
+                            </p>
+                        </div>
+                        <div class="media">
+                            <a href="#">
+                                <img src="static/img/avatar/avatar-2.jpg" alt="testimonial-avatar" class="img-fluid">
+                            </a>
+                            <div class="media-body align-self-center">
+                                <h5>
+                                    علی رحمانی
+                                </h5>
+                                <h6>بک اند دولوپر</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-slide-item">
+                    <div class="testimonial-inner">
+                        <div class="content-box">
+                            <p>
+                                شاید خیلیا نتونن سر قولشون بمون و با حوصله به حرف مشتری گوش بردن
+                                ولی من میتونم
+                            </p>
+                        </div>
+                        <div class="media">
+                            <a href="#">
+                                <img src="static/img/avatar/avatar-3.jpg" alt="testimonial-avatar" class="img-fluid">
+                            </a>
+                            <div class="media-body align-self-center">
+                                <h5>
+                                    پیمان ساعدی
+                                </h5>
+                                <h6>Office Manager</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonial end -->
+
+<!-- Partners strat 
+<div class="partners content-area-15 bg-grea">
+    <div class="container">
+        <div class="main-title text-center">
+            <h1>Companies We've Helped</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="slick-slider-area">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 5, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 3}}, {"breakpoint": 768,"settings":{"slidesToShow": 2}}]}'>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-1.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-2.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-3.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-4.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-1.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-2.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-3.png" alt="brand" class="img-fluid"></div>
+                <div class="slick-slide-item"><img src="static/img/brand/brand-4.png" alt="brand" class="img-fluid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+Partners end -->
+
+
+<!-- Blog start -->
+<div class="blog content-area" dir="ltr">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>در وبلاگ</h1>
+            <p>
+                اتفاقات و خبر 
+            </p>
+        </div>
+        <!-- Slick slider area start -->
+        <div class="slick-slider-area">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                <div class="slick-slide-item">
+                    <div class="blog-3">
+                        <div class="blog-photo">
+                            <img src="static/img/blog/blog-2.jpg" alt="blog" class="img-fluid">
+                            <div class="date-box">
+                                <span>27</span>Feb
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <h3>
+                                <a href="blog-details.html">
+                                    نوشتن یک رزومه خوب
+                                </a>
+                            </h3>
+                            <div class="post-meta">
+                                <span><a href="#"><i class="flaticon-male"></i>محمد</a></span>
+                                <span><a href="#"><i class="flaticon-comment"></i>27</a></span>
+                                <span><a href="#"><i class="fa fa-heart-o"></i>27</a></span>
+                            </div>
+                            <p>
+                                به سادگی متن ساختگی صنعت چاپ و حروفچینی است. لورم ایپسوم بوده است
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-slide-item">
+                    <div class="blog-3">
+                        <div class="blog-photo">
+                            <img src="static/img/blog/blog-3.jpg" alt="blog" class="img-fluid">
+                            <div class="date-box">
+                                <span>23</span>Feb
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <h3>
+                                <a href="blog-details.html">مشکلت رایج</a>
+                            </h3>
+                            <div class="post-meta">
+                                <span><a href="#"><i class="flaticon-male"></i>رضا</a></span>
+                                <span><a href="#"><i class="flaticon-comment"></i>27</a></span>
+                                <span><a href="#"><i class="fa fa-heart-o"></i>27</a></span>
+                            </div>
+                            <p>
+                                به سادگی متن ساختگی صنعت چاپ و حروفچینی است. لورم ایپسوم بوده است    
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-slide-item">
+                    <div class="blog-3">
+                        <div class="blog-photo">
+                            <img src="static/img/blog/blog-1.jpg" alt="blog" class="img-fluid">
+                            <div class="date-box">
+                                <span>23</span>Feb
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <h3>
+                                <a href="blog-details.html">چگون سفارشمان را ثبت کنیم</a>
+                            </h3>
+                            <div class="post-meta">
+                                <span><a href="#"><i class="flaticon-male"></i>علی</a></span>
+                                <span><a href="#"><i class="flaticon-comment"></i>27</a></span>
+                                <span><a href="#"><i class="fa fa-heart-o"></i>27</a></span>
+                            </div>
+                            <p>
+                                به سادگی متن ساختگی صنعت چاپ و حروفچینی است. لورم ایپسوم بوده است    
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-slide-item">
+                    <div class="blog-3">
+                        <div class="blog-photo">
+                            <img src="static/img/blog/blog-3.jpg" alt="blog" class="img-fluid">
+                            <div class="date-box">
+                                <span>12</span>Feb
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <h3>
+                                <a href="blog-details.html">قابلیت های جدید که قرار اضافه بشه</a>
+                            </h3>
+                            <div class="post-meta">
+                                <span><a href="#"><i class="flaticon-male"></i>علی</a></span>
+                                <span><a href="#"><i class="flaticon-comment"></i>27</a></span>
+                                <span><a href="#"><i class="fa fa-heart-o"></i>27</a></span>
+                            </div>
+                            <p>
+                                به سادگی متن ساختگی صنعت چاپ و حروفچینی است. لورم ایپسوم بوده است    
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="slick-prev slick-arrow-buton">
+                <i class="fa fa-angle-left"></i>
+            </div>
+            <div class="slick-next slick-arrow-buton">
+                <i class="fa fa-angle-right"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog end -->
+
+
+{% endblock content %}
+
+
