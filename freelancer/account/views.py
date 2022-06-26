@@ -1,7 +1,7 @@
 from xml.dom import ValidationErr
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, UserLoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 def login_user(request):
@@ -31,6 +31,9 @@ def login_user(request):
     }
     return render(request, 'account/login.html', context=context)
 
+def logout_user(request):
+    logout(request)
+    return render(request, 'account/login.html')
 
 
 def register_user(request):
