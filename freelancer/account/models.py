@@ -35,14 +35,13 @@ class User(AbstractUser):
         verbose_name="ایمیل")
     
     phone = models.IntegerField(
+        blank=True, null=True,
         verbose_name='شماره تلفن کاربر')
     
     score = models.IntegerField(
         default=0,
         verbose_name='امتیاز کاربر')
     
-    class Meta:
-        db_table = "User"
 
 
 class Profile(models.Model):
@@ -77,6 +76,3 @@ class Profile(models.Model):
         upload_to=cv_directory_path,
         null=True,
         blank=True)
-
-    class Meta:
-        db_table = "Profile"

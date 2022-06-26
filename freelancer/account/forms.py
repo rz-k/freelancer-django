@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class UserRegisterForm(forms.Form):
     full_name = forms.CharField(max_length=70 , widget=forms.TextInput(attrs={"class":"input-text" ,"placeholder":"* نام و نام خانوادگی"}))
     username = forms.CharField(max_length=70 , widget=forms.TextInput(attrs={"class":"input-text" ,"placeholder":"* نام کاربری"}))
-    email = forms.CharField(max_length=70 , widget=forms.EmailField(attrs={"class":"input-text" ,"placeholder":"* ایمیل"}))
+    email = forms.CharField(max_length=70 , widget=forms.EmailInput(attrs={"class":"input-text" ,"placeholder":"* ایمیل"}))
     password = forms.CharField(max_length=100 ,widget=forms.PasswordInput(attrs={"placeholder":"* رمز عبور", "class":"input-text"}))
     password2 = forms.CharField(max_length=100 ,widget=forms.PasswordInput(attrs={"placeholder":"* تکرار رمز عبور", "class":"input-text"}))
 
@@ -29,5 +29,5 @@ class UserRegisterForm(forms.Form):
 
 class UserLoginForm(forms.Form):
 
-    email = forms.CharField(max_length=70 , widget=forms.EmailField(attrs={"class":"input-text" ,"placeholder":"ایمیل"}))
+    email = forms.CharField(max_length=70 , widget=forms.EmailInput(attrs={"class":"input-text" ,"placeholder":"ایمیل"}))
     password = forms.CharField(max_length=100 ,widget=forms.PasswordInput(attrs={"placeholder":" رمز عبور", "class":"input-text"}))

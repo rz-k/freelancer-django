@@ -19,16 +19,16 @@
                             <img src="img/black-logo.png" class="cm-logo" alt="black-logo">
                         </a>
                         <!-- Name -->
-                        <h3>Sign into your account</h3>
+                        <h3>ورود به حساب </h3>
                         <!-- Form start -->
-                        <form action="http://theme-vessel-templates.theme-vessel.ey.r.appspot.com/jobb/index.html" method="GET">
+                        <form action="{% url 'account:login' %}" method="POST">
+                            {% csrf_token %}
 
                             <div class="form-group">
-                                <input type="email" name="email" class="input-text" placeholder="ایمیل">
+                                {{ form_login.email }}
                             </div>
                             <div class="form-group">
-                                <input type="password" name="Password" class="input-text" placeholder="پسورد">
-                            </div>
+                                {{ form_login.password }}                            </div>
                             <div class="checkbox">
                                 <div class="ez-checkbox pull-left">
                                     <label>
@@ -40,7 +40,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="form-group mb-0">
-                                <button type="submit" class="btn-md button-theme btn-block">login</button>
+                                <input type="submit" class="btn-md button-theme btn-block" value="ورود">
                             </div>
                         </form>
                         <!-- Social List -->
