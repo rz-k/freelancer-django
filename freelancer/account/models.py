@@ -65,6 +65,9 @@ class Profile(models.Model):
             max_length=20,
             blank=True,
             null=True),
+
+        blank=True,
+        null=True,
         size=10, 
         verbose_name="مهارت ها")
     
