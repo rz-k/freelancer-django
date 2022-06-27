@@ -75,6 +75,14 @@ class UserRegisterForm(forms.Form):
         return username
     
     
+    def clean_password(self) -> "password":
+        data = self.cleaned_data
+        password = data.get("password")
+
+        if len(password) < 8:
+            raise forms.ValidationError("رمز عبور شما کوتاه میباشد، لطفا رمز عبور طولانی تری را وارد نمایید.")
+        
+        
     def clean_confirm_password(self) -> "password":
         """
         Check the first password and confirm password is the same or not.
@@ -95,12 +103,16 @@ class UserRegisterForm(forms.Form):
 class UserLoginForm(forms.Form):
     email = forms.CharField(
         max_length=70,
+        error_messages={"required": "لطفا مقدار خواسته شده برای فیلد زیر را وارد نمایید."},
         widget=forms.EmailInput(
             attrs={"placeholder":"ایمیل",
                 "class":"input-text"}))
     
     password = forms.CharField(
         max_length=100,
+        error_messages={"required": "لطفا مقدار خواسته شده برای فیلد زیر را وارد نمایید."},
         widget=forms.PasswordInput(
             attrs={"class":"input-text",
                 "placeholder":" رمز عبور"}))
+    
+    
