@@ -1,9 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-
-<body class="bg-grea">
-<div class="page_loader"></div>
 {% block content %}
 <!-- Contact section start -->
 <div class="contact-section">
@@ -15,20 +12,24 @@
                     <!-- details -->
                     <div class="details">
                         <!-- Logo -->
-                        <a href="index.html">
-                            <img src="img/black-logo.png" class="cm-logo" alt="black-logo">
+                        <a href="/">
+                            <img src="{% static "img/black-logo.png" %}" class="cm-logo" alt="black-logo" style="margin-bottom: 15px">
                         </a>
                         <!-- Name -->
                         <h3>ورود به حساب </h3>
                         <!-- Form start -->
                         <form action="{% url 'account:login' %}" method="POST">
                             {% csrf_token %}
-
-                            <div class="form-group">
-                                {{ form_login.email }}
-                            </div>
-                            <div class="form-group">
-                                {{ form_login.password }}                            </div>
+                            {% for field in form_login.visible_fields %}
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <p style="color: #ff6969;">{{error}}</p>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="form-group">
+                                    {{field}}
+                                </div>
+                            {% endfor %}
                             <div class="checkbox">
                                 <div class="ez-checkbox pull-left">
                                     <label>
@@ -62,15 +63,5 @@
     </div>
 </div>
 <!-- Contact section end -->
-
-<!-- Full Page Search -->
-<div id="full-page-search">
-    <button type="button" class="close">×</button>
-    <form action="http://theme-vessel-templates.theme-vessel.ey.r.appspot.com/jobb/index.html#">
-        <input type="search" value="" placeholder="type keyword(s) here" />
-        <button type="submit" class="btn btn-sm button-theme">Search</button>
-    </form>
-</div>
-
 {% endblock content %}
 
