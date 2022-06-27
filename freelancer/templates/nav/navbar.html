@@ -1,0 +1,56 @@
+{% load static%}
+
+<header class="main-header header-transparent sticky-header" id="nav-head">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a href="/" class="brand">
+                <img src="{% static 'img/logos/logo.png' %}" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'account:register' %}">
+                            ثبت نام
+                            <i class="flaticon-logout"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="employer-dashboard-post-job.html" class="nav-link link-color"><i class="flaticon-plus"></i> افزودن پروژه</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav header-ml">
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link" href="/">
+                            خانه
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="about.html">
+                            درباره
+                        </a>                        
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link" href="contact.html">
+                            ارتباط با ما
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link" href="faq.html">
+                            سوالات متداول
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link" href="pricing-plan.html">
+                            تعرفه ها
+                        </a>
+                    </li>
+                </ul>                
+            </div>
+        </nav>
+    </div>
+</header>
