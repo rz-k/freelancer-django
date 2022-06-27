@@ -34,13 +34,14 @@ def login_user(request, next_url='job:home', form_class=UserLoginForm, template_
             
             if user is not None:
                 login(request=request, user=user)
-                messages.success(request=request, message='شما با موفقیت لاگین شدید')
+                messages.success(request=request, message='شما با موفقیت لاگین شدید', extra_tags="success")
                 return success_url
             else:
-                messages.error(request=request, message="ورود به حساب کاربری با خطا مواجه شد، لطفا یوزرنیم و پسورد خود را چک کنید.")
+                messages.error(request=request, message="یوزرنیم یا پسورد وارد شده اشتباه است!", extra_tags="danger")
                 return render(request=request,
                     template_name=template_name,
                     context={"form_login": form})
+
     else:
         form = form_class()
     context = {'form_login': form}
@@ -48,18 +49,6 @@ def login_user(request, next_url='job:home', form_class=UserLoginForm, template_
     return render(request=request,
         template_name=template_name,
         context=context)
-
-
-def logout_user(request, template_name='account/login.html'):
-    """
-    Logout user.
-
-    Args:
-        template_name (str, optional): 
-            Name of the template to be rendered in this view.
-    """
-    logout(request)
-    return render(request=request, template_name=template_name)
 
 
 def register_user(request, next_url='job:home', form_class=UserRegisterForm, template_name='account/register.html'):
@@ -94,10 +83,10 @@ def register_user(request, next_url='job:home', form_class=UserRegisterForm, tem
             )
             user.is_active = True
             user.save()
-            messages.success(request=request, message="ثبت نام با موفقیت انجام شد.")
+            messages.success(request=request, message="ثبت نام با موفقیت انجام شد.", extra_tags="success")
             return success_url
         else:
-            messages.error(request=request, message="موارد گفته شده را به درستی وارد نمایید")
+            messages.error(request=request, message="موارد گفته شده را به درستی وارد نمایید", extra_tags="danger")
             return render(request=request,
                     template_name=template_name,
                     context={"form_register": form})
@@ -109,3 +98,16 @@ def register_user(request, next_url='job:home', form_class=UserRegisterForm, tem
     return render(request=request,
         template_name=template_name,
         context=context)
+
+
+
+def logout_user(request):
+    """
+    Logged out the user and redirect to the home page
+    """
+    logout(request)
+    messages.success(
+        request=request,
+        message='خروج از حساب کاربری با موفقیت انجام شد.', 
+        extra_tags="success")
+    return redirect("job:home")
