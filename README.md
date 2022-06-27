@@ -2,6 +2,10 @@
 The freelancer website is written by Django to help freelancers and employers to find and create new jobs/projects.
 <br><br>
 
+## DB SCHEME
+  > You can see the database scheme of this website by clicking on this link :point_right:
+      [SCHEME](https://drawsql.app/zanko-1/diagrams/freelancer)
+
 ## Features
   - Add a new job/project with so amazing capability.
   - Users can send offers to the projects and can see each other suggestions.
