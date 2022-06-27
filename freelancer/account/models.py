@@ -27,7 +27,7 @@ def cv_directory_path(instance, filename: str) -> "File Path":
 
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['last_name', 'username']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
     
     email = models.EmailField(
         max_length=100,
@@ -65,10 +65,9 @@ class Profile(models.Model):
             max_length=20,
             blank=True,
             null=True),
-
         blank=True,
         null=True,
-        size=10, 
+        size=10,
         verbose_name="مهارت ها")
     
     approved = models.BooleanField(
@@ -79,3 +78,11 @@ class Profile(models.Model):
         upload_to=cv_directory_path,
         null=True,
         blank=True)
+
+
+    class Meta:
+        db_table = "Profile"
+
+
+    def __str__(self):        
+        return self.user.username
