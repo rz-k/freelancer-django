@@ -57,6 +57,8 @@
         <script  src="{% static 'js/html5shiv.min.js"></script>
         <script  src="{% static 'js/respond.min.js"></script>
         <![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/notifications.css' %}">
     </head>
 
     <body dir="rtl">
@@ -71,12 +73,17 @@
         
         <!-- Main header start -->
         {% include 'nav/navbar.html' %}
-        <!-- Main header end -->
+        <!-- Main header end -->       
+    
+        <!-- Start Show Messages -->
+        {% include 'messages/messages.html' %}
+        <!-- End Show Messages -->        
 
+        <!-- Start Content -->
         {% block content %}
         {% endblock content %}
-
-        <!-- Banner start -->
+        <!-- End Content -->
+        
         <!-- Footer start -->
         <footer class="footer">
             <div class="container footer-inner">
