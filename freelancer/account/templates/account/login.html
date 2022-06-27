@@ -2,66 +2,69 @@
 {% load static %}
 
 {% block content %}
-<!-- Contact section start -->
-<div class="contact-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Form content box start -->
-                <div class="form-content-box">
-                    <!-- details -->
-                    <div class="details">
-                        <!-- Logo -->
-                        <a href="/">
-                            <img src="{% static "img/black-logo.png" %}" class="cm-logo" alt="black-logo" style="margin-bottom: 15px">
-                        </a>
-                        <!-- Name -->
-                        <h3>ورود به حساب </h3>
-                        <!-- Form start -->
-                        <form action="{% url 'account:login' %}" method="POST">
-                            {% csrf_token %}
-                            {% for field in form_login.visible_fields %}
-                                {% if field.errors %}
-                                    {% for error in field.errors %}
-                                        <p style="color: #ff6969;">{{error}}</p>
-                                    {% endfor %}
-                                {% endif %}
-                                <div class="form-group">
-                                    {{field}}
+    <!-- Contact section start -->
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Form content box start -->
+                    <div class="form-content-box">
+                        <!-- details -->
+                        <div class="details" style="margin-top: 120px;">
+                            <!-- Logo -->
+                            <a href="/">
+                                <img src="{% static "img/black-logo.png" %}" class="cm-logo" alt="black-logo" style="margin-bottom: 15px">
+                            </a>
+                            <!-- Name -->
+                            <h3>ورود به حساب کاربری</h3>
+                            <!-- Form start -->
+                            <form action="{% url 'account:login' %}" method="POST">
+                                {% csrf_token %}
+                                {% for field in form_login.visible_fields %}
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <p style="color: #ff6969;">{{error}}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="form-group">
+                                        {{field}}
+                                    </div>
+                                {% endfor %}
+                                <div class="checkbox">
+                                    <div class="ez-checkbox pull-left">
+                                        <label>
+                                            <input type="checkbox" class="ez-hide">
+                                            به خاطر بسپار
+                                        </label>
+                                    </div>
+                                    <a href="forgot-password.html" class="link-not-important pull-right">فراموش کردن پسورد</a>
+                                    <div class="clearfix"></div>
                                 </div>
-                            {% endfor %}
-                            <div class="checkbox">
-                                <div class="ez-checkbox pull-left">
-                                    <label>
-                                        <input type="checkbox" class="ez-hide">
-                                        به خاطر بسپار
-                                    </label>
+                                <div class="form-group mb-0">
+                                    <input type="submit" class="btn-md button-theme btn-block" value="ورود">
                                 </div>
-                                <a href="forgot-password.html" class="link-not-important pull-right">فراموش کردن پسورد</a>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-group mb-0">
-                                <input type="submit" class="btn-md button-theme btn-block" value="ورود">
-                            </div>
-                        </form>
-                        <!-- Social List -->
-                        <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
+                            </form>
+                            <!-- Social List -->
+                            <ul class="social-list clearfix">
+                                <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- Footer -->
+                        <div class="footer" style="margin-bottom: 150px">
+                            <span>حسابی ندارید ؟ <a href="{% url 'account:register' %}">ثبت نام</a></span>
+                        </div>
                     </div>
-                    <!-- Footer -->
-                    <div class="footer">
-                        <span>حسابی ندارید ؟ <a href="{% url 'account:register' %}">ثبت نام</a></span>
-                    </div>
+                    <!-- Form content box end -->
                 </div>
-                <!-- Form content box end -->
             </div>
         </div>
     </div>
-</div>
+    <!-- Change navbar colors -->
+    <script>
+        document.getElementById("nav-head").style.background="#161616";
+    </script>
 <!-- Contact section end -->
 {% endblock content %}
-
