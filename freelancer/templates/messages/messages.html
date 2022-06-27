@@ -1,0 +1,12 @@
+{% if messages %}
+    <div class="notif-messaage">
+        {% for msg in messages %}
+            <div class="notification" id="{{msg.tags}}">
+                <div class="msg-content">
+                    <h4>پیام جدید</h4>
+                    <p>{{ msg }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
