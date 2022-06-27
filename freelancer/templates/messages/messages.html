@@ -9,4 +9,15 @@
             </div>
         {% endfor %}
     </div>
+
+    <script>
+        const notify_message = document.getElementsByClassName("notif-messaage")[0];
+        setTimeout(
+            function(){
+                notify_message.remove();
+                var details = document.getElementsByClassName("details")[0];
+                details.style.setProperty("margin-top", "150px", "important");
+            }, 3800
+        );
+    </script>
 {% endif %}
