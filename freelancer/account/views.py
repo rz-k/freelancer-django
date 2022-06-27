@@ -1,40 +1,111 @@
-from xml.dom import ValidationErr
-from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, UserLoginForm
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.shortcuts import redirect, render
 
-def login_user(request):
+from .forms import UserLoginForm, UserRegisterForm
+
+
+def login_user(request, next_url='job:home', form_class=UserLoginForm, template_name="account/login.html"):
+    """
+    Login user to the account
+
+    Args:
+        next_url (str):
+            This is a success_url to redirect logged-in users.
+
+        form_class (Form, optional): 
+            User Login Form.
+            
+        template_name (str, optional):
+            Name of the template to be rendered in this view.
+    """
+    success_url = redirect(next_url)
     if request.user.is_authenticated:
-        return redirect('job:home')
+        return success_url
+    
     if request.method == 'POST':
-        form = UserLoginForm(request.POST)
+        form = form_class(data=request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data  
+            user = authenticate(
+                request=request, 
+                email=cd['email'],
+                password=cd['password'])
+            
+            if user is not None:
+                login(request=request, user=user)
+                messages.success(request=request, message='شما با موفقیت لاگین شدید')
+                return success_url
+            else:
+                messages.error(request=request, message="ورود به حساب کاربری با خطا مواجه شد، لطفا یوزرنیم و پسورد خود را چک کنید.")
+                return render(request=request,
+                    template_name=template_name,
+                    context={"form_login": form})
+    else:
+        form = form_class()
+    context = {'form_login': form}
+    
+    return render(request=request,
+        template_name=template_name,
+        context=context)
+
+
+def logout_user(request, template_name='account/login.html'):
+    """
+    Logout user.
+
+    Args:
+        template_name (str, optional): 
+            Name of the template to be rendered in this view.
+    """
+    logout(request)
+    return render(request=request, template_name=template_name)
+
+
+def register_user(request, next_url='job:home', form_class=UserRegisterForm, template_name='account/register.html'):
+    """
+    Register new user(sign up).
+
+    Args:
+        next_url (str):
+            This is a success_url to redirect logged-in users.
+
+        form_class (Form, optional): 
+            User Register Form.
+            
+        template_name (str, optional):
+            Name of the template to be rendered in this view.
+    """
+    success_url = redirect(next_url)
+    if request.user.is_authenticated:
+        return success_url
+    
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        
         if form.is_valid():
             cd = form.cleaned_data
-            print(cd)
-            user = authenticate(
-                request, 
+            user =  get_user_model().objects.create_user(
+                first_name=cd['first_name'],
+                last_name=cd['last_name'],
+                username=cd['username'],
                 email=cd['email'],
-                password=cd['password']
+                password=cd['password'],
             )
-            if user is not None:
-                login(request, user=user)
-                messages.success(request, 'با موفقیت لاگین شدین')
-                return redirect('job:home')
-            else:
-                messages.error(request, "ورود به حساب کاربر با خطا مواجه شد، لطفا یوزرنیم و پسورد خود را چک کنید.")
-                return render(request, 'account/login.html', {"form_login": form})
+            user.is_active = True
+            user.save()
+            messages.success(request=request, message="ثبت نام با موفقیت انجام شد.")
+            return success_url
+        else:
+            messages.error(request=request, message="موارد گفته شده را به درستی وارد نمایید")
+            return render(request=request,
+                    template_name=template_name,
+                    context={"form_register": form})
     else:
-        form = UserLoginForm()
-    context = {
-        'form_login': form
-    }
-    return render(request, 'account/login.html', context=context)
+        form = form_class()
 
-def logout_user(request):
-    logout(request)
-    return render(request, 'account/login.html')
-
-
-def register_user(request):
-    return render(request, 'account/register.html')
+    context = {'form_register': form}
+    
+    return render(request=request,
+        template_name=template_name,
+        context=context)
