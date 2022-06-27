@@ -1,33 +1,106 @@
-import email
 from django import forms
 from django.contrib.auth import get_user_model
 
+
 class UserRegisterForm(forms.Form):
-    full_name = forms.CharField(max_length=70 , widget=forms.TextInput(attrs={"class":"input-text" ,"placeholder":"* نام و نام خانوادگی"}))
-    username = forms.CharField(max_length=70 , widget=forms.TextInput(attrs={"class":"input-text" ,"placeholder":"* نام کاربری"}))
-    email = forms.CharField(max_length=70 , widget=forms.EmailInput(attrs={"class":"input-text" ,"placeholder":"* ایمیل"}))
-    password = forms.CharField(max_length=100 ,widget=forms.PasswordInput(attrs={"placeholder":"* رمز عبور", "class":"input-text"}))
-    password2 = forms.CharField(max_length=100 ,widget=forms.PasswordInput(attrs={"placeholder":"* تکرار رمز عبور", "class":"input-text"}))
+    first_name = forms.CharField(
+        max_length=70,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"نام"}))
+
+    last_name = forms.CharField(
+        max_length=70,        
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"نام خانوادگی"}))
+    
+    username = forms.CharField(
+        max_length=70,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"نام کاربری"}))
+    
+    email = forms.CharField(
+        max_length=70,
+        widget=forms.EmailInput(
+            attrs={"class":"input-text",
+                "placeholder":"ایمیل"}))
+    
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(
+            attrs={"class":"input-text",
+                "placeholder":"رمز عبور"}))
+        
+    confirm_password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(
+            attrs={"class":"input-text",
+                "placeholder":"تکرار رمز عبور"}))
 
 
-    def clean_email(self):
-        email = self.cleaned_data["email"]
+    def clean_email(self) -> "email":
+        """
+        Check whether an email already exists or not. 
+
+        Raises:
+            ValidationError: email already exists.
+
+        Returns:
+            email: new user email address.
+        """
+        email = self.cleaned_data.get("email")    
         user = get_user_model().objects.filter(email=email)
+        
         if user.exists():
             raise forms.ValidationError("این ایمیل قبلا در سایت ثبت نام کرده است")
         return email
     
-    def clean_username(self):
-        username = self.cleaned_data["username"]
+    
+    def clean_username(self) -> "username":
+        """ 
+        Check whether an username already exists or not. 
+
+        Raises:
+            ValidationError: username already exists.
+
+        Returns:
+            username: new username.
+        """
+        username = self.cleaned_data.get("username")
         user = get_user_model().objects.filter(username=username)
         if user.exists():
             raise forms.ValidationError("این یوزرنیم از قبل در سایت وجود دارد")
         return username
-
-
+    
+    
+    def clean_confirm_password(self) -> "password":
+        """
+        Check the first password and confirm password is the same or not.
         
+        Returns:
+            password: str
+        """
+        cd = self.cleaned_data
+        password = cd.get('password')
+        confirm_password = cd.get('confirm_password')        
+
+        if confirm_password != password:
+            raise forms.ValidationError("دو پسورد وارد شده با هم مطابقت ندارد.")
+        else:
+            return confirm_password
+
 
 class UserLoginForm(forms.Form):
-
-    email = forms.CharField(max_length=70 , widget=forms.EmailInput(attrs={"class":"input-text" ,"placeholder":"ایمیل"}))
-    password = forms.CharField(max_length=100 ,widget=forms.PasswordInput(attrs={"placeholder":" رمز عبور", "class":"input-text"}))
+    email = forms.CharField(
+        max_length=70,
+        widget=forms.EmailInput(
+            attrs={"placeholder":"ایمیل",
+                "class":"input-text"}))
+    
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(
+            attrs={"class":"input-text",
+                "placeholder":" رمز عبور"}))
