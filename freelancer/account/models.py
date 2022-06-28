@@ -10,7 +10,7 @@ def avatar_directory_path(instance, filename: str) -> "File Path":
     Returns:
         file_path: str
     """
-    path = 'users/{user_id}/profile/{file_name}'    
+    path = 'users/{0}/profile/{1}'
     return path.format(instance.user.id, filename)
 
 
@@ -21,7 +21,7 @@ def cv_directory_path(instance, filename: str) -> "File Path":
     Returns:
         file-path: str
     """
-    path = 'users/{user_id}/cv/{file_name}'
+    path = 'users/{0}/cv/{1}'
     return path.format(instance.user.id, filename)
 
 
@@ -48,8 +48,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         to=User,
         on_delete=models.CASCADE,
-        related_name='user_profile',
-        )
+        related_name='user_profile')
     
     bio = models.TextField(        
         null=True,
@@ -78,8 +77,6 @@ class Profile(models.Model):
         upload_to=cv_directory_path,
         null=True,
         blank=True)
-
-
 
 
     def __str__(self):        
