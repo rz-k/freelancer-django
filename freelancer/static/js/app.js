@@ -433,17 +433,20 @@ $(function () {
             '        <i class="fa fa-gear"></i>\n' +
             '    </div>\n' +
             '</div>';
-        $('body').append(plateStings);
+        // $('body').append(plateStings);
     }
-    $(document).on('click', '.color-plate', function () {
+    /* $(document).on('click', '.color-plate', function () {
         var name = $(this).attr('data-color');
-        $('link[id="style_sheet"]').attr('href', 'css/skins/' + name + '.css');
+        $('link[id="style_sheet"]').attr('href', 'static/css/skins/' + name + '.css');
     });
-
+    
     $(document).on('click', '.setting-button', function () {
         $('.option-panel').toggleClass('option-panel-collased');
     });
+    */
 });
+
+
 
 // mCustomScrollbar initialization
 (function ($) {
