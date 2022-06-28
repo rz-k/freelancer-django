@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-s
+
 class UserRegisterForm(forms.Form):
     first_name = forms.CharField(
         max_length=70,
@@ -14,19 +14,19 @@ class UserRegisterForm(forms.Form):
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"نام خانوادگی"}))
-
+    
     username = forms.CharField(
         max_length=70,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"نام کاربری"}))
-
+    
     email = forms.CharField(
         max_length=70,
         widget=forms.EmailInput(
             attrs={"class":"input-text",
                 "placeholder":"ایمیل"}))
-
+    
     password = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(
@@ -56,8 +56,8 @@ class UserRegisterForm(forms.Form):
         if user.exists():
             raise forms.ValidationError("این ایمیل قبلا در سایت ثبت نام کرده است")
         return email
-
-
+    
+    
     def clean_username(self) -> "username":
         """ 
         Check whether an username already exists or not. 
@@ -73,28 +73,28 @@ class UserRegisterForm(forms.Form):
         if user.exists():
             raise forms.ValidationError("این یوزرنیم از قبل در سایت وجود دارد")
         return username
-
-
+    
+    
     def clean_password(self) -> "password":
         data = self.cleaned_data
         password = data.get("password")
 
         if len(password) < 8:
             raise forms.ValidationError("رمز عبور شما کوتاه میباشد، لطفا رمز عبور طولانی تری را وارد نمایید.")
-
-
-    def clean_confirm_password(self) -> "confirm_password":
+        
+        
+    def clean_confirm_password(self) -> "password":
         """
         Check the first password and confirm password is the same or not.
         
         Returns:
             password: str
         """
-        data = self.cleaned_data
-        password = data.get('password')
-        confirm_password = data.get('confirm_password')
-        
-        if password and confirm_password and confirm_password != password:
+        cd = self.cleaned_data
+        password = cd.get('password')
+        confirm_password = cd.get('confirm_password')        
+
+        if confirm_password != password:
             raise forms.ValidationError("دو پسورد وارد شده با هم مطابقت ندارد.")
         else:
             return confirm_password
@@ -114,3 +114,5 @@ class UserLoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={"class":"input-text",
                 "placeholder":" رمز عبور"}))
+    
+    
