@@ -111,3 +111,26 @@ def logout_user(request):
         message='خروج از حساب کاربری با موفقیت انجام شد.', 
         extra_tags="success")
     return redirect("job:home")
+
+
+
+def dashboard(request):
+    return render(request, 'account/dashboard/dashboard.html')
+
+def add_job(request):
+    return render(request, 'account/dashboard/add-job.html')
+
+
+def manage_job(request):
+    return render(request, 'account/dashboard/manage-job.html')
+
+def manage_candidate(request):
+    return render(request, 'account/dashboard/manage-candidate.html')
+
+def user_messages(request):
+    return render(request, 'account/dashboard/user-messages.html')
+
+def edit_profile(request):
+    return render(request, 'account/dashboard/edit-profile.html')
+
+

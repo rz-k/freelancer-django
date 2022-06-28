@@ -1,0 +1,153 @@
+{% extends 'base/base_dashboard.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-lg-9 col-md-12 col-sm-12 col-pad">
+    <div class="content-area5 dashboard-content">
+        <div class="dashboard-header clearfix">
+            <div class="row">
+                <div class="col-sm-12 col-md-6"><h4>Post a Job</h4></div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="breadcrumb-nav">
+                        <ul>
+                            <li>
+                                <a href="index.html">Index</a>
+                            </li>
+                            <li>
+                                <a href="dashboard.html">Dashboard</a>
+                            </li>
+                            <li class="active">Post a Job</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-address dashboard-list">
+            <form method="GET">
+                <h4 class="bg-grea-3">Basic Information</h4>
+                <div class="search-contents-sidebar">
+                    <div class="row pad-20">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" class="input-text" name="your name" placeholder="Your Title">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Job Type</label>
+                                <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="job-type" tabindex="-98">
+                                    <option>Job Type</option>
+                                    <option>Full time</option>
+                                    <option>Part time</option>
+                                    <option>Freelance</option>
+                                    <option>Temporary</option>
+                                </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Job Type"><div class="filter-option"><div class="filter-option-inner">Job Type</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Job Category</label>
+                                <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="job-category" tabindex="-98">
+                                    <option>Job Category</option>
+                                    <option>Accounting / Finance</option>
+                                    <option>Restaurant / Food Service</option>
+                                    <option>Counseling</option>
+                                    <option>Health Care</option>
+                                </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Job Category"><div class="filter-option"><div class="filter-option-inner">Job Category</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" class="input-text" name="your name" placeholder="Location">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Salary</label>
+                                <input type="text" class="input-text" name="your name" placeholder="USD">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="Gender" tabindex="-98">
+                                    <option>Gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Gender"><div class="filter-option"><div class="filter-option-inner">Gender</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="Country" tabindex="-98">
+                                        <option>Country</option>
+                                        <option>Usa</option>
+                                        <option>Bangladesh</option>
+                                        <option>Indea</option>
+                                        <option>Canada</option>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Country"><div class="filter-option"><div class="filter-option-inner">Country</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="City" tabindex="-98">
+                                        <option>City</option>
+                                        <option>Dhaka</option>
+                                        <option>Dubai</option>
+                                        <option>Mumbai</option>
+                                        <option>Califonia</option>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="City"><div class="filter-option"><div class="filter-option-inner">City</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Qualification</label>
+                                <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="Qualification" tabindex="-98">
+                                    <option>Qualification</option>
+                                    <option>Matriculation</option>
+                                    <option>Gradute</option>
+                                </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Qualification"><div class="filter-option"><div class="filter-option-inner">Qualification</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Experience</label>
+                                <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="Experience" tabindex="-98">
+                                    <option>Experience</option>
+                                    <option>1 Year</option>
+                                    <option>2 Year</option>
+                                    <option>3 Year</option>
+                                </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Experience"><div class="filter-option"><div class="filter-option-inner">Experience</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Job Description</label>
+                                <textarea class="input-text" name="message" placeholder="Detailed Information"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="photoUpload photoUpload-2">
+                                Upload Files
+                                <input type="file" class="upload">
+                            </div>
+                            <div class="post-btn"><a href="#" class="btn btn-md button-theme">Post a job</a></div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <p class="sub-banner-2 text-center">© 2019 Theme Vessel. Trademarks and brands are the property of their respective owners.</p>
+    </div>
+</div>
+
+{% endblock content %}

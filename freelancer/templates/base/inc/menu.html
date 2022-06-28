@@ -1,0 +1,28 @@
+<div class="col-lg-3 col-md-12 col-sm-12 col-pad">
+    <div class="dashboard-nav d-none d-xl-block d-lg-block">
+        <div class="dashboard-inner">
+            <h4>Main</h4>
+            <ul>
+                <li class="active"><a href="{% url 'account:dashboard' %}"><i class="flaticon-dashboard"></i>داشبورد</a></li>
+                <li><a href="{% url 'account:add-job' %}"><i class="flaticon-plus"></i>افزودن پروژه</a></li>
+                <li class="active"><a href="{% url 'account:manage-job' %}"><i class="flaticon-work"></i>مدیریت پروژه ها</a></li>
+                <li class="active"><a href="{% url 'account:manage-candidate' %}"><i class="flaticon-user-1"></i>مدیریت درخواست ها</a></li>
+                <li><a href="{% url 'account:user-messages' %}"><i class="flaticon-mail"></i>پیام ها<span class="nav-tag">6</span></a></li>
+
+
+                {% comment %} <li><a href="add-resume.html"><i class="flaticon-portfolio"></i>Add Resume</a></li>
+                <li><a href="bookmark.html"><i class="flaticon-heart"></i>Bookmark</a></li>
+                <li><a href="applied.html"><i class="flaticon-safe"></i>Applied</a></li>
+                <li><a href="alerts.html"><i class="flaticon-alert"></i>Alert</a></li>
+                <li><a href="messages.html"><i class="flaticon-mail"></i>Messages<span class="nav-tag">6</span></a></li>
+                <li><a href="transaction.html"><i class="flaticon-buy"></i>Transaction</a></li>
+                <li><a href="change-password.html"><i class="flaticon-lock"></i>Change Password</a></li> {% endcomment %}
+            </ul>
+            <h4>حساب</h4>
+            <ul>
+                <li><a href="{% url 'account:edit-profile' %}"><i class="flaticon-user"></i>ویرایش پروفایل</a></li>
+                <li><a href="{%url 'account:logout' %}"><i class="flaticon-logout"></i>خروج</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
