@@ -57,6 +57,10 @@ $(function () {
 
     function adjustHeader()
     {
+        var current_url = window.location.href;
+        if ( current_url.includes("login") || current_url.includes("register")){
+            return;
+        };
         var windowWidth = $(window).width();
         if(windowWidth > 992) {
             if ($(document).scrollTop() >= 100) {
