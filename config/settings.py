@@ -8,7 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.joinpath("freelancer")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 DEBUG = os.environ.get("DEBUG") == "True"
-DEBUG=True
 
 
 INSTALLED_APPS = [
