@@ -80,8 +80,6 @@ class Profile(models.Model):
         blank=True)
 
 
-    class Meta:
-        db_table = "Profile"
 
 
     def __str__(self):        
