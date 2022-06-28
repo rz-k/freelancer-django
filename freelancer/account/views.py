@@ -114,23 +114,27 @@ def logout_user(request):
 
 
 
-def dashboard(request):
-    return render(request, 'account/dashboard/dashboard.html')
-
-def add_job(request):
-    return render(request, 'account/dashboard/add-job.html')
+def dashboard(request, template_name='account/dashboard/dashboard.html'):
+    return render(request, template_name=template_name)
 
 
-def manage_job(request):
-    return render(request, 'account/dashboard/manage-job.html')
+def add_job(request, template_name='account/dashboard/add-job.html'):
+    return render(request, template_name=template_name)
 
-def manage_candidate(request):
-    return render(request, 'account/dashboard/manage-candidate.html')
 
-def user_messages(request):
-    return render(request, 'account/dashboard/user-messages.html')
+def manage_job(request, template_name='account/dashboard/manage-job.html'):
+    return render(request, template_name=template_name)
 
-def edit_profile(request):
-    return render(request, 'account/dashboard/edit-profile.html')
+
+def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
+    return render(request, template_name=template_name)
+
+
+def user_messages(request, template_name='account/dashboard/user-messages.html'):    
+    return render(request, template_name=template_name)
+
+
+def edit_profile(request, template_name='account/dashboard/edit-profile.html'):
+    return render(request, template_name=template_name)
 
 
