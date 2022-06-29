@@ -46,6 +46,13 @@ class Category(models.Model):
 
 
 class Job(models.Model):
+    COOP = (
+        ('تمام وقت', 'full_time'),
+        ('پاره وقت','part_time'),
+        ('دور کاری','teleworking'),
+        ('کاراموز','internship'),
+        ('موقت','temporary')
+    )
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
@@ -79,8 +86,19 @@ class Job(models.Model):
         verbose_name="تگ های پروژه")
 
     description = models.TextField(
-        max_length=250,
+        max_length=3000,
         verbose_name='توضیحات پروژه')
+
+
+    place = models.CharField(
+        max_length=30,
+        verbose_name='مکان')
+
+    worktype = models.CharField(
+        max_length=30,
+        choices=COOP,
+        verbose_name='نوع همکاری')
+
 
     image = models.ImageField(
         upload_to=image_job_directory_path,
