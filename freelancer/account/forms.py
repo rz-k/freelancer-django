@@ -1,5 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from freelancer.job.models import Category, Apply, Job
+from django.contrib.postgres.forms import SimpleArrayField
+from django_editorjs_fields import EditorJsWidget, EditorJsTextField
 
 
 class UserRegisterForm(forms.Form):
@@ -115,4 +118,68 @@ class UserLoginForm(forms.Form):
             attrs={"class":"input-text",
                 "placeholder":" رمز عبور"}))
     
-    
+
+class AddJobForm(forms.Form):
+    title = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"عنوان پروژه یا شغل"}))
+
+    company_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"اسم شرکت (پیشفرض شخصی)"}))
+
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.filter(status=True),
+        widget=forms.Select(
+            attrs={"class":"input-text",
+                }
+            )
+        )
+
+    tag = SimpleArrayField(forms.CharField(max_length=100))
+
+
+    # description = forms.CharField(
+    #     max_length=100,
+    #     widget=forms.TextInput(
+    #         attrs={"class":"input-text",
+    #             "placeholder":"اسم شرکت (پیشفرض شخصی)"}))
+    # description = EditorJsWidget()
+    # description = EditorJsTextField(config={"minHeight": 100, 'autofocus': False})
+    description = forms.CharField(
+        
+        widget=forms.Textarea(
+            attrs={'description': EditorJsWidget(config={'minHeight': 100}),
+            'description': EditorJsWidget(plugins=["@editorjs/image", "@editorjs/header"])
+            }
+        )
+    )
+
+    place = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"تهران , تهران"}))
+
+    worktype = forms.ChoiceField(
+        choices =(
+            ('full_time', 'تمام وقت'),
+            ('part_time','پاره وقت'),
+            ('teleworking','دور کاری'),
+            ('internship','کاراموز'),
+            ('temporary','موقت')
+        )
+    )
+
+    image = forms.ImageField(allow_empty_file=True)
+
+
+    price = forms.IntegerField(max_value=1000000,
+        widget=forms.TextInput(
+                attrs={"class":"input-text",
+                    "placeholder":"1000000"}))
+

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import redirect, render
 
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm, AddJobForm
 from freelancer.job.models import Category, Job, Apply
 
 def login_user(request, next_url='job:home', form_class=UserLoginForm, template_name="account/login.html"):
@@ -119,7 +119,17 @@ def dashboard(request, template_name='account/dashboard/dashboard.html'):
 
 
 def add_job(request, template_name='account/dashboard/add-job.html'):
-    return render(request, template_name=template_name)
+    if request.method == 'POST':
+
+        pass
+    else:
+
+        form = AddJobForm()
+
+    context = {
+        'form':form
+    }
+    return render(request, template_name=template_name, context=context)
 
 
 def manage_job(request, template_name='account/dashboard/manage-job.html'):
@@ -133,7 +143,7 @@ def edit_job(request, id):
     pass
 
 def delete_job(request, id):
-    
+
     pass
 
 

@@ -3,6 +3,8 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.text import slugify
 
+from django_editorjs_fields import EditorJsJSONField  # Django >= 3.1
+from django_editorjs_fields import EditorJsTextField
 
 def image_job_directory_path(instance, filename: str) -> "File Path":
     """
@@ -93,10 +95,10 @@ class Job(models.Model):
         size=5,
         verbose_name="تگ های پروژه")
 
-    description = models.TextField(
-        max_length=3000,
-        verbose_name='توضیحات پروژه')
-
+    # description = models.TextField(
+    #     max_length=3000,
+    #     verbose_name='توضیحات پروژه')
+    description = EditorJsTextField(max_length=3000,verbose_name='توضیحات پروژه')
 
     place = models.CharField(
         max_length=30,

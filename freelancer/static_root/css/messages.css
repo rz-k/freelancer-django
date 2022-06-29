@@ -1,0 +1,54 @@
+.notif-messaage {    
+    position:absolute;
+    z-index: 1 !important;
+}
+
+.notification {
+    text-align: right;
+    height: 5rem;    
+    color: #372e2e;
+    border-radius: 10px;
+}
+
+.msg-content > h4 {
+    margin: 5px 10px 5px 10px    
+}
+
+.msg-content > p {
+    font-size: 20px;
+    margin-right: 20px;    
+}
+
+#danger\ error {
+    background-color:#ff5656;
+}
+
+#success\ success {
+    background-color: #88ffc78f;
+}
+
+@media screen and (min-width: 200px) and (max-width: 991px) {
+    .notif-messaage {        
+        margin-top: 20px !important;
+        margin-right: 40px !important;
+    }
+    
+    .notification {
+        width: 22em !important;
+    }
+}
+
+@media screen and (min-width: 991px){
+    .notif-messaage {        
+        margin-top: 7rem !important;
+        margin-right: 70px !important;
+    }
+    
+    .notification {
+        width: 30em !important;
+    }
+
+    .details {
+        margin-top: 18rem !important;
+    }
+}

@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'freelancer.job',
     'freelancer.account',
+    'django_editorjs_fields',
 ]
 
 MIDDLEWARE = [
