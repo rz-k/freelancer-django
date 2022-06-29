@@ -61,6 +61,14 @@ class Job(models.Model):
     title = models.CharField(
         max_length=100,
         verbose_name="عنوان پروژه")
+
+    company_name = models.CharField(
+        max_length=100,
+        verbose_name="اسم شرکت",
+        default="شخصی",
+        null=True,
+        blank=True
+        )
     
     slug = models.SlugField(
         max_length=120,

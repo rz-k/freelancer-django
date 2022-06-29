@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import redirect, render
 
 from .forms import UserLoginForm, UserRegisterForm
-
+from freelancer.job.models import Category, Job, Apply
 
 def login_user(request, next_url='job:home', form_class=UserLoginForm, template_name="account/login.html"):
     """
@@ -123,7 +123,20 @@ def add_job(request, template_name='account/dashboard/add-job.html'):
 
 
 def manage_job(request, template_name='account/dashboard/manage-job.html'):
-    return render(request, template_name=template_name)
+    jobs = Job.objects.filter(user=request.user)
+    context = {
+        'jobs': jobs
+    }
+    return render(request, template_name=template_name, context=context)
+
+def edit_job(request, id):
+    pass
+
+def delete_job(request, id):
+    
+    pass
+
+
 
 
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
