@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'freelancer.job',
     'freelancer.account',
-    'django_editorjs_fields',
+    'django_quill',
 ]
 
 MIDDLEWARE = [
@@ -94,3 +94,30 @@ STATICFILES_DIRS = [Path.joinpath(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
+
+
+#> QUILL CONFIGS
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                ['link'],
+                [
+                    {'align': []},
+                    {'list': 'ordered'}, {'list': 'bullet'},
+                    {'indent': '-1'}, {'indent': '+1'}],
+                [
+                    'bold', 'underline', 'blockquote',
+                ],
+                [
+                    {'size': []}
+                ],
+                [
+                    { 'header': '1'}, {'header': '2'}, { 'font': [] }
+                ],
+            ]
+        },
+    }
+}
