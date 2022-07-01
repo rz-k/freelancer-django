@@ -25,6 +25,7 @@
         </div>        
         <div class="submit-address dashboard-list">
             <form method="POST">
+                {% csrf_token %}
                 <h4 class="bg-grea-3" id="inner-header">داده های مربوط به پروژه</h4>
                 <div class="search-contents-sidebar">
                     <div class="row pad-20" style="column-gap: 11em; row-gap: 2em;">

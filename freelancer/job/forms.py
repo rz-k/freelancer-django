@@ -38,7 +38,7 @@ class AddJobForm(forms.Form):
     
     price = forms.IntegerField(
         label="بودجه یه حقوق در نظر گرفته شده (ریال)",
-        max_value=1000000,
+        # max_value=1000000,
         widget=forms.TextInput(
                 attrs={"class":"input-text", "placeholder":"1000000"}))
 
@@ -51,6 +51,6 @@ class AddJobForm(forms.Form):
         forms.CharField(max_length=100),
         label_suffix="تگ های پروژه(حداکثر 4 مورد)")
     
-    image = forms.ImageField(label="عکس" ,allow_empty_file=True)    
-    description = QuillFormField(label="توضیحات", max_length=3000)
+    image = forms.FileField(required=False, label="عکس" ,allow_empty_file=True)    
+    description = QuillFormField(label="توضیحات", max_length=4000)
     
