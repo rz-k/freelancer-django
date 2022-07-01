@@ -1,0 +1,117 @@
+/* Add Job Section*/
+.job-description > .vLargeTextField {
+    height: 25rem;
+    margin-top: 1rem;
+    padding-right:-15em;
+}
+
+.job-description > .ql-toolbar, #user-data > .vLargeTextField {
+    float:right;
+    width: 50em;
+    height: 10rem;
+}
+
+.job-description > .des-label{
+    margin-bottom: 18rem;
+    float:right
+}
+
+.ql-snow > span:nth-child(4) > span > span.ql-picker-label > svg {
+    right: 65px !important;
+}
+
+.ql-snow > span:nth-child(3) > span > span.ql-picker-label > svg{
+    right: 46px !important;
+}
+
+/* Form Erors */
+#max-len-tag-error, #duplicate-tag-error, #max-tag-error {
+    display:none;
+    color: #ff6969;
+}
+
+#other-job-field-error {
+    color: #ff6969;
+}
+
+/* Info */
+#inner-header, #label{
+    text-align: right !important;        
+}
+
+
+/* Tags */
+.tags-input-wrapper{
+    background: transparent;
+    
+    border: 1px solid #DDD;
+    padding: 0.3em 0.5em;
+    border-radius: 3px;
+}
+
+.tags-input-wrapper input{
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 140px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.tags-input-wrapper .tag:hover{
+    box-shadow: 0 0 0 2px #ff8888 inset;
+    transition: 50ms;
+}
+
+.tags-input-wrapper .tag{
+    display: inline-block;
+    background: #636dff;
+    color: white;
+    border-radius: 4px;
+    padding: 0px 3px 0px 2px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.tags-input-wrapper .tag a {
+    margin: 0 7px 3px;
+    display: inline-block;
+    cursor: pointer;        
+}    
+
+
+/* Image Field */
+#id_image{                 
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}                
+                                        
+#id_image::-webkit-file-upload-button {   
+    -webkit-appearance: none;        
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#d2d0d0), to(#f0f0f0));
+    background-image: -moz-linear-gradient(90deg, #d2d0d0 0%, #f0f0f0 100%);
+}
+
+
+/* Breadcrumb-* */
+#breadcrumb-title, #breadcrumb-items  {
+    max-width: fit-content
+}
+
+#breadcrumb-head {
+    justify-content: space-between;
+}
+
+#breadcrumb-items > div > ul > a:hover {
+    color: #8799cd;
+}
+
+#breadcrumb-items > div > ul {
+    display: flex;
+    gap: 7px;
+}
+
+
