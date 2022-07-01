@@ -41,7 +41,17 @@ class User(AbstractUser):
     score = models.IntegerField(
         default=0,
         verbose_name='امتیاز کاربر')
-    
+
+    def get_avatar(self):
+        """
+            This function returns the avatar of the user profile if it exists,
+            otherwise return a default avatar.
+        """
+        avatar = self.user_profile.avatar
+        if avatar:
+            return avatar.url
+        else:
+            return "/media/users/default/profile/default-avatar.jpg"
 
 
 class Profile(models.Model):
