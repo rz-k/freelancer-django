@@ -3,12 +3,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('freelancer.job.urls', namespace='job')),
     path('account/', include('freelancer.account.urls', namespace='account')),
-    path('editorjs/', include('django_editorjs_fields.urls')),
 ]
 
 if settings.DEBUG:
