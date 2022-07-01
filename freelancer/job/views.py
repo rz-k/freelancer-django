@@ -1,24 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import AddJobForm
 from .models import Job
-from django.utils.text import slugify
+
 
 def Home(request):
     return render(request, 'job/home/index.html')
 
 
-def add_job(request, form_class=AddJobForm, template_name='job/add-job.html'):
+def add_job(request, success_url="account:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
     if request.method == 'POST':
-        form = AddJobForm(request.POST)
+        form = form_class(data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            job = Job.objects.create(
+            new_job = Job.objects.create(
                 user=request.user,
                 category=cd['category'],
                 title=cd['title'],
                 company_name=cd['company_name'],
-                slug=slugify(cd['title']),
+                slug=cd['title'],
                 tags=cd['tags'],
                 description=cd['description'],
                 place=cd['place'],
@@ -26,18 +26,16 @@ def add_job(request, form_class=AddJobForm, template_name='job/add-job.html'):
                 image=cd['image'],
                 price=cd['price']
             )
-            job.save()
-            
-
+            return redirect(success_url)
     else:
-        form = form_class
+        form = form_class()
 
     context = {'forms': form}
     return render(request=request, template_name=template_name, context=context)
 
 
 def manage_job(request, template_name='job/manage-job.html'):
-    jobs = Job.objects.filter(user=request.user)
+    jobs = Job.objects.filter(user=request.user).order_by("-created")
     context = {'jobs': jobs}
     return render(request=request, template_name=template_name, context=context)
 
