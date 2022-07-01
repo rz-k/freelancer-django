@@ -58,66 +58,67 @@
         <![endif]-->
 
         <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/job.css' %}">
+
+        <!--
+            Load QUIIl forms.
+        -->
+        {% block custom_tag %}
+        {% endblock custom_tag%}
     </head>
-<body >
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-585NKBP"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<div class="page_loader"></div>
+    <body >
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-585NKBP"
+                    height="0" width="0" style="display:none;visibility:hidden">
+            </iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
 
-<!-- Main header start -->
-    {% include "base/inc/header.html" %}
-<!-- Main header end -->
+        <div class="page_loader"></div>
 
-<!-- Dashbord start -->
-<div class="dashboard">
-    <div class="container-fluid">
-        <div class="row">
-            
-            {% include "base/inc/menu.html" %}
-            {% block content %}
-            {% endblock content %} 
+        <!-- Main header start -->
+        {% include "base/inc/header.html" %}
+        <!-- Main header end -->
+
+        <!-- Dashbord start -->
+        <div class="dashboard">
+            <div class="container-fluid">
+                <div class="row" dir="rtl">
+                    {% include "base/inc/menu.html" %}
+                    {% block content %}
+                    {% endblock content %} 
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<!-- Dashbord end -->
+        <!-- Dashbord end -->
 
-<!-- Full Page Search -->
-<div id="full-page-search">
-    <button type="button" class="close">×</button>
-    <form action="http://theme-vessel-templates.theme-vessel.ey.r.appspot.com/jobb/index.html#">
-        <input type="search" value="" placeholder="type keyword(s) here" />
-        <button type="submit" class="btn btn-sm button-theme">Search</button>
-    </form>
-</div>
+        <script src="{% static 'js/jquery-2.2.0.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script  src="{% static 'js/bootstrap-submenu.js' %}"></script>
+        <script  src="{% static 'js/rangeslider.js' %}"></script>
+        <script  src="{% static 'js/jquery.mb.YTPlayer.js' %}"></script>
+        <script  src="{% static 'js/bootstrap-select.min.js' %}"></script>
+        <script  src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+        <script  src="{% static 'js/jquery.scrollUp.js' %}"></script>
+        <script  src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+        <script  src="{% static 'js/leaflet.js' %}"></script>
+        <script  src="{% static 'js/leaflet-providers.js' %}"></script>
+        <script  src="{% static 'js/leaflet.markercluster.js' %}"></script>
+        <script  src="{% static 'js/moment.min.js' %}"></script>
+        <script  src="{% static 'js/daterangepicker.min.js' %}"></script>
+        <script  src="{% static 'js/dropzone.js' %}"></script>
+        <script  src="{% static 'js/slick.min.js' %}"></script>
+        <script  src="{% static 'js/jquery.filterizr.js' %}"></script>
+        <script  src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+        <script  src="{% static 'js/jquery.countdown.js' %}"></script>
+        <script  src="{% static 'js/maps.js' %}"></script>
+        <script  src="{% static 'js/app.js' %}"></script>
 
-<script src="{% static 'js/jquery-2.2.0.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script  src="{% static 'js/bootstrap-submenu.js' %}"></script>
-<script  src="{% static 'js/rangeslider.js' %}"></script>
-<script  src="{% static 'js/jquery.mb.YTPlayer.js' %}"></script>
-<script  src="{% static 'js/bootstrap-select.min.js' %}"></script>
-<script  src="{% static 'js/jquery.easing.1.3.js' %}"></script>
-<script  src="{% static 'js/jquery.scrollUp.js' %}"></script>
-<script  src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-<script  src="{% static 'js/leaflet.js' %}"></script>
-<script  src="{% static 'js/leaflet-providers.js' %}"></script>
-<script  src="{% static 'js/leaflet.markercluster.js' %}"></script>
-<script  src="{% static 'js/moment.min.js' %}"></script>
-<script  src="{% static 'js/daterangepicker.min.js' %}"></script>
-<script  src="{% static 'js/dropzone.js' %}"></script>
-<script  src="{% static 'js/slick.min.js' %}"></script>
-<script  src="{% static 'js/jquery.filterizr.js' %}"></script>
-<script  src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-<script  src="{% static 'js/jquery.countdown.js' %}"></script>
-<script  src="{% static 'js/maps.js' %}"></script>
-<script  src="{% static 'js/app.js' %}"></script>
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script  src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-<!-- Custom javascript -->
-<script  src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>        
-</body>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script  src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+        <!-- Custom javascript -->
+        <script  src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>        
+    </body>
 </html>
