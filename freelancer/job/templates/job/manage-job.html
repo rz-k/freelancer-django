@@ -1,22 +1,18 @@
 {% extends 'base/base_dashboard.html' %}
 {% load static %}
+
 {% block content %}
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
-    <div class="content-area5">
-        <div class="dashboard-content">
-            <div class="dashboard-header clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6"><h4>مدیریت پروژه ها</h4></div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="breadcrumb-nav">
+    <div class="content-area5 dashboard-content">
+        <div class="dashboard-header clearfix">
+            <div class="row" id="breadcrumb-head">
+                <div class="col-sm-12 col-md-6" id="breadcrumb-title">
+                    <h4>مدیریت پروژه</h4>
+                </div>
+                    <div class="col-sm-12 col-md-6" id="breadcrumb-items">
+                        <div class="breadcrumb-nav" dir="ltr">
                             <ul>
-                                <li>
-                                    <a href="index.html">Index</a>
-                                </li>
-                                <li>
-                                    <a href="dashboard.html">Dashboard</a>
-                                </li>
-                                <li class="active">مدیریت پروژه ها</li>
+                                {{get_breadcrumb}}
                             </ul>
                         </div>
                     </div>
@@ -24,41 +20,90 @@
             </div>
             <div class="dashboard-list">
                 <div class="job-info job-info-2">
-                    <table class="table">
+                    <table class="table" id="job-table">
                         <thead>
-                        <tr>
-                            <th>عنوان پروژه</th>
-                            <th class="ds-none"></th>
-                            <th class="hdn">تاریخ</th>
-                            <th>درخواست ها</th>
-                            <th>وضعیت</th>
-                            <th>تغیر</th>
-                        </tr>
+                            <tr>
+                                <th class="hdav">آواتار</th> 
+                                <th>عنوان پروژه</th>
+                                <th class="ds-none"></th>
+                                <th class="hdn">تاریخ</th>
+                                <th>درخواست ها</th>
+                                <th>وضعیت</th>
+                                <th>اکشن</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {% for job in jobs %}
                                 <tr class="responsive-table">
-                                    <td class="image">
-                                        <a href="#"><img alt="my-properties-3" src="img/avatar/avatar-3.jpg" class="img-fluid"></a>
+                                    <td class="hdav">
+                                        <a href="#">
+                                            {% if job.image %}
+                                                <img alt="my-properties-3" src="{{job.image.url}}" width="120" height="80" style="border-radius:5px;">
+                                            {% else %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                                </svg>
+                                            {% endif %}
+                                        </a>
                                     </td>
-
-                                    <td class="p-left-20">
+                                    <td>
                                         <div class="inner">
-                                            <h5><a href="#">{{job.title}}</a></h5>
-                                            <ul>
-                                                <li><i class="flaticon-work"></i> {{job.company_name}}</li>
-                                                <li><i class="flaticon-pin"></i> {{job.place}}</li>
-                                                <li><i class="flaticon-time"></i>{{job.worktype}}</li>
+                                            <h5>
+                                                <a href="#">{{job.title}}</a>
+                                            </h5>
+                                            <ul class="job-details">
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                    </svg>
+                                                    {{job.company_name}}
+                                                </li>
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
+                                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    {{job.place}}
+                                                </li>
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    {{job.work_type}}
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>
 
-                                    <td class="hdn">{{job.created|date:"H:m ,Y/m/d"}}</td>
-                                    <td>{{job.job_applay.count}}</td>
-                                    <td>{{job.status}}</td>
+                                    <td class="hdn">
+                                        {{job.created|date:"H:m ,Y/m/d"}}
+                                    </td>
+                                    <td>
+                                        {{job.job_applay.count}}
+                                    </td>
+
+                                    <td>
+                                        {% if job.status %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" width="30px" stroke="#31ef86">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                            </svg>
+                                        {% else %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" width="30px" stroke="#f94141">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        {% endif %}
+                                    </td>
+
                                     <td class="actions">
-                                        <a href="#"><i class="fa fa-pencil"></i></a>
-                                        <a href="#"><i class="delete fa fa-trash-o"></i></a>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -66,8 +111,7 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <p class="sub-banner-2 text-center">© 2019 Theme Vessel. Trademarks and brands are the property of their respective owners.</p>
+        </div>        
     </div>
 </div>
 
