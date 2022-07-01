@@ -2,9 +2,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.text import slugify
+from django_quill.fields import QuillField
 
-from django_editorjs_fields import EditorJsJSONField  # Django >= 3.1
-from django_editorjs_fields import EditorJsTextField
 
 def image_job_directory_path(instance, filename: str) -> "File Path":
     """
@@ -48,29 +47,34 @@ class Category(models.Model):
 
 
 class Job(models.Model):
-    COOP = (
+    WORK_TYPE = (
         ('تمام وقت', 'full_time'),
         ('پاره وقت','part_time'),
         ('دور کاری','teleworking'),
         ('کاراموز','internship'),
         ('موقت','temporary')
     )
+    
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
         related_name="user_job")
     
+    category = models.ForeignKey(
+        to=Category,
+        on_delete=models.CASCADE,
+        related_name='job_category')
+
     title = models.CharField(
         max_length=100,
         verbose_name="عنوان پروژه")
 
     company_name = models.CharField(
         max_length=100,
-        verbose_name="اسم شرکت",
-        default="شخصی",
         null=True,
-        blank=True
-        )
+        blank=True,
+        verbose_name="اسم شرکت",
+        default="شخصی",)
     
     slug = models.SlugField(
         max_length=120,
@@ -78,37 +82,29 @@ class Job(models.Model):
         null=True,
         default=None,
         allow_unicode=True)
-
-    category = models.ForeignKey(
-        to=Category,
-        on_delete=models.CASCADE,
-        related_name='job_category')
-
-    tag = ArrayField(
+    
+    tags= ArrayField(
         models.CharField(
-            max_length=20,
+            max_length=15,
             blank=True,
-            null=True
-        ),
+            null=True),
         blank=True,
         null=True,
-        size=5,
+        size=4,
         verbose_name="تگ های پروژه")
-
-    # description = models.TextField(
-    #     max_length=3000,
-    #     verbose_name='توضیحات پروژه')
-    description = EditorJsTextField(max_length=3000,verbose_name='توضیحات پروژه')
+    
+    description = QuillField(
+        max_length=3000,
+        verbose_name='توضیحات پروژه')
 
     place = models.CharField(
         max_length=30,
         verbose_name='مکان')
 
-    worktype = models.CharField(
+    work_type = models.CharField(
         max_length=30,
-        choices=COOP,
+        choices=WORK_TYPE,
         verbose_name='نوع همکاری')
-
 
     image = models.ImageField(
         upload_to=image_job_directory_path,
