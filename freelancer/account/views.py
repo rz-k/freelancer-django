@@ -2,10 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import redirect, render
 
-from .forms import UserLoginForm, UserRegisterForm, AddJobForm
-from freelancer.job.models import Category, Job, Apply
+from .forms import UserLoginForm, UserRegisterForm
 
-def login_user(request, next_url='job:home', form_class=UserLoginForm, template_name="account/login.html"):
+
+def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
     """
     Login user to the account
 
@@ -51,7 +51,7 @@ def login_user(request, next_url='job:home', form_class=UserLoginForm, template_
         context=context)
 
 
-def register_user(request, next_url='job:home', form_class=UserRegisterForm, template_name='account/register.html'):
+def register_user(request, next_url='account:dashboard', form_class=UserRegisterForm, template_name='account/register.html'):
     """
     Register new user(sign up).
 
@@ -100,7 +100,6 @@ def register_user(request, next_url='job:home', form_class=UserRegisterForm, tem
         context=context)
 
 
-
 def logout_user(request):
     """
     Logged out the user and redirect to the home page
@@ -115,38 +114,7 @@ def logout_user(request):
 
 
 def dashboard(request, template_name='account/dashboard/dashboard.html'):
-    return render(request, template_name=template_name)
-
-
-def add_job(request, template_name='account/dashboard/add-job.html'):
-    if request.method == 'POST':
-
-        pass
-    else:
-
-        form = AddJobForm()
-
-    context = {
-        'form':form
-    }
-    return render(request, template_name=template_name, context=context)
-
-
-def manage_job(request, template_name='account/dashboard/manage-job.html'):
-    jobs = Job.objects.filter(user=request.user)
-    context = {
-        'jobs': jobs
-    }
-    return render(request, template_name=template_name, context=context)
-
-def edit_job(request, id):
-    pass
-
-def delete_job(request, id):
-
-    pass
-
-
+    return render(request=request, template_name=template_name)
 
 
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
