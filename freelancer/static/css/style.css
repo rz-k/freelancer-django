@@ -248,7 +248,7 @@ ul {
 .btn-sm {
     cursor: pointer;
     padding: 7px 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
@@ -266,7 +266,7 @@ ul {
 .btn-md {
     cursor: pointer;
     padding: 13px 26px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -293,13 +293,13 @@ button:focus {
     border-radius: 50px;
     font-size: 14px;
     font-weight: 500;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     text-transform: uppercase;
 }
 
 .bomd {
     padding: 13px 26px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -316,13 +316,13 @@ button:focus {
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 500;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
 }
 
 .btn-md {
     cursor: pointer;
     padding: 13px 30px 11px 30px;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -332,7 +332,7 @@ button:focus {
 .btn-lg {
     cursor: pointer;
     padding: 14px 32px 10px 32px;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -390,7 +390,7 @@ button:focus {
 .browse-all{
     cursor: pointer;
     padding: 18px 32px 14px 32px;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     font-size: 14px;
     border-radius: 50px;
     font-weight: 500;
@@ -599,7 +599,7 @@ input[type=checkbox]:checked + label:before {
 .border-btn-sm {
     cursor: pointer;
     padding: 5px 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
@@ -725,7 +725,7 @@ input[type=checkbox]:checked + label:before {
     font-size: 14px;
     font-weight: 500;
     color: #515151;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -1041,7 +1041,7 @@ input[type=checkbox]:checked + label:before {
 
 .banner .p {
     color: #fff;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-size: 19px;
     font-weight: 400;
     opacity: 0.8;
@@ -1146,7 +1146,7 @@ input[type=checkbox]:checked + label:before {
     margin: 0 0 40px;
     font-size: 17px;
     font-family: 'Raleway', sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .banner-counter-box{
@@ -1172,7 +1172,7 @@ input[type=checkbox]:checked + label:before {
 .counter-box p {
     margin: 0;
     font-size: 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     color: #fff;
     font-weight: 600;
 }
@@ -1213,12 +1213,11 @@ input[type=checkbox]:checked + label:before {
 
 .search-contents {
     border-radius: 4px;
-    transition: 0.9s ease-out;
+    transition: 0.9s ease-out;    
 }
 
 .show-search-area {
-    z-index: 9999;
-. search-contents transition: all 0.4 s;
+    z-index: 9999;    
     display: block;
 }
 
@@ -1239,7 +1238,7 @@ input[type=checkbox]:checked + label:before {
     color: #FFF!important;
     cursor: pointer;
     z-index: 0;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     position: absolute;
     bottom: 10px;
     border-radius: 50px;
@@ -1290,7 +1289,7 @@ input[type=checkbox]:checked + label:before {
 .search-button {
     cursor: pointer;
     padding: 14px 26px 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -1566,7 +1565,7 @@ input[type=checkbox]:checked + label:before {
 .portfolio-content p {
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     color: #fff;
 }
 
@@ -2143,7 +2142,7 @@ input[type=checkbox]:checked + label:before {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     cursor: pointer;
     color: #fff;
 }
@@ -2450,7 +2449,7 @@ footer {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 /** Tags box start **/
@@ -2579,7 +2578,7 @@ footer {
 .counters .counter-box p {
     margin: 0;
     font-size: 14px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     color: #fff;
     font-weight: 500;
 }
@@ -2817,7 +2816,7 @@ footer {
     font-weight: 400;
     font-size: 14px;
     position: absolute;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .category-content {
@@ -3093,7 +3092,7 @@ footer {
     color: #fff;
     font-size: 16px;
     margin-bottom: 30px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .coming-soon-inner ul li {
@@ -3140,7 +3139,7 @@ footer {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     cursor: pointer;
     color: #fff;
 }
@@ -3509,9 +3508,11 @@ footer {
 
 /** Navbar buttons start **/
 .navbar-buttons img{
-    width: 45px;
-    border-radius: 50px;
-    margin: 20px 15px 20px 0;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 20px 15px 10px 0;
 }
 
 .navbar-buttons{
@@ -3756,7 +3757,7 @@ footer {
 }
 
 .sub-banner .breadcrumb-area {
-    letter-spacing: 1px;
+    letter-spacing: 0;
     text-align: center;
     width: 100%;
     position: absolute;
@@ -3925,7 +3926,7 @@ footer {
 .photoUpload-2 {
     cursor: pointer;
     padding: 12px 29px 10px 29px;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -4146,7 +4147,7 @@ footer {
     margin-bottom: 0;
     font-weight: 500;
     font-size: 15px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     color: #c5c5c5!important;
     padding: 15px 30px 15px;
 }
@@ -4475,7 +4476,7 @@ footer {
     margin-top: 14px;
 }
 
-<!-- candidate box -->
+/* candidate box  */
 .job-listing-details{
     display: flex;
     flex-wrap: wrap;
@@ -4561,7 +4562,7 @@ footer {
     float: left;
 }
 
-<!-- Job box -->
+/* Job box */
 .job-box{
     width: 100%;
 }
@@ -4684,7 +4685,7 @@ footer {
     margin-top: 27px;
 }
 
-<!-- job box-2 -->
+/* job box-2  */
 .job-box-2{
     width: 100%;
     display: inline-block;
@@ -4745,7 +4746,7 @@ footer {
 
 }
 
-<!-- Jb-3 -->
+/* Jb-3  */
 .jb-3{
     display: inline-block;
     width: 100%;
@@ -4793,7 +4794,7 @@ footer {
     float: right;
 }
 
-<!-- Jb-4 -->
+/*  Jb-4  */
 .jb-4 .company-logo {
     width: 60px;
 }
@@ -4812,7 +4813,7 @@ footer {
     margin-top: 15px;
 }
 
-<!-- Employer box -->
+/* Employer box */
 .employer-box {}
 
 .employer-box{
@@ -5031,7 +5032,7 @@ employer-box-2{
     margin-right: 5px;
 }
 
-<!-- Portfolio -->
+/*  Portfolio  */
 .portfolio .slick-arrow-buton {
     width: 35px;
     height: 35px;
@@ -5220,7 +5221,7 @@ employer-box-2{
 
 /** Heading properties start **/
 .heading-properties {
-    letter-spacing: 1px;
+    letter-spacing: 0;
     width: 100%;
     top: 0;
     right: 0;
@@ -5361,7 +5362,7 @@ employer-box-2{
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .tabbing-box .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
@@ -6239,7 +6240,7 @@ employer-box-2{
     font-weight: 600;
     color: #555;
     padding-bottom: 10px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .option-panel .color-plate {
@@ -7646,5 +7647,3 @@ employer-box-2{
 .map-100vh{
     height: 100vh !important;
 }
-
-
