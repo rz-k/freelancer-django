@@ -94,7 +94,7 @@ class Job(models.Model):
         verbose_name="تگ های پروژه")
     
     description = QuillField(
-        max_length=4000,
+        max_length=10000,
         verbose_name='توضیحات پروژه')
 
     place = models.CharField(
