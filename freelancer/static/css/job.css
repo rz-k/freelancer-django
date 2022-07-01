@@ -5,6 +5,30 @@
     padding-right:-15em;
 }
 
+.ql-editor {
+    text-align: right !important;
+}
+
+blockquote{
+    font-size: 1.4em;    
+    font-family:Open Sans;
+    font-style:italic;        
+    line-height:1.6;    
+    color: #555555;    
+    padding: 10px 20px !important;
+    border-right: 8px solid #78C0A8 !important;    
+    border-left: 0 !important;
+    background: hsla(0,0%,52%,.1);
+}
+
+h1, p {
+    color: #555555
+}
+
+h1 {
+    margin-bottom: 5px !important;    
+}
+
 .job-description > .ql-toolbar, #user-data > .vLargeTextField {
     float:right;
     width: 50em;
@@ -16,8 +40,19 @@
     float:right
 }
 
-.ql-snow > span:nth-child(4) > span > span.ql-picker-label > svg {
+.ql-snow > span:nth-child(5) > span,
+.ql-snow > span:nth-child(4) > span, 
+.ql-snow > span:nth-child(3) > span {
+    max-width: max-content;
+    padding: 0 2px;
+}
+
+.ql-snow > span:nth-child(5) > span > span.ql-picker-label > svg {
     right: 65px !important;
+}
+
+.ql-snow > span:nth-child(4) > span > span.ql-picker-label > svg {
+    right: 66px !important;
 }
 
 .ql-snow > span:nth-child(3) > span > span.ql-picker-label > svg{
