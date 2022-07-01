@@ -105,9 +105,9 @@ QUILL_CONFIGS = {
             'syntax': True,
             'toolbar': [
                 [
-                    {'align': []},
                     {'list': 'ordered'}, {'list': 'bullet'},
-                    {'indent': '-1'}, {'indent': '+1'}],
+                    {'align': []}
+                ],
                 [
                     'bold', 'underline', 'blockquote',
                 ],
@@ -115,7 +115,10 @@ QUILL_CONFIGS = {
                     {'size': []}
                 ],
                 [
-                    { 'header': '1'}, {'header': '2'}, { 'font': [] }
+                    { 'font': [] }
+                ],
+                [
+                    { 'header': [1, 2, 3, 4, 5, 6, 3] }
                 ],
             ]
         },
