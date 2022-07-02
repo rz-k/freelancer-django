@@ -50,7 +50,7 @@ def edit_job(request, id, success_url="job:manage-job", form_class=EditJobForm, 
     job = get_object_or_404(klass=Job, user=request.user, id=id)
     
     if request.method == 'POST':
-        form = form_class(data=request.POST)
+        form = form_class(data=request.POST, instance=job)
         if form.is_valid():
             form.save()
             return redirect(success_url)
