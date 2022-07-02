@@ -105,7 +105,7 @@ class Job(models.Model):
         max_length=30,
         choices=WORK_TYPE,
         verbose_name='نوع همکاری')
-
+    
     image = models.ImageField(
         upload_to=image_job_directory_path,
         blank=True,

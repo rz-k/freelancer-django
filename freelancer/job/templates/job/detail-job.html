@@ -1,0 +1,219 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block custom_tag %}
+{{ forms.media }}
+{% endblock custom_tag %}
+
+
+{% block content %}
+
+<!-- Sub banner start -->
+<div class="sub-banner bg-color-full">
+    <div class="container">
+        <div class="breadcrumb-area">
+            <h1>{{ job.title }}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Job Detail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- Job details page start -->
+<div class="job-details-page content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <!-- job box 2 start -->
+                <div class="job-box-2">
+                    <div class="company-logo">
+                        {% if job.image %}
+                            <img alt="avatar" src="{{job.image.url}}" width="120" height="80" style="border-radius:5px;">
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                        {% endif %}
+                    </div>
+                    <div class="description">
+                        <h5 class="title"><a href="#">{{ job.title }}</a></h5>
+                        <div class="candidate-listing-footer">
+                            <ul>
+                                <li><i class="flaticon-work"></i> {{job.company_name}}</li>
+                                <li><i class="flaticon-pin"></i> {{job.place}}</li>
+                                <li><i class="flaticon-time"></i> {{job.work_type}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr class="hr-boder">
+                <!-- job description start -->
+                <div class="job-description mb-40">
+                    <h3 class="heading-2">توضیحات</h3>
+                    <p>
+                        {{job.description.html | safe}}                    
+                    </p>
+                </div>
+                
+                <!-- Social list 2 start -->
+                <div class="social-list-2 sl-3 float-left mb-40">
+                    <span>Share</span>
+                    <a href="#" class="facebook-bg">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a href="#" class="twitter-bg">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="#" class="google-bg">
+                        <i class="fa fa-google"></i>
+                    </a>
+                    <a href="#" class="linkedin-bg">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="pinterest-bg">
+                        <i class="fa fa-pinterest"></i>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+
+                <!-- Related jobs start -->
+                <div class="related-Jobs clearfix">
+                    <h3 class="heading-2">Related Jobs</h3>
+                    <div class="job-box">
+                        <div class="company-logo">
+                            <img src="img/company-logo/logo-2.png" alt="logo">
+                        </div>
+                        <div class="description">
+                            <div class="float-left">
+                                <h5 class="title"><a href="job-details.html">Dhaka Event Support Specialist</a></h5>
+                                <div class="candidate-listing-footer">
+                                    <ul>
+                                        <li><i class="flaticon-work"></i> Xero</li>
+                                        <li><i class="flaticon-pin"></i> New York City</li>
+                                        <li><i class="flaticon-time"></i> Temporary</li>
+                                    </ul>
+                                    <h6>Deadline: Jan 31, 2019</h6>
+                                </div>
+                            </div>
+                            <div class="div-right">
+                                <a href="#" class="apply-button">Apply Now</a>
+                                <a href="#"><i class="flaticon-heart favourite"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-box">
+                        <div class="company-logo">
+                            <img src="img/company-logo/logo-3.png" alt="logo">
+                        </div>
+                        <div class="description">
+                            <div class="float-left">
+                                <h5 class="title"><a href="job-details.html">Development Marketer</a></h5>
+                                <div class="candidate-listing-footer">
+                                    <ul>
+                                        <li><i class="flaticon-work"></i> Red</li>
+                                        <li><i class="flaticon-pin"></i> New York City</li>
+                                        <li><i class="flaticon-time"></i> Part Time</li>
+                                    </ul>
+                                    <h6>Deadline: Jan 31, 2019</h6>
+                                </div>
+                            </div>
+                            <div class="div-right">
+                                <a href="#" class="apply-button">Apply Now</a>
+                                <a href="#"><i class="flaticon-heart favourite"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-box mb-30">
+                        <div class="company-logo">
+                            <img src="img/company-logo/logo-4.png" alt="logo">
+                        </div>
+                        <div class="description">
+                            <div class="float-left">
+                                <h5 class="title"><a href="job-details.html">Green Development Marketer</a></h5>
+                                <div class="candidate-listing-footer">
+                                    <ul>
+                                        <li><i class="flaticon-work"></i> Zooms</li>
+                                        <li><i class="flaticon-pin"></i> New York City</li>
+                                        <li><i class="flaticon-time"></i> Full Time</li>
+                                    </ul>
+                                    <h6>Deadline: Jan 31, 2019</h6>
+                                </div>
+                            </div>
+                            <div class="div-right">
+                                <a href="#" class="apply-button">Apply Now</a>
+                                <a href="#"><i class="flaticon-heart favourite"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right-2">
+                    <!-- Search box start -->
+                    <div class="widget search-box">
+                        <form method="GET">
+                            <div class="form-group fg-2">
+                                <button class="search-button sj-btn btn-outline">Save job</button>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button class="search-button button-theme">Apply Now</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Job overview start -->
+                    <div class="job-overview widget">
+                        <h3 class="sidebar-title">مشخصات درخواستی</h3>
+                        <div class="s-border"></div>
+                        <ul>
+                            <li><i class="flaticon-money"></i><h5>حقوق یا بودجه</h5><span>{{job.price|intcomma:False}} ریال</span></li>
+                            <li><i class="flaticon-pin"></i><h5>مکان</h5><span>{{job.place}}</span></li>
+                            <li><i class="flaticon-woman"></i><h5>Gender</h5><span>Any</span></li>
+                            <li><i class="flaticon-work"></i><h5>نوع همکاری</h5><span>{{job.work_type}}</span></li>
+                            <li><i class="flaticon-honor"></i><h5>Qualification</h5><span>Mba</span></li>
+                            <li><i class="flaticon-notepad"></i><h5>Experience</h5><span>2 to 3 year</span></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Quick contact start -->
+                    <div class="widget-5 contact-2 quick-contact">
+                        <h3 class="sidebar-title">Quick Contacts</h3>
+                        <div class="s-border"></div>
+                        <form action="#" method="GET" enctype="multipart/form-data">
+                            <div class="form-group name">
+                                <input type="text" name="name" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group email">
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group message">
+                                <textarea class="form-control" name="message" placeholder="Write message"></textarea>
+                            </div>
+                            <div class="send-btn">
+                                <button type="submit" class="btn btn-md button-theme">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Job details page end -->
+
+<!-- Sub footer start -->
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89110077-3', 'auto');
+    ga('send', 'pageview');
+</script>
+
+{% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AddJobForm
 from .models import Job
@@ -38,6 +38,15 @@ def manage_job(request, template_name='job/manage-job.html'):
     jobs = Job.objects.filter(user=request.user).order_by("-created")
     context = {'jobs': jobs}
     return render(request=request, template_name=template_name, context=context)
+
+
+def detail_job(request, id, template_name='job/detail-job.html'):
+    job = get_object_or_404(Job,id=id)
+    print(job)
+    context = {
+        'job': job
+    }
+    return render(request, template_name, context=context)
 
 
 def edit_job(request, id):

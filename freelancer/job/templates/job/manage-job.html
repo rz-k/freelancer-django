@@ -36,7 +36,7 @@
                             {% for job in jobs %}
                                 <tr class="responsive-table">
                                     <td class="hdav">
-                                        <a href="#">
+                                        <a href="{% url 'account:detail-job' job.id %}">
                                             {% if job.image %}
                                                 <img alt="my-properties-3" src="{{job.image.url}}" width="120" height="80" style="border-radius:5px;">
                                             {% else %}
@@ -49,7 +49,7 @@
                                     <td>
                                         <div class="inner">
                                             <h5>
-                                                <a href="#">{{job.title}}</a>
+                                                <a href="{% url 'account:detail-job' job.id %}">{{job.title}}</a>
                                             </h5>
                                             <ul class="job-details">
                                                 <li>
