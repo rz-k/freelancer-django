@@ -105,7 +105,7 @@ class Job(models.Model):
         max_length=30,
         choices=WORK_TYPE,
         verbose_name='نوع همکاری')
-    
+
     image = models.ImageField(
         upload_to=image_job_directory_path,
         blank=True,
@@ -116,7 +116,14 @@ class Job(models.Model):
         default=False,
         verbose_name="وضعیت پروژه")
 
-    price = models.BigIntegerField(verbose_name="بودجه")
+    experience = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+        default="مهم نیست",
+        verbose_name="سابقه کار")
+
+    price = models.CharField(max_length=100, verbose_name="بودجه")
     created = models.DateTimeField(auto_now=True)
 
 
