@@ -31,10 +31,11 @@ class AddJobForm(forms.Form):
         widget=forms.TextInput(
             attrs={"class":"input-text", "placeholder":"تهران , تهران"}))
 
-    category = forms.ModelChoiceField(
-        label="دسته بندی",
-        queryset=Category.objects.filter(status=True),
-        widget=forms.Select(attrs={"class":"input-text"}))
+    experience = forms.CharField(
+        required=False,
+        label="سابقه کار(تعداد سال)",
+        widget=forms.TextInput(
+            attrs={"class":"input-text", "placeholder":"بین 2 تا 3 سال"}))
 
     price = forms.IntegerField(
         error_messages={"invalid": "لطفا عدد مورد نظر خود را به ریال وارد نمایید."},
@@ -42,14 +43,19 @@ class AddJobForm(forms.Form):
         widget=forms.TextInput(
                 attrs={"class":"input-text", "placeholder":"1000000"}))
 
+    category = forms.ModelChoiceField(
+        label="دسته بندی",
+        queryset=Category.objects.filter(status=True),
+        widget=forms.Select(attrs={"class":"input-text"}))
+    
+    tags = SimpleArrayField(
+        forms.CharField(max_length=100),
+        label_suffix="تگ های پروژه(حداکثر 4 مورد)")
+
     work_type = forms.ChoiceField(
         label="نوع همکاری",
         widget=forms.Select(attrs={"class":"input-text"}),
         choices=WORK_TYPES)
-
-    tags = SimpleArrayField(
-        forms.CharField(max_length=100),
-        label_suffix="تگ های پروژه(حداکثر 4 مورد)")
 
     image = forms.FileField(
         label="عکس",
