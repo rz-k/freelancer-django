@@ -50,5 +50,7 @@ def edit_job(request, id):
     pass
 
 
-def delete_job(request, id):
-    pass
+def delete_job(request, id, success_url="account:manage-job"):
+    job = get_object_or_404(klass=Job, user=request.user, id=id)
+    job.delete()
+    return redirect(success_url)   
