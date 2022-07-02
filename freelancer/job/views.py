@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import AddJobForm
+from .forms import AddJobForm, EditJob
 from .models import Job
 
 
@@ -46,8 +46,20 @@ def detail_job(request, id, template_name='job/detail-job.html'):
     return render(request=request, template_name=template_name, context=context)
 
 
-def edit_job(request, id):
-    pass
+def edit_job(request, id, form_class=EditJob,template_name='job/edit-job.html'):
+    job = get_object_or_404(klass=Job, user=request.user, id=id)
+    if request.method == 'POST':
+        pass
+    else:
+
+    # form = form_class(instance=job)
+        form = form_class(request.POST, instance = job)
+        context = {
+            'forms': form
+        }
+    
+    return render(request, template_name, context=context)
+
 
 
 def delete_job(request, id, success_url="account:manage-job"):

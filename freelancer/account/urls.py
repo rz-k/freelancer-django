@@ -17,7 +17,8 @@ urlpatterns = [
     path('dashboard/add-job/', add_job, name='add-job'),
     path('dashboard/job/<int:id>', detail_job, name='detail-job'),
     path('dashboard/delete-job/<int:id>', delete_job, name='delete-job'),
-    path('dashboard/edit-job/', edit_job, name='edit-job'),
+    path('dashboard/edit-job/<int:id>', edit_job, name='edit-job'),
+
     path('dashboard/manage-job/', manage_job, name='manage-job'),
 
     path('dashboard/manage-candidate/', manage_candidate, name='manage-candidate'),

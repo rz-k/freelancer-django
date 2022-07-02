@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
 from django_quill.forms import QuillFormField
-from .models import Category
+from .models import Category, Job
 
 
 class AddJobForm(forms.Form):
@@ -77,3 +77,11 @@ class AddJobForm(forms.Form):
             raise forms.ValidationError("لطفا نوع همکاری را مشخص نمایید")
         else:
             return data["work_type"]
+
+
+class EditJob(forms.ModelForm):
+    
+    class Meta:
+        model = Job
+        exclude = ('user', 'slug', 'status')
+
