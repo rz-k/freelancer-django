@@ -13,6 +13,8 @@ urlpatterns = [
 
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/add-job/', add_job, name='add-job'),
+    path('dashboard/job/<slug:slug>', detail_job, name='detail-job'),
+
     path('dashboard/delete-job/', add_job, name='delete-job'),
     path('dashboard/edit-job/', add_job, name='edit-job'),
     path('dashboard/manage-job/', manage_job, name='manage-job'),
