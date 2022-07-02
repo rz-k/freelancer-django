@@ -6,13 +6,13 @@ from .models import Category, Job
 
 class AddJobForm(forms.Form):
     WORK_TYPES = (
-            ('None', '---------'),
-            ('full_time', 'تمام وقت'),
-            ('part_time','پاره وقت'),
-            ('teleworking','دور کاری'),
-            ('internship','کاراموز'),
-            ('temporary','موقت'))
-
+        ('None', '---------'),
+        ('full_time','تمام وقت',),
+        ('part_time','پاره وقت'),
+        ('teleworking','دور کاری'),
+        ('internship','کاراموز'),
+        ('temporary','موقت')
+    )
     title = forms.CharField(
         label="عنوان پروژه (کار)",
         max_length=100,

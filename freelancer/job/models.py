@@ -47,12 +47,12 @@ class Category(models.Model):
 
 
 class Job(models.Model):
-    WORK_TYPE = (
-        ('تمام وقت', 'full_time'),
-        ('پاره وقت','part_time'),
-        ('دور کاری','teleworking'),
-        ('کاراموز','internship'),
-        ('موقت','temporary')
+    WORK_TYPES = (
+        ('full_time','تمام وقت',),
+        ('part_time','پاره وقت'),
+        ('teleworking','دور کاری'),
+        ('internship','کاراموز'),
+        ('temporary','موقت')
     )
     
     user = models.ForeignKey(
@@ -103,7 +103,7 @@ class Job(models.Model):
 
     work_type = models.CharField(
         max_length=30,
-        choices=WORK_TYPE,
+        choices=WORK_TYPES,
         verbose_name='نوع همکاری')
 
     image = models.ImageField(
