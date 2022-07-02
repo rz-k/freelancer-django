@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import AddJobForm, EditJob
+from .forms import AddJobForm, EditJobForm
 from .models import Job
 
 
@@ -8,7 +8,7 @@ def Home(request):
     return render(request, 'job/home/index.html')
 
 
-def add_job(request, success_url="account:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
+def add_job(request, success_url="job:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
     if request.method == 'POST':
         form = form_class(data=request.POST)
         if form.is_valid():
@@ -46,23 +46,25 @@ def detail_job(request, id, template_name='job/detail-job.html'):
     return render(request=request, template_name=template_name, context=context)
 
 
-def edit_job(request, id, form_class=EditJob,template_name='job/edit-job.html'):
+def edit_job(request, id, success_url="job:manage-job", form_class=EditJobForm, template_name='job/edit-job.html'):
     job = get_object_or_404(klass=Job, user=request.user, id=id)
-    if request.method == 'POST':
-        pass
-    else:
-
-    # form = form_class(instance=job)
-        form = form_class(request.POST, instance = job)
-        context = {
-            'forms': form
-        }
     
-    return render(request, template_name, context=context)
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(success_url)
+        
+        context = {'forms': form}
+        return render(request=request, template_name=template_name, context=context)
+        
+    else:
+        form = form_class(instance=job)
+        context = {'forms': form}
+        return render(request=request, template_name=template_name, context=context)
 
 
-
-def delete_job(request, id, success_url="account:manage-job"):
+def delete_job(request, id, success_url="job:manage-job"):
     job = get_object_or_404(klass=Job, user=request.user, id=id)
     job.delete()
-    return redirect(success_url)   
+    return redirect(success_url)

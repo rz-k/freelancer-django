@@ -79,9 +79,8 @@ class AddJobForm(forms.Form):
             return data["work_type"]
 
 
-class EditJob(forms.ModelForm):
+class EditJobForm(forms.ModelForm, AddJobForm):
     
     class Meta:
         model = Job
-        exclude = ('user', 'slug', 'status')
-
+        fields = AddJobForm().fields
