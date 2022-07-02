@@ -254,7 +254,8 @@
                 duplicate : false,
                 max : 4
             });
-            tagInput1.addData(['Python'])
+            let available_tags = '{{forms.tags.value}}';
+            tagInput1.addData(available_tags.split(","))
         
 </script>
 {% endblock content %}
