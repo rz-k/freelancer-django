@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import AddJobForm, EditJobForm
 from .models import Job
+from django.core.paginator import Paginator
 
 
 def Home(request):
@@ -36,6 +37,10 @@ def add_job(request, success_url="job:manage-job", form_class=AddJobForm, templa
 
 def manage_job(request, template_name='job/manage-job.html'):
     jobs = Job.objects.filter(user=request.user).order_by("-created")
+
+    paginator = Paginator(jobs, 5)
+    page_number = request.GET.get('page')
+    jobs = paginator.get_page(page_number)
     context = {'jobs': jobs}
     return render(request=request, template_name=template_name, context=context)
 
