@@ -1,4 +1,5 @@
-/* Add Job Section*/
+/* Add Job Section 
+***************************/
 .job-description > .vLargeTextField {
     height: 25rem;
     margin-top: 1rem;
@@ -61,7 +62,8 @@ h1 {
 
 
 
-/* Form Erors */
+/* Form Erors 
+***************************/
 #max-len-tag-error, #duplicate-tag-error, #max-tag-error {
     display:none;
     color: #ff6969;
@@ -73,14 +75,16 @@ h1 {
 
 
 
-/* Info */
+/* Info 
+***************************/
 #inner-header, #label{
     text-align: right !important;        
 }
 
 
 
-/* Tags */
+/* Tags 
+***************************/
 .tags-input-wrapper{
     background: transparent;    
     border: 1px solid #DDD;
@@ -120,7 +124,8 @@ h1 {
 
 
 
-/* Image Field */
+/* Image Field 
+***************************/
 #id_image{                 
     display: flex;
     flex-direction: column;
@@ -137,69 +142,108 @@ h1 {
 
 
 
-/* Manage Job List */
-#job-table {
-    text-align: right !important;
+/* Delete modal 
+***************************/
+.modal-confirm, .modal-content {    
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 14px;    
+    text-align: center;
+    border: none;
 }
 
-.job-details {
-    display: flex !important;
-    max-width: fit-content;
-    column-gap: 15px;
+.modal-confirm {
+    margin-right: 300px;
+    margin-bottom: 150px;
 }
 
-.job-details > li {
-    display: flex;
-    height: fit-content;
-    align-items: center;
-    margin: 0 !important;
-    gap: 3px;
+.modal-dialog {
+    width: 400px;
 }
 
-
-.hdav {
-    width: 150px !important;
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
+.modal-confirm .modal-header {
+    border-bottom: none;
+    position: relative;
 }
 
-.hdn {
-    font-family: auto;
-    font-size: 17px !important;
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
 }
 
-.actions > a > svg{
-    margin-right: 10px;
-    
+.modal-confirm .close {
+    position: absolute;
+    top: -5px;
+    right: -2px;
 }
 
-.responsive-table:hover {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+.modal-confirm .modal-body {
+    color: #999;
 }
 
-@media screen and (max-width: 635px) and (min-width: 200px) {
-    .job-details {
-        flex-direction: column !important;
-        row-gap: 7px;
+.modal-confirm .modal-footer {
+    border: none;
+    text-align: center;		
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+}
+
+.modal-confirm .modal-footer a {
+    color: #999;
+}
+
+.modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    margin-top: 13px;
+}
+
+.modal-confirm .btn {
+    color: #fff;
+    transition: all 0.4s;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;    
+}
+  
+.modal-confirm .btn-info {
+    background: #c1c1c1;
+}
+
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+    background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+    background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+    background: #ee3535;
+}
+  
+
+@media screen and (max-width: 995px) and (min-width: 200px) {
+    .modal-confirm {
+        margin-right: 0 !important;
     }
 }
 
-@media screen and (max-width: 1163px) and (min-width: 200px) {
-    .hdn {
-        display: none;
-    }
-}
 
-@media screen and (max-width: 1365px) and (min-width: 200px) {
-    .hdav {
-        display: none;
-    }
-}
-
-
-
-/* Breadcrumb-* */
+/* Breadcrumb-* 
+***************************/
 #breadcrumb-title, #breadcrumb-items  {
     max-width: fit-content
 }

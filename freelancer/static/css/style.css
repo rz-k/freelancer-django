@@ -4259,6 +4259,111 @@ footer {
     padding-left: 20px;
 }
 
+
+
+/* Manage Job List Update
+***************************/
+#job-table {
+    text-align: right !important;
+}
+
+.job-details {
+    display: flex !important;
+    max-width: fit-content;
+    column-gap: 15px;
+}
+
+.job-details > li {
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    margin: 0 !important;
+    gap: 3px;
+}
+
+td {
+    padding-right: 0 !important;
+}
+
+.hdav {
+    width: 0 !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.hdn {
+    font-family: auto;
+    font-size: 17px !important;
+}
+
+.pay > a {
+    display: flex;
+    align-items:center;
+    justify-content: flex-start;
+    column-gap: 5px;
+    height: 45px;
+    width: 160px;
+    border: 2px #ad9bfa solid;
+    border-radius: 40px;
+    padding-right: 15px;
+}
+
+.pay > a:hover {
+    transform: scale(1.06);
+    background-color: #d0c5ff;
+    border: 2px #beb1f5 solid;
+}
+
+.actions > a > svg{
+    margin-right: 10px;
+    
+}
+
+.delete-action:hover, .edit-action:hover , .action-show{
+    transform: scale(1.5);
+}
+ 
+.responsive-table:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+
+@media screen and (max-width: 700px) and (min-width: 200px) {
+    .pay, .pay > a {
+        width: 150px !important;
+    }
+
+    .job-details {
+        flex-direction: column !important;
+        row-gap: 7px;
+    }
+
+    .hd-req {
+        display: none;
+    }
+
+    .actions {
+        padding: 0 !important;
+        width: 150px;
+        padding-right: 50px !important;
+    }
+
+}
+
+@media screen and (max-width: 1163px) and (min-width: 200px) {
+    .hdn {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1365px) and (min-width: 200px) {
+    .hdav {
+        display: none;
+    }
+}
+
+
 /** Invoice start **/
 .invoice{
     width: 100%;
