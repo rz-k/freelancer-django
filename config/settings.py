@@ -11,6 +11,14 @@ DEBUG = os.environ.get("DEBUG") == "True"
 
 
 INSTALLED_APPS = [
+    # Local
+    'freelancer.job',
+    'freelancer.account',
+    'freelancer.payment',
+
+    # 3rd party
+    'django_quill',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -18,10 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'freelancer.job',
-    'freelancer.account',
-    'freelancer.payment',
-    'django_quill',
 ]
 
 MIDDLEWARE = [
