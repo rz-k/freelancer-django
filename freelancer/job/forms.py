@@ -37,9 +37,10 @@ class AddJobForm(forms.Form):
         widget=forms.TextInput(
             attrs={"class":"input-text", "placeholder":"بین 2 تا 3 سال"}))
 
-    price = forms.IntegerField(
-        error_messages={"invalid": "لطفا عدد مورد نظر خود را به ریال وارد نمایید."},
-        label="بودجه یه حقوق در نظر گرفته شده (ریال)",
+    price = forms.CharField(
+        max_length=100,
+        error_messages={"invalid": "بودجه یا حقوق در نظر گرفته شده را وارد نمایید."},
+        label="بودجه یا حقوق در نظر گرفته شده (ریال|توافقی)",
         widget=forms.TextInput(
                 attrs={"class":"input-text", "placeholder":"1000000"}))
 
@@ -47,7 +48,7 @@ class AddJobForm(forms.Form):
         label="دسته بندی",
         queryset=Category.objects.filter(status=True),
         widget=forms.Select(attrs={"class":"input-text"}))
-    
+
     tags = SimpleArrayField(
         forms.CharField(max_length=100),
         label_suffix="تگ های پروژه(حداکثر 4 مورد)")
@@ -77,6 +78,23 @@ class AddJobForm(forms.Form):
             raise forms.ValidationError("لطفا نوع همکاری را مشخص نمایید")
         else:
             return data["work_type"]
+
+
+    def clean_price(self):
+        """
+            Ensure the job price format is valid.
+        """
+        data = self.cleaned_data
+        price = data["price"]
+
+        if price.strip() == "توافقی":
+            return price
+        else:
+            try:
+                int_price = int(price)
+                return price
+            except ValueError:
+                raise forms.ValidationError("لطفا هزینه پروژه را به ریال وارد نمایید یا از کلید واژه توافقی استفاده کنید")
 
 
 class EditJobForm(forms.ModelForm, AddJobForm):
