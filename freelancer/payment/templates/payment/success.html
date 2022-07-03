@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block header %}
+
+  <link rel='stylesheet' href="{% static 'css/success.css' %}" type='text/css' />
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="printer-top"></div>
+    
+  <div class="paper-container">
+    <div class="printer-bottom"></div>
+
+    <div class="paper">
+      <div class="main-contents">
+        <div class="success-icon">&#10004;</div>
+        <div class="success-title">
+          پرداخت موفق
+        </div>
+        <div class="success-description">
+          ایمیل پرداخت کننده :  {{result.email}} 
+        </div>
+        <div class="order-details">
+          <div class="order-number-label">کد پیگیری پرداخت : {{result.authority}}</div>
+          <div class="order-number">واریز : {{result.price |intcomma:False}}</div>
+        </div>
+        <div class="order-footer">با تشکر از خرید شما!</div>
+      </div>
+      <div class="jagged-edge"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block header %}
+  <link rel='stylesheet' href="{% static 'css/success.css' %}" type='text/css' />
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="printer-top"></div>
+  <div class="paper-container">
+    <div class="printer-bottom"></div>
+    <div class="paper">
+      <div class="main-contents">
+        <div class="error-icon">&#10005;</div>
+        <div class="success-title">
+          پرداخت ناموفق
+        </div>
+        <div class="success-description">
+          دلیل خطا :‌ {{result.message}}
+        </div>
+        <div class="order-details">
+          <div class="order-number-label">کد پیگیری پرداخت : {{result.authority}}</div>
+
+          <div class="order-number">
+            درصورت بروز مشکل در پرداخت وجه پرداختی در 24 ساعت به حساب شما برگشت داده خواهد شد، چنانچه برگشت داده نشد
+            میتوانید کد پیگیری بالا را برای پشتیبانی ارسال نمایید.
+          </div>
+        </div>
+        <div class="order-footer">
+          پرداخت ناموفق!
+        </div>
+      </div>
+      <div class="jagged-edge"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

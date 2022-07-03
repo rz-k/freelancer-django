@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'freelancer.job',
     'freelancer.account',
+    'freelancer.payment',
     'django_quill',
 ]
 
