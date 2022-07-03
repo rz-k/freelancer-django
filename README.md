@@ -27,11 +27,11 @@ The freelancer website is written by Django to help freelancers and employers to
   <details>
      <summary>Config</summary>
      <p>You can change or set DB, email, Django or etc.. configurations in /freelancer-django
-/config/.env file.<br><br></p>
+/config/.dev_env file.<br><br></p>
   </details>
   
   ```
-  export $(grep -v '^#>' ./config/.env | xargs);
+  export $(grep -v '^#>' ./config/.dev_env | xargs);
   ```
   After all, you can run the project by 3 commands below:
   ```
@@ -41,22 +41,30 @@ The freelancer website is written by Django to help freelancers and employers to
   ```
   ### **Of course, these setups will be changed later...**
   <br>
-  
-## TODO 
- - [ ] Create job models, views and urls.
- - [ ] Create `apply` app and configurations.
+
+
+## TODO
+
+ - [x] Create job models, views and urls.
+ - [x] Create apply models, views and urls.
+ - [ ] Create payment models, views and urls.
+ - [x] Create job categorys.
+ - [x] Create job tags.
+
+ - [ ] Update payment models(handel the pricing-panel, immediate jobs, publish job, etc..).
  - [ ] Handel Home Page urls.
- - [ ] Create job categorys.
- - [ ] Create job tags.
+ - [ ] Adding employer comments section in user profile.
  - [ ] Add about, pricing-pannel, FAQ sections.
+
  - [ ] Dockerize project.
  - [ ] Handel WebServer base configurations.
  - [ ] Handel WebServer security configurations.
  - [ ] Handel WebServer other configurations. 
- - [ ] Create Rest-Api by DRF.
+
  - [ ] Make TestCase for job models, views and urls.
  - [ ] Make TestCase for apply models, views and urls.
  - [ ] Make TestCase for account models, views and urls.
+ 
+ - [ ] Create Rest-Api by DRF.
  - [ ] Make TestCase for Rest-Api.
  - [ ] Make Api documentation
- 
