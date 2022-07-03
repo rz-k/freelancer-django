@@ -1,8 +1,19 @@
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import AddJobForm, EditJobForm
 from .models import Job
-from django.core.paginator import Paginator
+
+
+def pagination(object_list, per_page: int, page_number: int):
+    paginator = Paginator(object_list=object_list, per_page=per_page)
+    jobs = paginator.get_page(number=page_number)
+
+    context = {
+        'jobs': jobs
+    }
+    return context
 
 
 def Home(request):
@@ -36,12 +47,10 @@ def add_job(request, success_url="job:manage-job", form_class=AddJobForm, templa
 
 
 def manage_job(request, template_name='job/manage-job.html'):
-    jobs = Job.objects.filter(user=request.user).order_by("-created")
-
-    paginator = Paginator(jobs, 5)
     page_number = request.GET.get('page')
-    jobs = paginator.get_page(page_number)
-    context = {'jobs': jobs}
+    jobs = Job.objects.filter(user=request.user).order_by("-created")
+    context = pagination(object_list=jobs, per_page=5, page_number=page_number)
+
     return render(request=request, template_name=template_name, context=context)
 
 
@@ -70,6 +79,12 @@ def edit_job(request, id, success_url="job:manage-job", form_class=EditJobForm, 
 
 
 def delete_job(request, id, success_url="job:manage-job"):
-    job = get_object_or_404(klass=Job, user=request.user, id=id)
-    job.delete()
-    return redirect(success_url)
+    """
+        Using the `GET` request method to delete the user job.
+    """
+    if request.method == "GET":
+        job = get_object_or_404(klass=Job, user=request.user, id=id).delete()
+
+        return JsonResponse({
+            "delete-job": True,
+        })
