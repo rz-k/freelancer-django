@@ -23,7 +23,7 @@ def Home(request):
 
 def add_job(request, success_url="job:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
     if request.method == 'POST':
-        form = form_class(data=request.POST)
+        form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
             cd = form.cleaned_data
             new_job = Job.objects.create(
