@@ -84,6 +84,7 @@ def register_user(request, next_url='account:dashboard', form_class=UserRegister
             )
             user.is_active = True
             user.save()
+            login(request=request, user=user)
             messages.success(request=request, message="ثبت نام با موفقیت انجام شد.", extra_tags="success")
             return success_url
         else:
