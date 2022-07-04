@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import redirect, render
 
 from .forms import UserLoginForm, UserRegisterForm
+from freelancer.job.models import Apply
 
 
 def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
@@ -118,6 +119,7 @@ def dashboard(request, template_name='account/dashboard/dashboard.html'):
 
 
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
+    applays = Apply
     return render(request, template_name=template_name)
 
 

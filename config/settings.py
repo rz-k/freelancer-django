@@ -14,8 +14,8 @@ MERCHANT = os.environ.get("MERCHANT")
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://ce96-154-6-16-197.ngrok.io",
-    "https://ce96-154-6-16-197.ngrok.io"
+    "https://*",
+    "http://*",
     ]
 
 

@@ -102,3 +102,23 @@ class EditJobForm(forms.ModelForm, AddJobForm):
     class Meta:
         model = Job
         fields = AddJobForm().fields
+
+
+class ApplayForm(forms.Form):
+
+    description = forms.CharField(
+        max_length=300,
+        label="توضیحات",
+        error_messages={"required":"لطفا توضیحات خود به کارفرما را بنویسید"},
+        widget=forms.Textarea(
+                attrs={"class":"input-text", "placeholder":"توضیحات ..."})
+    )
+    price = forms.IntegerField(
+        label="مقدار پیشنهادی",
+        error_messages={"required":"لطفا مقدار پیشنهادی پروژه را بنویسید"},
+    )
+    finish_time = forms.IntegerField(
+        min_value=1,
+        label="زمان تحویل",
+        error_messages={"required":"لطفا زمان تحویل پروژه را بنویسید"},
+    )

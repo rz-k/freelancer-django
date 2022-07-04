@@ -156,14 +156,11 @@
                 <div class="sidebar-right-2">
                     <!-- Search box start -->
                     <div class="widget search-box">
-                        <form method="GET">
-                            <div class="form-group fg-2">
-                                <button class="search-button sj-btn btn-outline">Save job</button>
-                            </div>
-                            <div class="form-group mb-0">
-                                <button class="search-button button-theme">Apply Now</button>
-                            </div>
-                        </form>
+                        <div class="form-group fg-2">
+                            <a href="{% url 'job:applay-to' job.id %}" class="search-button sj-btn btn-outline">
+                                ارسال پیشنهاد
+                            </a>
+                        </div>
                     </div>
                     <!-- Job overview start -->
                     <div class="job-overview widget">

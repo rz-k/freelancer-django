@@ -1,9 +1,10 @@
+import re
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import AddJobForm, EditJobForm
-from .models import Job
+from .forms import AddJobForm, EditJobForm, ApplayForm
+from .models import Job, Apply
 
 
 def pagination(object_list, per_page: int, page_number: int):
@@ -88,3 +89,29 @@ def delete_job(request, id, success_url="job:manage-job"):
         return JsonResponse({
             "delete-job": True,
         })
+
+
+def applay_to(request, id):
+    job = get_object_or_404(Job, id=id)
+    if request.method == 'POST':
+        if request.user == job.user:
+            return redirect('job:home')
+
+        form = ApplayForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            applay = Apply.objects.create(
+                user = request.user,
+                job=job,
+                description=cd['description'],
+                price=cd['price'],
+                finish_time=cd['finish_time'],
+            )
+            applay.save()
+    else:
+        form = ApplayForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'job/applay-to.html', context=context)

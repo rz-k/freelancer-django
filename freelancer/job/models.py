@@ -163,6 +163,12 @@ class Apply(models.Model):
         choices=APPLY_STATUS,
         verbose_name='وضعیت درخواست',
         default='wait')
+
+    description = models.TextField(
+        max_length=300,
+        verbose_name='توضیحات برای کارفرما')
+
+    price = models.CharField(max_length=100, verbose_name="میزان مزد درخواستی")
     
     finish_time = models.IntegerField(verbose_name="زمان انجام پروژه")
     created = models.DateTimeField(auto_now=True)
