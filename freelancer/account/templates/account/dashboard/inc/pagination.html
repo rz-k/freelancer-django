@@ -1,0 +1,33 @@
+{% if obj_list.has_other_pages %}
+    <div class="pagination-box hidden-mb-45 text-center" id="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if obj_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" id="{{obj_list.number}}" href="?page={{ obj_list.previous_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">قبلی</a>
+                        </li>
+                {% endif %}
+
+                {% if obj_list.paginator.count >= 5 %}
+                    {% for num in obj_list.paginator.get_elided_page_range %}
+                        {% if num == obj_list.number %}
+                            <li class="page-item page-link">
+                                {{ num }}
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">{{ num }}</a>                            
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if obj_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ obj_list.next_page_number}}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">بعدی</a>
+                    </li>                    
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}
