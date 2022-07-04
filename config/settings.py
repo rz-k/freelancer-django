@@ -6,17 +6,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent.joinpath("freelancer")
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 DEBUG = os.environ.get("DEBUG") == "True"
+
+#=> Zarinpal
 MERCHANT = os.environ.get("MERCHANT")
 
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS').split(' ')
 
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://*",
-    "http://*",
-    ]
 
 
 INSTALLED_APPS = [
