@@ -39,7 +39,7 @@
                                     <td class="hdav">
                                         <a href="{% url 'job:detail-job' job.id %}">
                                             {% if job.image %}
-                                                <img alt="my-properties-3" src="{{job.image.url}}" width="120" height="80" style="border-radius:5px;">
+                                                <img alt="my-properties-3" src="{{job.image.url}}" width="100" height="90" style="border-radius:5px;">
                                             {% else %}
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -78,7 +78,7 @@
                                         {{job.created|date:"H:m ,Y/m/d"}}
                                     </td>
                                     <td class="hd-req">
-                                        {{job.job_applay.count}}
+                                        {{job.job_apply.count}}
                                     </td>
                                     <td class="hd-stat">
                                         {% if job.status %}
@@ -91,21 +91,20 @@
                                             </svg>
                                         {% endif %}
                                     </td>
-
                                     <td class="pay">
-                                        {% if not job.payed %}
+                                        {% if job.payed %}
+                                            <div class="payed-job">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#39cf4c" stroke-width="1" width="30px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                </svg>
+                                                منتشر شده
+                                            </div>
+                                        {% else %}
                                             <a href="{% url 'payment:send_request' job.id %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5a36f5" stroke-width="1" width="30px">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                                 </svg>
                                                 پرداخت و انتشار
-                                            </a>
-                                        {% else %}
-                                            <a href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5a36f5" stroke-width="1" width="30px">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                </svg>
-                                                منتشر شده
                                             </a>
                                         {% endif %}
                                     </td>
