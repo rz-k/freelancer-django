@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
 from django_quill.forms import QuillFormField
+
 from .models import Category, Job
 
 
@@ -98,27 +99,29 @@ class AddJobForm(forms.Form):
 
 
 class EditJobForm(forms.ModelForm, AddJobForm):
-    
+
     class Meta:
         model = Job
         fields = AddJobForm().fields
 
 
-class ApplayForm(forms.Form):
-
-    description = forms.CharField(
-        max_length=300,
-        label="توضیحات",
-        error_messages={"required":"لطفا توضیحات خود به کارفرما را بنویسید"},
-        widget=forms.Textarea(
-                attrs={"class":"input-text", "placeholder":"توضیحات ..."})
-    )
-    price = forms.IntegerField(
+class ApplyForm(forms.Form):
+    bid_amount = forms.IntegerField(
         label="مقدار پیشنهادی",
-        error_messages={"required":"لطفا مقدار پیشنهادی پروژه را بنویسید"},
-    )
-    finish_time = forms.IntegerField(
+        widget=forms.TextInput(
+            attrs={"class":"input-text", "placeholder": "برای مثال 220,500,000"}),
+        error_messages={"bid_amount":"لطفا مقدار پیشنهادی پروژه را بنویسید"})
+
+    bid_date = forms.IntegerField(
         min_value=1,
         label="زمان تحویل",
-        error_messages={"required":"لطفا زمان تحویل پروژه را بنویسید"},
-    )
+        widget=forms.TextInput(
+            attrs={"class":"input-text"}),
+        error_messages={"bid_date":"لطفا زمان تحویل پروژه را بنویسید"})
+
+    description = forms.CharField(
+        max_length=500,
+        label="توضیحات",
+        widget=forms.Textarea(
+                attrs={"class": "input-text", "placeholder": "توضیحات..."}),
+        error_messages={"required": "لطفا توضیحات خود را برای کارفرما بنویسید"})
