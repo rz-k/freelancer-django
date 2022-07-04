@@ -6,8 +6,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent.joinpath("freelancer")
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = ['*']
 DEBUG = os.environ.get("DEBUG") == "True"
+MERCHANT = os.environ.get("MERCHANT")
+
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://ce96-154-6-16-197.ngrok.io",
+    "https://ce96-154-6-16-197.ngrok.io"
+    ]
 
 
 INSTALLED_APPS = [

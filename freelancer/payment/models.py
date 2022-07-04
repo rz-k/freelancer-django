@@ -15,6 +15,9 @@ class PaymentAccount(models.Model):
         verbose_name = 'User Payment'
         verbose_name_plural = 'User Payments'
 
+    def __str__(self) -> str:
+        return str(self.user)
+
 
 class PaymentJob(models.Model):
     User = get_user_model()
@@ -29,3 +32,6 @@ class PaymentJob(models.Model):
     class Meta:
         verbose_name = 'Job Payment'
         verbose_name_plural = "Job Payments"
+
+    def __str__(self) -> str:
+        return str(self.job)

@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponse, get_object_or_404, redirect, render
 from django.views import View
 from freelancer.job.models import Job
 from freelancer.payment.models import PaymentAccount, PaymentJob
-
+import json
 
 class ZarinpalInfo:
     MERCHANT = settings.MERCHANT
@@ -13,7 +13,7 @@ class ZarinpalInfo:
     ZP_API_VERIFY = "https://api.zarinpal.com/pg/v4/payment/verify.json"
     ZP_API_STARTPAY = "https://www.zarinpal.com/pg/StartPay/{authority}"
     # ZP_CALLBACK = f'https://gray-city.ir/pay/verify/'
-    ZP_CALLBACK = f'127.0.0.1:8000/pay/verify/'
+    ZP_CALLBACK = f'https://ce96-154-6-16-197.ngrok.io/pay/verify/'
     HEADERS = {
             "accept": "application/json",
             "content-type": "application/json'"
@@ -72,6 +72,7 @@ class ZarinpalVerifi(View, ZarinpalInfo):
                 if t_status == 100:
                     pay.payed =True
                     pay.job.payed=True
+                    pay.job.save()
                     pay.save()
                     
                     res = {

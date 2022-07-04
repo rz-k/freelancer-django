@@ -91,13 +91,23 @@
                                             </svg>
                                         {% endif %}
                                     </td>
+
                                     <td class="pay">
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5a36f5" stroke-width="1" width="30px">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                            </svg>
-                                            پرداخت و انتشار
-                                        </a>
+                                        {% if not job.payed %}
+                                            <a href="{% url 'payment:send_request' job.id %}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5a36f5" stroke-width="1" width="30px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                </svg>
+                                                پرداخت و انتشار
+                                            </a>
+                                        {% else %}
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5a36f5" stroke-width="1" width="30px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                </svg>
+                                                منتشر شده
+                                            </a>
+                                        {% endif %}
                                     </td>
                                     <td class="actions">
                                         <a href="{% url 'job:edit-job' job.id %}">

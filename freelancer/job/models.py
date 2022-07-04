@@ -125,6 +125,8 @@ class Job(models.Model):
 
     price = models.CharField(max_length=100, verbose_name="بودجه")
     created = models.DateTimeField(auto_now=True)
+    payed = models.BooleanField(default=False)
+
 
 
     def __str__(self) -> str:
