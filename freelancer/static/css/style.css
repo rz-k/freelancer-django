@@ -4287,6 +4287,7 @@ td {
 
 .hdav {
     width: 0 !important;
+    padding-left: 20px !important;
     padding-top: 20px !important;
     padding-bottom: 20px !important;
 }
@@ -4311,7 +4312,19 @@ td {
 .pay > a:hover {
     transform: scale(1.06);
     background-color: #d0c5ff;
-    border: 2px #beb1f5 solid;
+    border: 2px #9e8ceb solid;
+}
+
+.payed-job {
+    display: flex;
+    align-items:center;
+    justify-content: flex-start;
+    column-gap: 5px;
+    height: 45px;
+    width: 160px;
+    border: 2px #5ff96f solid;
+    border-radius: 40px;
+    padding-right: 15px;
 }
 
 .actions > a > svg{
