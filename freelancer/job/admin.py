@@ -48,7 +48,7 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(Apply)
 class ApplyJobAdmin(admin.ModelAdmin):
-    list_display = ("id", "get_job_title", "status", "finish_time")
+    list_display = ("id", "job", "status", "bid_date")
     list_editable = ("status", )
     list_filter = ("status", )
-    list_display_links = ("get_job_title",)
+    list_display_links = ("job",)

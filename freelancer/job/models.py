@@ -116,6 +116,10 @@ class Job(models.Model):
         default=False,
         verbose_name="وضعیت پروژه")
 
+    payed = models.BooleanField(
+        default=False,
+        verbose_name="پرداخت شده؟")
+
     experience = models.CharField(
         max_length=30,
         blank=True,
@@ -123,10 +127,11 @@ class Job(models.Model):
         default="مهم نیست",
         verbose_name="سابقه کار")
 
-    price = models.CharField(max_length=100, verbose_name="بودجه")
-    created = models.DateTimeField(auto_now=True)
-    payed = models.BooleanField(default=False)
+    price = models.CharField(
+        max_length=100,
+        verbose_name="بودجه")
 
+    created = models.DateTimeField(auto_now=True)
 
 
     def __str__(self) -> str:
@@ -147,17 +152,17 @@ class Apply(models.Model):
         ('reject', 'رد شد'),
         ('wait', 'در حال انتظار')
     )
-    
+
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
         related_name="user_applay")
-    
+
     job = models.ForeignKey(
         to=Job,
         on_delete=models.CASCADE,
         related_name="job_applay")
-    
+
     status = models.CharField(
         max_length=20,
         choices=APPLY_STATUS,
@@ -165,14 +170,16 @@ class Apply(models.Model):
         default='wait')
 
     description = models.TextField(
-        max_length=300,
+        max_length=500,
         verbose_name='توضیحات برای کارفرما')
 
-    price = models.CharField(max_length=100, verbose_name="میزان مزد درخواستی")
-    
-    finish_time = models.IntegerField(verbose_name="زمان انجام پروژه")
+    bid_amount = models.CharField(
+        max_length=100,
+        default=0,
+        verbose_name="مبلغ پیشنهادی")
+
+    bid_date = models.IntegerField(
+        default=0,
+        verbose_name="زمان انجام پروژه")
+
     created = models.DateTimeField(auto_now=True)
-
-
-    def get_job_title(self):
-        return self.job.slug
