@@ -93,8 +93,8 @@ class UserRegisterForm(forms.Form):
         cd = self.cleaned_data
         password = cd.get('password')
         confirm_password = cd.get('confirm_password')        
-
-        if confirm_password != password:
+        
+        if password and confirm_password and confirm_password != password:
             raise forms.ValidationError("دو پسورد وارد شده با هم مطابقت ندارد.")
         else:
             return confirm_password
