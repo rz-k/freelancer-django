@@ -133,7 +133,7 @@ def manage_candidate(request, template_name='account/dashboard/manage-candidate.
     return render(request, template_name=template_name, context=applays)
 
 def manage_applay_send(request, template_name='account/dashboard/manage-applay-send.html'):
-    applays = Apply.objects.filter(job__user=request.user)
+    applays = Apply.objects.filter(user=request.user)
     applays = pagination(applays, 5, 5)
     return render(request, template_name=template_name, context=applays)
 

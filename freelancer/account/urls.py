@@ -14,4 +14,5 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
 
     path('dashboard/manage-candidate/', manage_candidate, name='manage-candidate'),
+    path('dashboard/manage-applays/', manage_applay_send, name='manage-applay-send'),
 ]
