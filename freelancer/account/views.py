@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import redirect, render
-
+from django.core.paginator import Paginator
 from .forms import UserLoginForm, UserRegisterForm
 from freelancer.job.models import Apply
 
@@ -113,14 +113,29 @@ def logout_user(request):
     return redirect("job:home")
 
 
+def pagination(object_list, per_page: int, page_number: int):
+    paginator = Paginator(object_list=object_list, per_page=per_page)
+    candid = paginator.get_page(number=page_number)
+
+    context = {
+        'obj_list': candid
+    }
+    return context
+
 
 def dashboard(request, template_name='account/dashboard/dashboard.html'):
     return render(request=request, template_name=template_name)
 
 
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
-    applays = Apply
-    return render(request, template_name=template_name)
+    applays = Apply.objects.filter(job__user=request.user)
+    applays = pagination(applays, 5, 5)
+    return render(request, template_name=template_name, context=applays)
+
+def manage_applay_send(request, template_name='account/dashboard/manage-applay-send.html'):
+    applays = Apply.objects.filter(job__user=request.user)
+    applays = pagination(applays, 5, 5)
+    return render(request, template_name=template_name, context=applays)
 
 
 def user_messages(request, template_name='account/dashboard/user-messages.html'):    
