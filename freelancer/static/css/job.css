@@ -60,7 +60,10 @@ h1 {
     right: 46px !important;
 }
 
-
+[id^="id_"]:focus-visible, .ql-editor:focus-visible {
+    border: 2px #8d6cef solid !important;
+    border-radius: 5px !important;
+}
 
 /* Form Erors 
 ***************************/
