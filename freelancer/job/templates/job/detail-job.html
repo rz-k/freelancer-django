@@ -4,7 +4,8 @@
 {% load humanize %}
 
 {% block custom_tag %}
-{{ forms.media }}
+    {{ forms.media }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/apply-to.css' %}">
 {% endblock custom_tag %}
 
 
@@ -56,7 +57,7 @@
                 <div class="job-description mb-40">
                     <h3 class="heading-2">توضیحات</h3>
                     <p>
-                        {{job.description.html | safe}}                    
+                        {{job.description.html | safe}}
                     </p>
                 </div>
                 
@@ -155,13 +156,53 @@
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right-2">
                     <!-- Search box start -->
+
                     <div class="widget search-box">
                         <div class="form-group fg-2">
-                            <a href="{% url 'job:applay-to' job.id %}" class="search-button sj-btn btn-outline">
-                                ارسال پیشنهاد
-                            </a>
+                            {% if is_employer %}
+                                <a href="#" class="search-button sj-btn btn-outline">
+                                    ارسال پیشنهاد
+                                </a>
+                            {% else %}
+                                <button type="button" class="search-button sj-btn btn-outline" data-toggle="modal" data-target="#exampleModal">
+                                    ارسال پیشنهاد
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
+                    <style>
+
+                    </style>
+                    <div class="modal fade right" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">پیشنهاد فریلنسر</h5>
+                            <button type="button" class="btn close-apply-btn" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="submit-address dashboard-list">
+                                <form method="POST" action="{% url 'job:apply-to' job.id %}">
+                                    {% csrf_token %}
+                                    {% for field in apply_form %}
+                                        <div class="form-group">
+                                            {{field.label_tag}}
+                                            {{field}}
+                                        </div>
+                                    {% endfor %}
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">ارسال پیشنهاد</button>
+                                        <button type="button" class="btn cancel-btn" data-dismiss="modal">لغو</button>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <!-- Job overview start -->
                     <div class="job-overview widget">
                         <h3 class="sidebar-title">مشخصات درخواستی</h3>

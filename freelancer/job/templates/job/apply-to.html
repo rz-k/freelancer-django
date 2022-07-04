@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Contact section start -->            
+<div class="container">
+    <div class="row" style="">
+        <div class="col-lg-12">
+                <form method="POST" style="text-align: right;">
+                    {% csrf_token %}
+                    {% for error in apply_form.errors %}
+                        <p style="color: #ff6969;">{{error}}</p>
+                    {% endfor %}
+                        <div class="form-style-5">
+                            {{apply_form.bid_amount.label_tag}}
+                            {{apply_form.bid_amount}}
+                            {{apply_form.bid_date.label_tag}}
+                            {{apply_form.bid_date}}
+                            {{apply_form.description.label_tag}}
+                            {{apply_form.description}}
+                            <div class="bot">
+                                <input type="submit" class="btn-md btn-success" value="ارسال پیشنهاد">
+                                <input type="button" class="btn-md btn-danger" on value="لغو">
+                            </div>
+                        </div>
+                    <style>
+                        .form-style-5{                  
+                            font-family: Georgia, "Times New Roman", Times, serif;
+                            margin-top: 150px;
+                            margin-bottom: 110px;
+                            display: flex;
+                            flex-direction: column;
+                        }
+                        
+                        .form-style-5 label {
+                            display: block;
+                            margin-bottom: 8px;
+                            align-self: start;
+                        }
+                        .form-style-5 input[type="text"],                                        
+                        .form-style-5 textarea {                                            
+                            background: rgba(255,255,255,.1);
+                            border: none;
+                            border-radius: 4px;
+                            font-size: 16px;
+                            margin: 0;
+                            outline: 0;
+                            padding: 7px;
+                            width: 50%;
+                            box-sizing: border-box; 
+                            -webkit-box-sizing: border-box;
+                            -moz-box-sizing: border-box; 
+                            background-color: #e8eeef;
+                            color:#8a97a0;
+                            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+                            box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+                            margin-bottom: 30px;
+                        
+                        }
+
+                        .form-style-5 input[type="text"]:focus {
+                            background: #d2d9dd;
+                        }
+                    </style>                    
+                </form>
+        </div>
+    </div>
+</div>    
+    
+<script>
+    document.getElementById("nav-head").style.background="#161616c7";
+</script>
+{% endblock content %}

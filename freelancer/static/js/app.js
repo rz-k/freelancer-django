@@ -58,7 +58,7 @@ $(function () {
     function adjustHeader()
     {
         var current_url = window.location.href;
-        if ( current_url.includes("login") || current_url.includes("register")){
+        if ( current_url.includes("login") || current_url.includes("register") || current_url.includes("apply")){
             return;
         };
         var windowWidth = $(window).width();

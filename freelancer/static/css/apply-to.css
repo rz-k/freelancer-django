@@ -1,0 +1,78 @@
+/* Open modal on the bottom right.
+**************************************/
+.modal-dialog {
+    width: 100%;
+    height: 80%;
+    position:fixed;
+    bottom: 7px;
+    right: 7px;
+    margin: 0;
+}
+
+.modal.fade:not(.in).right .modal-dialog {
+    -webkit-transform: translate3d(25%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+
+.modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+}
+
+.modal-header {
+    align-items: center;
+    background: #6d61e5;
+}
+
+.modal-title {
+    color: #f2e8e8;
+}
+
+.modal-footer {
+    justify-content: flex-start;
+    gap: 10px
+}
+
+.cancel-btn {
+    border: 1px solid #bababa;
+    color: #777;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.close-apply-btn {
+    border-radius: 5px;
+    background-color: #9e95f4;
+}
+
+
+/* Apply form.
+***************/
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group >  input {
+    width: 250px !important;
+}
+
+.form-group >  textarea {
+    height: auto !important;
+}
+
+.form-group > [id^="id_"] {
+    border: 1px solid #ddd !important;
+}
+
+[id^="id_"]:focus-visible, .ql-editor:focus-visible {
+    border: 2px #8d6cef solid !important;
+    border-radius: 5px !important;
+}
+
+.submit-address form label{
+    color: #777777
+}

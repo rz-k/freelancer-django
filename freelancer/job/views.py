@@ -1,10 +1,10 @@
-import re
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import AddJobForm, EditJobForm, ApplayForm
-from .models import Job, Apply
+from .forms import AddJobForm, ApplyForm, EditJobForm
+from .models import Apply, Job
 
 
 def pagination(object_list, per_page: int, page_number: int):
@@ -55,24 +55,32 @@ def manage_job(request, template_name='job/manage-job.html'):
     return render(request=request, template_name=template_name, context=context)
 
 
-def detail_job(request, id, template_name='job/detail-job.html'):
+def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.html'):
     job = get_object_or_404(klass=Job, id=id)
-    context = {'job': job}
+    form = form_class()
+    is_employer = False
+    if request.user == job.user:
+        is_employer = True
+
+    context = {
+        "job": job,
+        "is_employer": is_employer,
+        "apply_form": form}
     return render(request=request, template_name=template_name, context=context)
 
 
 def edit_job(request, id, success_url="job:manage-job", form_class=EditJobForm, template_name='job/edit-job.html'):
     job = get_object_or_404(klass=Job, user=request.user, id=id)
-    
+
     if request.method == 'POST':
-        form = form_class(data=request.POST, instance=job)
+        form = form_class(data=request.POST, files=request.FILES, instance=job)
         if form.is_valid():
             form.save()
             return redirect(success_url)
-        
+
         context = {'forms': form}
         return render(request=request, template_name=template_name, context=context)
-        
+
     else:
         form = form_class(instance=job)
         context = {'forms': form}
@@ -91,27 +99,28 @@ def delete_job(request, id, success_url="job:manage-job"):
         })
 
 
-def applay_to(request, id):
-    job = get_object_or_404(Job, id=id)
-    if request.method == 'POST':
-        if request.user == job.user:
-            return redirect('job:home')
+def apply_to(request, id, next_url="job:home", success_url="job:detail-job", form_class=ApplyForm, template_name='job/detail-job.html'):
+    job = get_object_or_404(klass=Job, id=id)
 
-        form = ApplayForm(request.POST)
+    if request.method == "POST":
+        if request.user == job.user:
+            return redirect(next_url)
+
+        form = form_class(data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            applay = Apply.objects.create(
+            apply = Apply.objects.create(
                 user = request.user,
                 job=job,
-                description=cd['description'],
-                price=cd['price'],
-                finish_time=cd['finish_time'],
-            )
-            applay.save()
+                description=cd["description"],
+                bid_amount=cd["bid_amount"],
+                bid_date=cd["bid_date"])
+            messages.success(request=request, message="پیشنهاد شما با موفقیت ارسال شد.", extra_tags="success")
+            return redirect(next_url)
+
+        messages.error(request=request, message="لطفا مقادیر گفته شده را به درستی وارد نمایید.", extra_tags="danger")
+        return redirect(success_url, job.id)
     else:
-        form = ApplayForm()
-    
-    context = {
-        'form': form
-    }
-    return render(request, 'job/applay-to.html', context=context)
+        form = form_class()
+        context = {"apply_form": form}
+        return render(request=request, template_name=template_name, context=context)
