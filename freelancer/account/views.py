@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator
 from .forms import UserLoginForm, UserRegisterForm
 from freelancer.job.models import Apply
@@ -142,9 +142,11 @@ def manage_applay_send(request, template_name='account/dashboard/manage-applay-s
 
 
 def candidate_profile(request, username, template_name='account/dashboard/candidate-profile.html'):
-    return render(request, template_name=template_name)
-
-    pass
+    user = get_object_or_404(get_user_model(), username=username)
+    context = {
+        'user_prof':user
+    }
+    return render(request, template_name=template_name, context=context)
 
 def user_messages(request, template_name='account/dashboard/user-messages.html'):    
     return render(request, template_name=template_name)

@@ -13,7 +13,7 @@ urlpatterns = [
     
     path('dashboard/', dashboard, name='dashboard'),
 
-    path('user/<str:username>/', candidate_profile, name='candidate-profile'),
+    path('profile/<str:username>/', candidate_profile, name='candidate-profile'),
     path('dashboard/manage-candidate/', manage_candidate, name='manage-candidate'),
     path('dashboard/manage-applays/', manage_applay_send, name='manage-applay-send'),
 ]

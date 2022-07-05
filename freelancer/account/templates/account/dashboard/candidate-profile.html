@@ -15,10 +15,10 @@
 <div class="sub-banner bg-color-full">
     <div class="container">
         <div class="breadcrumb-area">
-            <h1>{{ job.title }}</h1>
+            <h1>{{ user_prof.first_name }}</h1>
             <ul class="breadcrumbs">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Job Detail</li>
+                <li><a href="{% url 'job:home' %}">خانه</a></li>
+                <li class="active">{{user_prof.first_name}}</li>
             </ul>
         </div>
     </div>
@@ -33,10 +33,10 @@
                 <!-- job box start -->
                 <div class="job-box-2">
                     <div class="company-logo">
-                        <img src="img/avatar/avatar-2.jpg" alt="avatar">
+                        <img src="{{user_prof.user_profile.avatar.url}}" alt="avatar">
                     </div>
                     <div class="description">
-                        <h5 class="title"><a href="#">Martin Smith</a></h5>
+                        <h5 class="title"><a href="#">{{user_prof.first_name}} {{user_prof.last_name}}</a></h5>
                         <div class="candidate-listing-footer">
                             <ul>
                                 <li><i class="flaticon-tick"></i> Content Writer</li>
@@ -49,31 +49,27 @@
                 <hr class="hr-boder clearfix">
                 <!-- about me start -->
                 <div class="about-me mb-40">
-                    <h3 class="heading-2">About Me</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra a. Aliquam pellentesque nibh et nibh feugiat gravida. Maecenas ultricies, diam vitae semper placerat, velit risus accumsan nisl, eget tempor lacus est vel nunc. Proin accumsan elit sed neque euismod fringilla. Curabitur lobortis nunc velit, et fermentum urna dapibus non. Vivamus magna lorem, elementum id gravida ac, laoreet tristique augue. Maecenas dictum lacus eu nunc porttitor, ut hendrerit arcu efficitur.</p>
+                    <h3 class="heading-2">درباره من</h3>
+                    <p>
+                    {{user_prof.user_profile.bio|safe}}
+                    </p>
                 </div>
+
                 <!-- Education start-->
                 <div class="education mb-50">
-                    <h3 class="heading-2">Education</h3>
+                    <h3 class="heading-2">مهارت ها</h3>
                     <div class="education-box">
                         <div class="icon">
                             <i class="flaticon-mortarboard"></i>
                         </div>
-                        <div class="employer-info">
-                            <h5>Web Designer <span> / themeforest</span></h5>
-                            <h6>2015 - 2019</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
-                        </div>
-                    </div>
-                    <div class="education-box mb-0">
-                        <div class="icon">
-                            <i class="flaticon-mortarboard"></i>
-                        </div>
-                        <div class="employer-info">
-                            <h5>Graphic Designer <span> / themeforest</span></h5>
-                            <h6>2014 - 2018</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
-                        </div>
+                            <ul>
+                                {% for skil in user_prof.user_profile.skills %}
+                                <li>
+                                    <h5>{{skil}}</h5>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
                     </div>
                 </div>
                 <!-- Work experiance start-->
@@ -295,7 +291,7 @@
                     <div class="widget">
                         <form method="GET">
                             <div class="form-group mb-0">
-                                <button class="search-button button-theme">Download CV </button>
+                                <a href="{{ user_prof.user_profile.cv }}" class="search-button button-theme">دانلود رزومه</a>
                             </div>
                         </form>
                     </div>
