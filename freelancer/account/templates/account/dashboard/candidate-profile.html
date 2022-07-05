@@ -1,0 +1,341 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block custom_tag %}
+    {% comment %} {{ forms.media }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/apply-to.css' %}"> {% endcomment %}
+{% endblock custom_tag %}
+
+
+{% block content %}
+
+<!-- Sub banner start -->
+<div class="sub-banner bg-color-full">
+    <div class="container">
+        <div class="breadcrumb-area">
+            <h1>{{ job.title }}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Job Detail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- Job details page start -->
+<div class="candidate-section content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <!-- job box start -->
+                <div class="job-box-2">
+                    <div class="company-logo">
+                        <img src="img/avatar/avatar-2.jpg" alt="avatar">
+                    </div>
+                    <div class="description">
+                        <h5 class="title"><a href="#">Martin Smith</a></h5>
+                        <div class="candidate-listing-footer">
+                            <ul>
+                                <li><i class="flaticon-tick"></i> Content Writer</li>
+                                <li><i class="flaticon-pin"></i> New York City</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="hr-boder clearfix">
+                <!-- about me start -->
+                <div class="about-me mb-40">
+                    <h3 class="heading-2">About Me</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra a. Aliquam pellentesque nibh et nibh feugiat gravida. Maecenas ultricies, diam vitae semper placerat, velit risus accumsan nisl, eget tempor lacus est vel nunc. Proin accumsan elit sed neque euismod fringilla. Curabitur lobortis nunc velit, et fermentum urna dapibus non. Vivamus magna lorem, elementum id gravida ac, laoreet tristique augue. Maecenas dictum lacus eu nunc porttitor, ut hendrerit arcu efficitur.</p>
+                </div>
+                <!-- Education start-->
+                <div class="education mb-50">
+                    <h3 class="heading-2">Education</h3>
+                    <div class="education-box">
+                        <div class="icon">
+                            <i class="flaticon-mortarboard"></i>
+                        </div>
+                        <div class="employer-info">
+                            <h5>Web Designer <span> / themeforest</span></h5>
+                            <h6>2015 - 2019</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
+                    </div>
+                    <div class="education-box mb-0">
+                        <div class="icon">
+                            <i class="flaticon-mortarboard"></i>
+                        </div>
+                        <div class="employer-info">
+                            <h5>Graphic Designer <span> / themeforest</span></h5>
+                            <h6>2014 - 2018</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Work experiance start-->
+                <div class="work-experiance mb-50">
+                    <h3 class="heading-2">Work Experiance</h3>
+                    <div class="education-box">
+                        <div class="icon">
+                            <i class="flaticon-work"></i>
+                        </div>
+                        <div class="employer-info">
+                            <h5>Dhaka College <span> / Economics</span></h5>
+                            <h6>2015 - 2019</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
+                    </div>
+                    <div class="education-box mb-0">
+                        <div class="icon">
+                            <i class="flaticon-work"></i>
+                        </div>
+                        <div class="employer-info">
+                            <h5>University of south asia <span> / Computer Science</span></h5>
+                            <h6>2014 - 2018</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Progressbar example start -->
+                <div class="progressbar-example mb-40">
+                    <h3 class="heading-2">Professional Skills</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="progress-box">
+                                <p class="progress-title">Web Development</p>
+                                <p class="progress-size">80%</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="progress-box">
+                                <p class="progress-title">Consulting</p>
+                                <p class="progress-size">100%</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="progress-box">
+                                <p class="progress-title">Branding &amp; Identity</p>
+                                <p class="progress-size">70%</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="progress-box">
+                                <p class="progress-title">Graphic Design</p>
+                                <p class="progress-size">90%</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio start -->
+                <div class="portfolio">
+                    <h3 class="heading-2">Portfolio</h3>
+                    <div class="container">
+                        <div class="slick-slider-area">
+                            <div class="row slick-carousel slick-initialized slick-slider" data-slick="{&quot;slidesToShow&quot;: 3, &quot;responsive&quot;:[{&quot;breakpoint&quot;: 1024,&quot;settings&quot;:{&quot;slidesToShow&quot;: 3}}, {&quot;breakpoint&quot;: 768,&quot;settings&quot;:{&quot;slidesToShow&quot;: 2}}]}"><div class="slick-list draggable" style="padding: 0px;"><div class="slick-track" style="opacity: 1; width: 2928px; transform: translate3d(-1220px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-2.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-2.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-3.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-3.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-1.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-1.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item clearfix" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-4.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-4.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide" data-slick-index="0" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-2.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-2.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-3.jpg" title="Portfolio" tabindex="0">
+                                            <img src="img/gallery/img-3.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-current slick-active slick-center" data-slick-index="2" aria-hidden="false" style="width: 244px;"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-1.jpg" title="Portfolio" tabindex="0">
+                                            <img src="img/gallery/img-1.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-active" data-slick-index="3" aria-hidden="false" style="width: 244px;"><div><div class="slick-slide-item clearfix" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-4.jpg" title="Portfolio" tabindex="0">
+                                            <img src="img/gallery/img-4.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-2.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-2.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-3.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-3.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-1.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-1.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item clearfix" style="width: 100%; display: inline-block;">
+                                    <div class="portfolio-item">
+                                        <a href="img/gallery/img-4.jpg" title="Portfolio" tabindex="-1">
+                                            <img src="img/gallery/img-4.jpg" alt="gallery" class="img-fluid">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                <p>Portfolio</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></div></div></div></div></div>
+                            <div class="slick-prev slick-arrow-buton">
+                                <i class="fa fa-angle-left"></i>
+                            </div>
+                            <div class="slick-next slick-arrow-buton">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right-2">
+                    <div class="widget">
+                        <form method="GET">
+                            <div class="form-group mb-0">
+                                <button class="search-button button-theme">Download CV </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Job overview start -->
+                    <div class="job-overview widget">
+                        <h3 class="sidebar-title">Job Overview</h3>
+                        <div class="s-border"></div>
+                        <ul>
+                            <li><i class="flaticon-money"></i><h5>Salary</h5><span>£12,000 - £25,000</span></li>
+                            <li><i class="flaticon-pin"></i><h5>Location</h5><span>New York City</span></li>
+                            <li><i class="flaticon-woman"></i><h5>Gender</h5><span>Any</span></li>
+                            <li><i class="flaticon-work"></i><h5>Job Type</h5><span>Full Time</span></li>
+                            <li><i class="flaticon-honor"></i><h5>Qualification</h5><span>Mba</span></li>
+                            <li><i class="flaticon-notepad"></i><h5>Experience</h5><span>2 to 3 year</span></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Quick contact start -->
+                    <div class="widget-5 contact-2 quick-contact">
+                        <h3 class="sidebar-title">Quick Contacts</h3>
+                        <div class="s-border"></div>
+                        <form action="#" method="GET" enctype="multipart/form-data">
+                            <div class="form-group name">
+                                <input type="text" name="name" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group email">
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group message">
+                                <textarea class="form-control" name="message" placeholder="Write message"></textarea>
+                            </div>
+                            <div class="send-btn">
+                                <button type="submit" class="btn btn-md button-theme">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

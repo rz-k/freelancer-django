@@ -141,6 +141,11 @@ def manage_applay_send(request, template_name='account/dashboard/manage-applay-s
     return render(request, template_name=template_name, context=applays)
 
 
+def candidate_profile(request, username, template_name='account/dashboard/candidate-profile.html'):
+    return render(request, template_name=template_name)
+
+    pass
+
 def user_messages(request, template_name='account/dashboard/user-messages.html'):    
     return render(request, template_name=template_name)
 
