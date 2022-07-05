@@ -1,17 +1,24 @@
 from django.contrib import admin
+from django.contrib.admin import SimpleListFilter, StackedInline
+from .models import CV, WorkExperience, Education, Contact
 
-from .models import CV, WorkExperience
+
+class WorkExperienceInline(StackedInline):
+    model = WorkExperience
+
+class EducationInline(StackedInline):
+    model = Education
+
+class ContactInline(StackedInline):
+    model = Contact
+
+
 
 
 @admin.register(CV)
 class CVAdmin(admin.ModelAdmin):
+    inlines = (WorkExperienceInline,EducationInline, ContactInline) 
     list_display = ("user", "country", "gender", "marital_status")    
     list_display_links = ("user",)
     list_filter = ("gender", "marital_status")
 
-
-@admin.register(WorkExperience)
-class WorkExperienceAdmin(admin.ModelAdmin):
-    list_display = ("cv", "position", "start_year", "end_year")
-    list_display_links = ("cv",)
-    list_filter = ("position", "start_year", "end_year")
