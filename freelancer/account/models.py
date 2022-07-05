@@ -47,7 +47,9 @@ class Profile(models.Model):
     user = models.OneToOneField(
         to=User,
         on_delete=models.CASCADE,
-        related_name='user_profile')
+        related_name='user_profile',
+        primary_key=True
+        )
     
     bio = models.TextField(        
         null=True,
