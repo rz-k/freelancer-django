@@ -59,6 +59,9 @@ def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.
     job = get_object_or_404(klass=Job, id=id)
     form = form_class()
     is_employer = False
+    if not job.payed :
+        if request.user != job.user:
+            return redirect('job:home')
     if request.user == job.user:
         is_employer = True
 
