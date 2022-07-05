@@ -13,18 +13,6 @@ def avatar_directory_path(instance, filename: str) -> "File Path":
     path = 'users/{0}/profile/{1}'
     return path.format(instance.user.id, filename)
 
-
-def cv_directory_path(instance, filename: str) -> "File Path":
-    """
-    File location to store user CV/Resume.
-    
-    Returns:
-        file-path: str
-    """
-    path = 'users/{0}/cv/{1}'
-    return path.format(instance.user.id, filename)
-
-
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
@@ -39,7 +27,7 @@ class User(AbstractUser):
         blank=True, null=True,
         verbose_name='شماره تلفن کاربر')
     
-    score = models.ImageField(
+    score = models.IntegerField(
         default=0,
         verbose_name='امتیاز کاربر')
 
