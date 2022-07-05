@@ -1,3 +1,5 @@
+from random import choice
+from tabnanny import verbose
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
@@ -75,4 +77,62 @@ class CV(models.Model):
         verbose_name="مهارت ها")
 
 
+class WorkExperience(models.Model):
+    cv = models.ForeignKey(
+        CV,
+        on_delete=models.CASCADE,
+        related_name='education_cv'
+    )    
+
+    position = models.CharField(
+        max_length=50, 
+        verbose_name='پست یا سمت شما'
+    )
     
+    location = models.CharField(
+        max_length=50, 
+    )
+
+    start_year = models.IntegerChoices(
+        choices= [(i, i) for i in range(1330, 1402)],
+    )
+    end_year = models.IntegerChoices(
+        choices= [(i, i) for i in range(1330, 1402)],
+    )
+
+
+class Education(models.Model):
+    cv = models.ForeignKey(
+        CV,
+        on_delete=models.CASCADE,
+        related_name='education_cv'
+    )    
+
+    evidence = models.CharField(
+        max_length=50, 
+    )
+
+    location = models.CharField(
+        max_length=50, 
+    )
+    start_year = models.IntegerChoices(
+        choices= [(i, i) for i in range(1330, 1402)],
+    )
+    end_year = models.IntegerChoices(
+        choices= [(i, i) for i in range(1330, 1402)],
+    )
+
+class Contact(models.Model):
+    cv = models.ForeignKey(
+        CV,
+        on_delete=models.CASCADE,
+        related_name='contact_cv'
+    )
+
+    image = models.CharField(
+        max_length=150,
+    )
+
+    link = models.CharField(
+        max_length=150,
+    )
