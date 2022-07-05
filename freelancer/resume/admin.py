@@ -5,14 +5,17 @@ from .models import CV, WorkExperience, Education, Contact
 
 class WorkExperienceInline(StackedInline):
     model = WorkExperience
+    max_num=1
+
 
 class EducationInline(StackedInline):
     model = Education
+    max_num=1
+
 
 class ContactInline(StackedInline):
     model = Contact
-
-
+    max_num=1
 
 
 @admin.register(CV)

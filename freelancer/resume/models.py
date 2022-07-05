@@ -34,10 +34,10 @@ class CV(models.Model):
         related_name="user_cv")
 
     summary = models.TextField(
-        verbose_name="توصیف خود در چند خط",
         max_length=350,
         null=True,
-        blank=True)
+        blank=True,
+        verbose_name="توصیف خود در چند خط")
     
     skills = ArrayField(
         models.CharField(
@@ -50,35 +50,35 @@ class CV(models.Model):
         verbose_name="مهارت ها")
 
     country = models.CharField(
-        verbose_name="کشور",
         max_length=50, 
         null=True,
-        blank=True)
+        blank=True,
+        verbose_name="کشور")
 
     city = models.CharField(
-        verbose_name="شهر",
         max_length=50,
         null=True,
-        blank=True)
+        blank=True,
+        verbose_name="شهر")
 
     birthday = models.DateField(
-        verbose_name="تاریخ تولد",
         blank=True,
-        null=True)
+        null=True,
+        verbose_name="تاریخ تولد")
     
     gender = models.CharField(
         max_length=50,
-        verbose_name="جنسیت",
         choices=GENDER,
         blank=True,
-        null=True)
+        null=True,
+        verbose_name="جنسیت")
 
     marital_status = models.CharField(
         max_length=50,
-        verbose_name="وضعیت تاهل",
         choices=MARITAL,
         blank=True,
-        null=True)
+        null=True,
+        verbose_name="وضعیت تاهل",)
 
     languages = ArrayField(        
         models.CharField(
@@ -111,8 +111,7 @@ class WorkExperience(models.Model):
         max_length=50, 
         blank=True,
         null=True,
-        verbose_name="ادرس",
-    )
+        verbose_name="ادرس")
 
     start_year = models.IntegerField(
         default=current_year(),
@@ -123,7 +122,6 @@ class WorkExperience(models.Model):
         default=current_year(), 
         validators=[MinValueValidator(1984), max_value_current_year],
         verbose_name="تاریخ پایان کار")
-   
 
 
 class Education(models.Model):
