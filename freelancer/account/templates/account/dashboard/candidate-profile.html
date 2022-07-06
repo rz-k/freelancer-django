@@ -32,13 +32,13 @@
                 <!-- job box start -->
                 <div class="job-box-2">
                     <div class="company-logo">
-
+                        
                         {% if user_prof.user_profile.avatar %}
                             <img src="{{user_prof.user_profile.avatar.url}}" alt="avatar">
                         {% else %}
-                            {%if user_prof.user_cv.gender == 'man' %}
+                            {%if user_prof.user_cv.gender == 'مرد' %}
                                 <img src="{% static 'img/avatar/m-avatar.png' %}" alt="avatar">
-                            {% elif user_prof.user_cv.gender == 'female' %}
+                            {% elif user_prof.user_cv.gender == 'زن' %}
                                 <img src="{% static 'img/avatar/w-avatar.webp' %}" alt="avatar">
                             {%else%}   
                                 <img src="{% static 'img/avatar/ng.png' %}" alt="avatar">
