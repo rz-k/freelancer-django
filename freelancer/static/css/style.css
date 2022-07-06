@@ -938,14 +938,6 @@ input[type=checkbox]:checked + label:before {
     -webkit-animation: bgburnsEast 25s linear infinite alternate;*/
 }
 
-.banner-min-height {
-    /*max-height: 720px;*/
-}
-
-.banner-max-height img {
-    /*max-height: 720px;*/
-}
-
 .banner .slider-mover-left {
     width: 35px;
     height: 50px;
@@ -3586,13 +3578,12 @@ footer {
 
 .sidebar-title {
     font-size: 21px;
-    position: relative;
-    margin: 0 0 7px;
+    margin: 10px 0 9px;
     font-weight: 600;
 }
 
 .s-border {
-    width: 30px;
+    width: 80%;
     height: 3px;
     background: #4d4d4d;
     margin-bottom: 30px;
@@ -3742,7 +3733,7 @@ footer {
 
 /** Sub Banner start **/
 .sub-banner {
-    background: rgba(0, 0, 0, 0.04) url(../img/banner/banner-3.jpg) top left repeat;
+    background-image: linear-gradient(rgb(0 0 0 / 32%), rgb(0 0 0 / 39%)), url(../img/banner/banner-3.jpg);
     background-size: cover;
     height: 355px;
     background-position: center center;
@@ -4588,6 +4579,7 @@ td {
     margin-top: 14px;
 }
 
+
 /* candidate box  */
 .job-listing-details{
     display: flex;
@@ -4674,190 +4666,6 @@ td {
     float: left;
 }
 
-/* Job box */
-.job-box{
-    width: 100%;
-}
-
-
-
-.job-box{
-    float: left;
-    width: 100%;
-    padding: 20px 20px 15px;
-    border: solid 1px #e6e6e6;
-    border-top: none;
-    border-radius: 0px;
-    position: relative;
-    -o-transition:.5s;
-    -ms-transition:.5s;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-}
-
-.job-box:first-child{
-    border-top: solid 1px #e6e6e6;
-    border-left: solid 1px #e6e6e6;
-    border-right: solid 1px #e6e6e6;
-    border-bottom: solid 1px #e6e6e6;
-    border-radius: 5px;
-}
-
-.job-box:last-child{
-    border-top: none;
-    border-left: solid 1px #e6e6e6;
-    border-right: solid 1px #e6e6e6;
-    border-bottom: solid 1px #e6e6e6;
-    border-radius: 5px;
-}
-
-
-.job-box:hover{
-    background: #fff;
-}
-
-.job-box .company-logo{
-    width: 90px;
-    position: absolute;
-}
-
-.job-box .company-logo img{
-    width: 100%;
-    border-radius: 5px;
-}
-
-.job-box .description{
-    margin: 0 0 0 110px;
-}
-
-.job-box .description h5{
-    font-size: 17px;
-    margin:5px 0 10px;
-    font-weight: 600;
-}
-
-.job-box .description h6{
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.job-box .description ul{
-    display: inline-block;
-    list-style: none;
-    font-weight: 500;
-    padding: 0;
-    margin: 0;
-}
-
-.job-box .description ul li{
-    float: left;
-    margin-right: 20px;
-    font-size: 14px;
-}
-
-.job-box .apply-button{
-    float: right;
-    display: inline-block;
-    padding: 7px 30px;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 0;
-    color: #9a9898;
-    border: solid 1px #9a9898;
-}
-
-.job-box .apply-button:hover{
-    color: #9a9898;
-    border: solid 1px #9a9898;
-}
-
-.job-box .description ul li:last-child{
-    margin: 0;
-}
-
-.job-box .favourite{
-    font-size: 17px;
-    float: right;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    margin-right: 15px;
-    color: #9a9898;
-    border: solid 1px #9a9898;
-    border-radius: 50px;
-}
-
-.job-box .apply-button{
-    margin-top: 27px;
-}
-
-.job-box .favourite{
-    margin-top: 27px;
-}
-
-/* job box-2  */
-.job-box-2{
-    width: 100%;
-    display: inline-block;
-    position: relative;
-    margin-bottom: 50px;
-}
-
-.job-box-2{
-    width: 100%;
-    display: inline-block;
-    position: relative;
-}
-
-.job-box-2 .description {
-    margin: 0 0 0 100px;
-}
-
-.job-box-2 .company-logo {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.job-box-2 .company-logo img {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.job-box-2 .description ul {
-    display: inline-block;
-    list-style: none;
-    font-weight: 500;
-    padding: 0;
-    margin: 0;
-}
-
-.job-box-2 .description ul li {
-    float: left;
-    margin-right: 20px;
-    font-size: 14px;
-}
-
-.job-box-2 .description ul li i{
-    margin-right: 2px;
-}
-
-.job-box-2 .description h5 {
-    font-size: 25px;
-    margin: 10px 0 10px;
-    font-weight: 500;
-}
-
-.hr-boder{
-    margin: 25px 0 20px;
-    border-top: 1px solid rgba(0,0,0,.1);
-
-}
-
 /* Jb-3  */
 .jb-3{
     display: inline-block;
@@ -4926,8 +4734,6 @@ td {
 }
 
 /* Employer box */
-.employer-box {}
-
 .employer-box{
     margin: 0 0 10px 0;
     position: relative;
@@ -5036,56 +4842,6 @@ employer-box-2{
     border: none;
 }
 
-/** Job overview start **/
-.job-overview {
-    float: left;
-    width: 100%;
-}
-
-.job-overview ul {
-    padding: 0;
-    width: 100%;
-    margin: 0;
-}
-
-.job-overview ul li {
-    float: left;
-    position: relative;
-    padding-left: 40px;
-    border-bottom: solid 1px #efefef;
-    width: 100%;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-
-.job-overview ul li:last-child{
-    border: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.job-overview ul li i {
-    left: 0;
-    position: absolute;
-    top: 7px;
-    font-size: 25px;
-}
-
-.job-overview ul li h5 {
-    float: left;
-    width: 100%;
-    font-size: 16px;
-    margin: 0;
-    font-weight: 600;
-}
-
-.job-overview ul li span {
-    float: left;
-    width: 100%;
-    font-weight: 500;
-    font-size: 14px;
-    margin-top: 5px;
-}
 
 /** education box start **/
 .education-box{
@@ -5259,8 +5015,6 @@ employer-box-2{
 .single-candidate-widget p {
     margin: 0 0 10px;
 }
-
-.progress-box{  }
 
 .single-candidate-widget p {
     margin: 0 0 10px;
@@ -6037,7 +5791,7 @@ employer-box-2{
     width: 100%;
     height: 100%;
     z-index: 999999;
-    background: url(../img/loader.gif) center no-repeat #fff;
+    background: url(../img/loader-2.gif) center no-repeat #fff;
 }
 
 .slider-section .simple-slider {
@@ -6442,15 +6196,6 @@ employer-box-2{
         padding: 30px 10px;
     }
 
-    .job-box .favourite {
-        font-size: 17px;
-        float: right;
-        width: 35px;
-        height: 35px;
-        line-height: 35px;
-        margin-right: 7px;
-    }
-
     .job-box .apply-button {
         padding: 7px 25px;
     }
@@ -6636,13 +6381,6 @@ employer-box-2{
 
     .isa2-pad{
         padding: 0 30px;
-    }
-
-    .bi-2 {
-    }
-
-    .banner-inner {
-
     }
 
     .amenities ul li i {
@@ -7712,17 +7450,10 @@ employer-box-2{
         font-size: 13px;
     }
 
-    .bi-2 {
-
-    }
-
     .banner h3 {
         font-size: 33px;
     }
 
-    .banner-inner {
-
-    }
 
     .inline-search-area .dropdown-toggle::after {
         margin-left: -7px;
