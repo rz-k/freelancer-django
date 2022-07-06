@@ -18,7 +18,8 @@ def pagination(object_list, per_page: int, page_number: int):
 
 
 def Home(request):
-    return render(request, 'job/home/index.html')
+    jobs = Job.objects.all()[:4]
+    return render(request=request, template_name='job/home/index.html', context={"jobs": jobs})
 
 
 def add_job(request, success_url="job:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
@@ -57,11 +58,12 @@ def manage_job(request, template_name='job/manage-job.html'):
 
 def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.html'):
     job = get_object_or_404(klass=Job, id=id)
-    form = form_class()
-    is_employer = False
     if not job.payed :
         if request.user != job.user:
             return redirect('job:home')
+
+    form = form_class()
+    is_employer = False
     if request.user == job.user:
         is_employer = True
 
