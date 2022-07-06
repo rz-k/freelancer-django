@@ -137,6 +137,9 @@ class Job(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    def get_tags(self):
+        return " ,".join(self.tags)
+
 
     def save(self, *args, **kwargs):
         """

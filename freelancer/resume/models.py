@@ -22,12 +22,12 @@ class CV(models.Model):
         ("مرد","man"),
         ("زن","female"),
     )
-    
+
     MARITAL = (
         ("متاهل","married"),
         ("مجرد","single"),
     )
-    
+
     user = models.OneToOneField(
         to=User,
         on_delete=models.CASCADE,
@@ -38,7 +38,7 @@ class CV(models.Model):
         null=True,
         blank=True,
         verbose_name="توصیف خود در چند خط")
-    
+
     skills = ArrayField(
         models.CharField(
             max_length=20,
@@ -80,7 +80,7 @@ class CV(models.Model):
         null=True,
         verbose_name="وضعیت تاهل",)
 
-    languages = ArrayField(        
+    languages = ArrayField(
         models.CharField(
             max_length=20,
             blank=True,
@@ -92,23 +92,23 @@ class CV(models.Model):
     
     def __str__(self):
         return self.user.email
-    
+
 
 class WorkExperience(models.Model):
     cv = models.ForeignKey(
         to=CV,
         on_delete=models.CASCADE,
         related_name="cv_experience"
-    )    
+    )
 
     position = models.CharField(
         max_length=50,
         blank=True,
         null=True,
         verbose_name="پست یا سمت شما")
-    
+
     location = models.CharField(
-        max_length=50, 
+        max_length=50,
         blank=True,
         null=True,
         verbose_name="ادرس")
@@ -128,11 +128,10 @@ class Education(models.Model):
     cv = models.ForeignKey(
         to=CV,
         on_delete=models.CASCADE,
-        related_name="cv_education"
-    )    
+        related_name="cv_education")
 
     evidence = models.CharField(
-        max_length=50, 
+        max_length=50,
         blank=True,
         null=True,
         verbose_name="مدارک")
@@ -142,12 +141,12 @@ class Education(models.Model):
         blank=True,
         null=True,
         verbose_name="مکان")
-    
+
     start_year = models.PositiveIntegerField(
-        default=current_year(), 
+        default=current_year(),
         validators=[MinValueValidator(1984), max_value_current_year],
         verbose_name="تاریخ شروع آموزش")
-    
+
     end_year = models.PositiveIntegerField(
         default=current_year(),
         validators=[MinValueValidator(1984), max_value_current_year],
@@ -158,8 +157,7 @@ class Contact(models.Model):
     cv = models.ForeignKey(
         to=CV,
         on_delete=models.CASCADE,
-        related_name="cv_contact"
-    )
+        related_name="cv_contact")
 
     image = models.CharField(
         blank=True,

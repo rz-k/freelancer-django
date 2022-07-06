@@ -1,21 +1,6 @@
 from django.contrib import admin
-from django.contrib.admin import SimpleListFilter, StackedInline
-from .models import CV, WorkExperience, Education, Contact
 
-
-# class WorkExperienceInline(StackedInline):
-#     model = WorkExperience
-#     max_num=1
-
-
-# class EducationInline(StackedInline):
-#     model = Education
-#     max_num=1
-
-
-# class ContactInline(StackedInline):
-#     model = Contact
-#     max_num=1
+from .models import CV, Contact, Education, WorkExperience
 
 
 @admin.register(CV)
@@ -41,4 +26,3 @@ class EducationAdmin(admin.ModelAdmin):
 class WorkExperienceAdmin(admin.ModelAdmin):
     list_display = ("cv","position", "location", "start_year", "end_year")    
     list_filter = ("cv","position", "location", "start_year", "end_year")
-

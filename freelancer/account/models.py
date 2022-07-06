@@ -13,6 +13,7 @@ def avatar_directory_path(instance, filename: str) -> "File Path":
     path = 'users/{0}/profile/{1}'
     return path.format(instance.user.id, filename)
 
+
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
@@ -48,23 +49,23 @@ class Profile(models.Model):
         to=User,
         on_delete=models.CASCADE,
         related_name='user_profile',
-        primary_key=True
-        )
+        primary_key=True)
     
-    bio = models.TextField(        
+    bio = models.TextField(
         null=True,
-        blank=True)
-    
+        blank=True,
+        verbose_name="توضیحات پروفایل")
+
     avatar = models.ImageField(
         upload_to=avatar_directory_path,
         null=True,
-        blank=True)
+        blank=True,
+        verbose_name="عکس پروفایل")
     
     approved = models.BooleanField(
         default=False,
         verbose_name='کاربر تایید شده توسط سایت')
-    
 
-    def __str__(self):        
+
+    def __str__(self):
         return self.user.username
-
