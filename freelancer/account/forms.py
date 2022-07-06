@@ -79,7 +79,7 @@ class UserRegisterForm(forms.Form):
         data = self.cleaned_data
         password = data.get("password")
 
-        if len(password) < 8:
+        if len(password) < 4:
             raise forms.ValidationError("رمز عبور شما کوتاه میباشد، لطفا رمز عبور طولانی تری را وارد نمایید.")
         
         

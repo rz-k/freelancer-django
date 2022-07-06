@@ -4,9 +4,8 @@
 {% load humanize %}
 
 {% block custom_tag %}
-
-    <!---Put in Body html-->
-
+    {% comment %} {{ forms.media }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/apply-to.css' %}"> {% endcomment %}
 {% endblock custom_tag %}
 
 
@@ -32,30 +31,14 @@
                 <!-- job box start -->
                 <div class="job-box-2">
                     <div class="company-logo">
-
-                        {% if user_prof.user_profile.avatar %}
-                            <img src="{{user_prof.user_profile.avatar.url}}" alt="avatar">
-                        {% else %}
-                            {%if user_prof.user_cv.gender == 'man' %}
-                                <img src="{% static 'img/avatar/m-avatar.png' %}" alt="avatar">
-                            {% elif user_prof.user_cv.gender == 'female' %}
-                                <img src="{% static 'img/avatar/w-avatar.webp' %}" alt="avatar">
-                            {%else%}   
-                                <img src="{% static 'img/avatar/ng.png' %}" alt="avatar">
-                            {%endif%}
-                        {% endif %}
+                        <img src="img/avatar/avatar-2.jpg" alt="avatar">
                     </div>
                     <div class="description">
-                        <h5 class="title"><a href="#">
-                            {{user_prof.first_name}} {{user_prof.last_name}}
-                             {% if user_prof.user_profile.approved %}
-                                کاربر مورد تایید سایت                             
-                            {% endif %}
-                            </a>
-                        </h5>
+                        <h5 class="title"><a href="#">Martin Smith</a></h5>
                         <div class="candidate-listing-footer">
                             <ul>
-                                <li><i class="flaticon-pin"></i> {{user_prof.user_cv.country}} - {{user_prof.user_cv.city}}  </li>
+                                <li><i class="flaticon-tick"></i> Content Writer</li>
+                                <li><i class="flaticon-pin"></i> New York City</li>
                             </ul>
                         </div>
                     </div>
@@ -64,87 +47,57 @@
                 <hr class="hr-boder clearfix">
                 <!-- about me start -->
                 <div class="about-me mb-40">
-                    <h3 class="heading-2">درباره من </h3>
-                    <p>
-                        {% if  user_prof.user_profile.bio %}
-                            {{user_prof.user_profile.bio}}
-                        
-                        {% endif %} 
-                    </p>
+                    <h3 class="heading-2">About Me</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra a. Aliquam pellentesque nibh et nibh feugiat gravida. Maecenas ultricies, diam vitae semper placerat, velit risus accumsan nisl, eget tempor lacus est vel nunc. Proin accumsan elit sed neque euismod fringilla. Curabitur lobortis nunc velit, et fermentum urna dapibus non. Vivamus magna lorem, elementum id gravida ac, laoreet tristique augue. Maecenas dictum lacus eu nunc porttitor, ut hendrerit arcu efficitur.</p>
                 </div>
                 <!-- Education start-->
                 <div class="education mb-50">
-                    <h4 class="heading-2">لیست مدارک</h4>
-
+                    <h3 class="heading-2">Education</h3>
                     <div class="education-box">
                         <div class="icon">
                             <i class="flaticon-mortarboard"></i>
                         </div>
-                        {% for education in user_prof.user_cv.cv_education.all %}
-                            <div class="employer-info">
-                                <h5>{{ education.evidence }}</h5>
-                                <h6>از سال{{education.start_year}} تا {{education.end_year}}</h6>
-                                <p>
-                                    ادرس محل اخذ مدرک : {{education.location}}
-                                </p>
-                            </div>
-                            <hr>
-                        {% endfor %}
+                        <div class="employer-info">
+                            <h5>Web Designer <span> / themeforest</span></h5>
+                            <h6>2015 - 2019</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
                     </div>
-
-                    
+                    <div class="education-box mb-0">
+                        <div class="icon">
+                            <i class="flaticon-mortarboard"></i>
+                        </div>
+                        <div class="employer-info">
+                            <h5>Graphic Designer <span> / themeforest</span></h5>
+                            <h6>2014 - 2018</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
+                    </div>
                 </div>
                 <!-- Work experiance start-->
                 <div class="work-experiance mb-50">
-                    <h3 class="heading-2">لیست شرکتهایی که در انها کار کرده</h3>
+                    <h3 class="heading-2">Work Experiance</h3>
                     <div class="education-box">
                         <div class="icon">
                             <i class="flaticon-work"></i>
                         </div>
-
-                        {% for education in user_prof.user_cv.cv_experience.all %}
-                            <div class="employer-info">
-                                <h5>{{ education.position }}</h5>
-                                <h6>از سال{{education.start_year}} تا {{education.end_year}}</h6>
-                                <p>
-                                    {{education.location}}
-                                </p>
-                            </div>
-                            <hr>
-                        {% endfor %}
+                        <div class="employer-info">
+                            <h5>Dhaka College <span> / Economics</span></h5>
+                            <h6>2015 - 2019</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="work-experiance mb-50">
-                    <h3 class="heading-2">مهارت ها</h3>
-                    <div class="education-box">
+                    <div class="education-box mb-0">
                         <div class="icon">
                             <i class="flaticon-work"></i>
                         </div>
-
-                        {% for skill in user_prof.user_cv.skills %}
-                            <div class="employer-info">
-                                <h5>{{skill}}</h5>
-                            </div>
-                            <hr>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="work-experiance mb-50">
-                    <h3 class="heading-2">زبان ها</h3>
-                    <div class="education-box">
-                        <div class="icon">
-                            <i class="flaticon-work"></i>
+                        <div class="employer-info">
+                            <h5>University of south asia <span> / Computer Science</span></h5>
+                            <h6>2014 - 2018</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum.</p>
                         </div>
-
-                        {% for lang in user_prof.user_cv.languages %}
-                            <div class="employer-info">
-                                <h5>{{lang}}</h5>
-                            </div>
-                            <hr>
-                        {% endfor %}
                     </div>
                 </div>
-                
                 <!-- Progressbar example start -->
                 <div class="progressbar-example mb-40">
                     <h3 class="heading-2">Professional Skills</h3>
@@ -337,15 +290,24 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right-2">
+                    <div class="widget">
+                        <form method="GET">
+                            <div class="form-group mb-0">
+                                <button class="search-button button-theme">Download CV </button>
+                            </div>
+                        </form>
+                    </div>
                     <!-- Job overview start -->
                     <div class="job-overview widget">
-                        <h3 class="sidebar-title">دیگر مشخصات</h3>
+                        <h3 class="sidebar-title">Job Overview</h3>
                         <div class="s-border"></div>
                         <ul>
-                            <li><i class="flaticon-pin"></i><h5>آدرس</h5><span>{{user_prof.user_cv.country}} - {{user_prof.user_cv.city}}</span></li>
-                            <li><i class="flaticon-woman"></i><h5>جنسیت</h5><span>{{user_prof.user_cv.gender}}</span></li>
-                            <li><i class="flaticon-woman"></i><h5>تاهل</h5><span>{{user_prof.user_cv.marital_status}}</span></li>
-                            <li><i class="flaticon-notepad"></i><h5>سال تولد</h5><span>{{user_prof.user_cv.birthday}}</span></li>
+                            <li><i class="flaticon-money"></i><h5>Salary</h5><span>£12,000 - £25,000</span></li>
+                            <li><i class="flaticon-pin"></i><h5>Location</h5><span>New York City</span></li>
+                            <li><i class="flaticon-woman"></i><h5>Gender</h5><span>Any</span></li>
+                            <li><i class="flaticon-work"></i><h5>Job Type</h5><span>Full Time</span></li>
+                            <li><i class="flaticon-honor"></i><h5>Qualification</h5><span>Mba</span></li>
+                            <li><i class="flaticon-notepad"></i><h5>Experience</h5><span>2 to 3 year</span></li>
                         </ul>
                     </div>
                     <div class="clearfix"></div>
