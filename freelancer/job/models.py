@@ -59,8 +59,9 @@ class Job(models.Model):
     
     MILITARY_SERVICE_STATUS_CHOICES  = (
         ('end_Soldeir','پایان خدمت',),
-        ('soldier','سرباز'),
+        ('soldier','در حال انجام'),
         ('exempt','معافیت'),
+        ('included','مشمول'),
         ('no_matter','مهم نیست'),
     )
 
