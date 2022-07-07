@@ -55,6 +55,29 @@ class Job(models.Model):
         ('temporary','موقت')
     )
     
+    SOLDiER = (
+        ('end_Soldeir','پایان خدمت',),
+        ('soldier','سرباز'),
+        ('exempt','معافیت'),
+        ('no_matter','مهم نیست'),
+    )
+
+    MILITART = (
+        ('no_matter','مهم نیست',),
+        ('diploma','دیپلم'),
+        ('lisanse','لیسانس'),
+        ('mastersdegree','فوق لیسانس'),
+        ('phd','دکترا و بالاتر'),
+    )
+
+    GENDER = (
+        ('no_matter','مهم نیست'),
+        ('man','اقا'),
+        ('femail','خانوم'),
+
+    )
+
+
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
@@ -85,17 +108,17 @@ class Job(models.Model):
     
     tags= ArrayField(
         models.CharField(
-            max_length=15,
+            max_length=50,
             blank=True,
             null=True),
         blank=True,
         null=True,
-        size=4,
-        verbose_name="تگ های پروژه")
+        size=5,
+        verbose_name="مهارت های مورد نیاز")
     
     description = QuillField(
-        max_length=10000,
-        verbose_name='توضیحات پروژه')
+        max_length=20000,
+        verbose_name='توضیحات جاب')
 
     place = models.CharField(
         max_length=30,
@@ -112,14 +135,6 @@ class Job(models.Model):
         null=True,
         verbose_name="عکس پروژه یا لوگو شرکت",)
 
-    status = models.BooleanField(
-        default=False,
-        verbose_name="وضعیت پروژه")
-
-    payed = models.BooleanField(
-        default=False,
-        verbose_name="پرداخت شده؟")
-
     experience = models.CharField(
         max_length=30,
         blank=True,
@@ -127,9 +142,36 @@ class Job(models.Model):
         default="مهم نیست",
         verbose_name="سابقه کار")
 
-    price = models.CharField(
+
+    calary = models.CharField(
         max_length=100,
-        verbose_name="بودجه")
+        verbose_name="حقوق در نظر گرفته شده")
+
+    gender = models.CharField(
+        max_length=30,
+        choices=GENDER,
+        verbose_name='جنسیت')
+
+
+    military_status = models.CharField(
+        max_length=30,
+        choices=SOLDiER,
+        verbose_name='نظام وضیفه')  
+
+
+    educational_level = models.CharField(
+        max_length=30,
+        choices=MILITART,
+        verbose_name='مدرک تحصیلی') 
+
+
+    status = models.BooleanField(
+        default=False,
+        verbose_name="وضعیت این اگهی")
+
+    is_pay = models.BooleanField(
+        default=False,
+        verbose_name="پرداخت شده؟")
 
     created = models.DateTimeField(auto_now=True)
 
@@ -159,7 +201,7 @@ class Apply(models.Model):
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
-        related_name="user_applay")
+        related_name="user_job_applay")
 
     job = models.ForeignKey(
         to=Job,
@@ -171,18 +213,5 @@ class Apply(models.Model):
         choices=APPLY_STATUS,
         verbose_name='وضعیت درخواست',
         default='wait')
-
-    description = models.TextField(
-        max_length=500,
-        verbose_name='توضیحات برای کارفرما')
-
-    bid_amount = models.CharField(
-        max_length=100,
-        default=0,
-        verbose_name="مبلغ پیشنهادی")
-
-    bid_date = models.IntegerField(
-        default=0,
-        verbose_name="زمان انجام پروژه")
 
     created = models.DateTimeField(auto_now=True)

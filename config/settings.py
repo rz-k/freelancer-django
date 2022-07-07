@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     'freelancer.account',
     'freelancer.payment',
     'freelancer.resume',
+    'freelancer.project',
+
 
     # 3rd party
     'django_quill',
