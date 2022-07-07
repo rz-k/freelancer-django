@@ -1,15 +1,14 @@
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
 from freelancer.job.models import Category
 
 
-
-
 class Project(models.Model):
+    User = get_user_model()
 
     user = models.ForeignKey(
-        to=get_user_model(),
+        to=User,
         on_delete=models.CASCADE,
         related_name="user_project")
     
@@ -55,19 +54,19 @@ class Project(models.Model):
         default=False,
         verbose_name="فوری")
 
-    private = models.BooleanField(
-        default=False,
-        verbose_name="محرمانه")
-
     highlight = models.BooleanField(
         default=False,
         verbose_name="برجسته")
     
-    created = models.DateTimeField(auto_now=True)
+    private = models.BooleanField(
+        default=False,
+        verbose_name="محرمانه")
 
-    payed = models.BooleanField(
+    paid = models.BooleanField(
         default=False,
         verbose_name="پرداخت شده؟")
+
+    created = models.DateTimeField(auto_now=True)
 
 
     def str(self) -> str:
@@ -77,7 +76,7 @@ class Project(models.Model):
 
 class ApplyProject(models.Model):
 
-    APPLY_STATUS = (
+    APPLY_STATUS_CHOICES = (
         ('accept', 'پذیرفته شد'),
         ('reject', 'رد شد'),
         ('wait', 'در حال انتظار')
@@ -95,7 +94,7 @@ class ApplyProject(models.Model):
 
     status = models.CharField(
         max_length=20,
-        choices=APPLY_STATUS,
+        choices=APPLY_STATUS_CHOICES,
         verbose_name='وضعیت درخواست',
         default='wait')
 

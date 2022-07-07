@@ -47,7 +47,9 @@ class Category(models.Model):
 
 
 class Job(models.Model):
-    WORK_TYPES = (
+    User = get_user_model()
+    
+    WORK_TYPE_CHOICES = (
         ('full_time','تمام وقت',),
         ('part_time','پاره وقت'),
         ('teleworking','دور کاری'),
@@ -55,14 +57,14 @@ class Job(models.Model):
         ('temporary','موقت')
     )
     
-    SOLDiER = (
+    MILITARY_SERVICE_STATUS_CHOICES  = (
         ('end_Soldeir','پایان خدمت',),
         ('soldier','سرباز'),
         ('exempt','معافیت'),
         ('no_matter','مهم نیست'),
     )
 
-    MILITART = (
+    EDUCATIONAL_LEVEL_CHOICES  = (
         ('no_matter','مهم نیست',),
         ('diploma','دیپلم'),
         ('lisanse','لیسانس'),
@@ -70,16 +72,15 @@ class Job(models.Model):
         ('phd','دکترا و بالاتر'),
     )
 
-    GENDER = (
+    GENDER_CHOICES  = (
         ('no_matter','مهم نیست'),
         ('man','اقا'),
         ('femail','خانوم'),
 
     )
 
-
     user = models.ForeignKey(
-        to=get_user_model(),
+        to=User,
         on_delete=models.CASCADE,
         related_name="user_job")
     
@@ -126,7 +127,7 @@ class Job(models.Model):
 
     work_type = models.CharField(
         max_length=30,
-        choices=WORK_TYPES,
+        choices=WORK_TYPE_CHOICES,
         verbose_name='نوع همکاری')
 
     image = models.ImageField(
@@ -142,45 +143,42 @@ class Job(models.Model):
         default="مهم نیست",
         verbose_name="سابقه کار")
 
-
     calary = models.CharField(
         max_length=100,
         verbose_name="حقوق در نظر گرفته شده")
 
     gender = models.CharField(
         max_length=30,
-        choices=GENDER,
+        choices=GENDER_CHOICES,
         verbose_name='جنسیت')
-
 
     military_status = models.CharField(
         max_length=30,
-        choices=SOLDiER,
-        verbose_name='نظام وضیفه')  
-
+        choices=MILITARY_SERVICE_STATUS_CHOICES,
+        verbose_name='نظام وضیفه')
 
     educational_level = models.CharField(
         max_length=30,
-        choices=MILITART,
+        choices=EDUCATIONAL_LEVEL_CHOICES,
         verbose_name='مدرک تحصیلی') 
-
-    urgent = models.BooleanField(
-        default=False,
-        verbose_name="فوری")
-
-    private = models.BooleanField(
-        default=False,
-        verbose_name="محرمانه")
-
-    highlight = models.BooleanField(
-        default=False,
-        verbose_name="برجسته")
 
     status = models.BooleanField(
         default=False,
         verbose_name="وضعیت این اگهی")
 
-    is_pay = models.BooleanField(
+    urgent = models.BooleanField(
+        default=False,
+        verbose_name="فوری")
+
+    highlight = models.BooleanField(
+        default=False,
+        verbose_name="برجسته")
+    
+    private = models.BooleanField(
+        default=False,
+        verbose_name="محرمانه")
+
+    paid = models.BooleanField(
         default=False,
         verbose_name="پرداخت شده؟")
 
@@ -203,7 +201,7 @@ class Job(models.Model):
 
 
 class Apply(models.Model):
-    APPLY_STATUS = (
+    APPLY_STATUS_CHOICES = (
         ('accept', 'پذیرفته شد'),
         ('reject', 'رد شد'),
         ('wait', 'در حال انتظار')
@@ -221,7 +219,7 @@ class Apply(models.Model):
 
     status = models.CharField(
         max_length=20,
-        choices=APPLY_STATUS,
+        choices=APPLY_STATUS_CHOICES,
         verbose_name='وضعیت درخواست',
         default='wait')
 
