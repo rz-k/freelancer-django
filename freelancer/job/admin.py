@@ -39,8 +39,8 @@ class JobCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "status", "calary")
-    list_editable = ("calary", "status")
+    list_display = ("id", "title", "status", "salary")
+    list_editable = ("salary", "status")
     list_display_links = ("title",)
     list_filter = ("status",)
     prepopulated_fields = {"slug": ("title",)}
