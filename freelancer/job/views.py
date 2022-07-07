@@ -58,7 +58,7 @@ def manage_job(request, template_name='job/manage-job.html'):
 
 def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.html'):
     job = get_object_or_404(klass=Job, id=id)
-    if not job.payed :
+    if not job.paid :
         if request.user != job.user:
             return redirect('job:home')
 
