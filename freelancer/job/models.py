@@ -143,7 +143,7 @@ class Job(models.Model):
         default="مهم نیست",
         verbose_name="سابقه کار")
 
-    calary = models.CharField(
+    salary = models.CharField(
         max_length=100,
         verbose_name="حقوق در نظر گرفته شده")
 
