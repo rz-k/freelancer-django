@@ -164,6 +164,17 @@ class Job(models.Model):
         choices=MILITART,
         verbose_name='مدرک تحصیلی') 
 
+    urgent = models.BooleanField(
+        default=False,
+        verbose_name="فوری")
+
+    private = models.BooleanField(
+        default=False,
+        verbose_name="محرمانه")
+
+    highlight = models.BooleanField(
+        default=False,
+        verbose_name="برجسته")
 
     status = models.BooleanField(
         default=False,
