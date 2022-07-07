@@ -56,12 +56,6 @@ def add_job(request, success_url="job:manage-job", form_class=AddJobForm, templa
     return render(request=request, template_name=template_name, context=context)
 
 
-def manage_job(request, template_name='job/manage-job.html'):
-    page_number = request.GET.get('page')
-    jobs = Job.objects.filter(user=request.user).order_by("-created")
-    context = pagination(object_list=jobs, per_page=5, page_number=page_number)
-
-    return render(request=request, template_name=template_name, context=context)
 
 
 def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.html'):

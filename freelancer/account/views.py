@@ -3,7 +3,9 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator
 from .forms import UserLoginForm, UserRegisterForm
-from freelancer.job.models import ApplyJob
+from freelancer.job.models import ApplyJob, Job
+from freelancer.project.models import Project
+
 
 
 def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
@@ -156,3 +158,13 @@ def edit_profile(request, template_name='account/dashboard/edit-profile.html'):
     return render(request, template_name=template_name)
 
 
+
+def manage_job(request, template_name='account/dashboard/manage-job.html'):
+    page_number = request.GET.get('page')
+    jobs = Job.objects.filter(user=request.user).order_by("-created")
+    project = Project.objects.filter(user=request.user).order_by("-created")
+
+    jobs_ = jobs.union(project)
+    # print(jobs_)
+    context = pagination(object_list=jobs, per_page=5, page_number=page_number)
+    return render(request=request, template_name=template_name, context=context)

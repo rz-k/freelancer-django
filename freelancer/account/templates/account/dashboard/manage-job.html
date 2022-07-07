@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+
+
+
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
     <div class="content-area5 dashboard-content">
         <div class="dashboard-header clearfix">
@@ -34,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for job in jobs %}
+                            {% for job in obj_list %}
                                 <tr class="responsive-table" id="job-table-{{job.id}}">
                                     <td class="hdav">
                                         <a href="{% url 'job:detail-job' job.id %}">
@@ -136,7 +139,7 @@
                                             <div class="mt-4">
                                                 <p>
                                                     آیا واقعا میخواید جاب
-                                                    <span class="text-info">{{ jobs.first }}</span> 
+                                                    <span class="text-info">{{ obj_list.first }}</span> 
                                                     رو حذف کنید؟ این عمل قابل بازگشت نیست!!
                                                 </p>
                                             </div>
@@ -171,7 +174,7 @@
 
                 var job_count = $(".responsive-table").length;
                 if (job_count == 0) {
-                    window.location.replace("{% url 'job:manage-job' %}")
+                    window.location.replace("{% url 'account:manage-job' %}")
                 }
             }
         });
