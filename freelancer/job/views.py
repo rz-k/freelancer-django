@@ -28,6 +28,7 @@ def add_job(request, success_url="job:manage-job", form_class=AddJobForm, templa
         if form.is_valid():
             cd = form.cleaned_data
             new_job = Job.objects.create(
+
                 user=request.user,
                 category=cd['category'],
                 title=cd['title'],
@@ -38,7 +39,14 @@ def add_job(request, success_url="job:manage-job", form_class=AddJobForm, templa
                 place=cd['place'],
                 work_type=cd['work_type'],
                 image=cd['image'],
-                price=cd['price']
+                experience=cd['experience'],
+                gender=cd['experience'],
+                military_status=cd['military_status'],
+                educational_level=cd['educational_level'],
+                urgent=cd['urgent'],
+                highlight=cd['highlight'],
+                private=cd['private'],
+                salary=cd['salary']
             )
             return redirect(success_url)
     else:

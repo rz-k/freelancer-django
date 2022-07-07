@@ -48,7 +48,7 @@ class Category(models.Model):
 
 class Job(models.Model):
     User = get_user_model()
-    
+
     WORK_TYPE_CHOICES = (
         ('full_time','تمام وقت',),
         ('part_time','پاره وقت'),
@@ -109,12 +109,12 @@ class Job(models.Model):
     
     tags= ArrayField(
         models.CharField(
-            max_length=50,
+            max_length=100,
             blank=True,
             null=True),
         blank=True,
         null=True,
-        size=5,
+        size=10,
         verbose_name="مهارت های مورد نیاز")
     
     description = QuillField(
@@ -122,7 +122,7 @@ class Job(models.Model):
         verbose_name='توضیحات جاب')
 
     place = models.CharField(
-        max_length=30,
+        max_length=100,
         verbose_name='مکان')
 
     work_type = models.CharField(
@@ -155,7 +155,7 @@ class Job(models.Model):
     military_status = models.CharField(
         max_length=30,
         choices=MILITARY_SERVICE_STATUS_CHOICES,
-        verbose_name='نظام وضیفه')
+        verbose_name='نظام وظیفه')
 
     educational_level = models.CharField(
         max_length=30,

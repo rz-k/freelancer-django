@@ -6,15 +6,17 @@ from .views import (Home, add_job, apply_to, delete_job, detail_job, edit_job,
 app_name = 'job'
 
 urlpatterns = [
+
     path('', Home, name='home'),
-    path('account/dashboard/add-job/', add_job, name='add-job'),
-    path('account/dashboard/delete-job/<int:id>', delete_job, name='delete-job'),
-    path('account/dashboard/edit-job/<int:id>', edit_job, name='edit-job'),
+
+
+    path('add/', add_job, name='add-job'),
+    path('delete/<int:id>', delete_job, name='delete-job'),
+    path('edit/<int:id>', edit_job, name='edit-job'),
+    path('visit/<int:id>', detail_job, name='detail-job'),
+
+
     path('account/dashboard/manage-job/', manage_job, name='manage-job'),
-
-    path('projects/job/<int:id>', detail_job, name='detail-job'),
-
     path('apply-to/<int:id>', apply_to, name='apply-to'),
-
 
 ]

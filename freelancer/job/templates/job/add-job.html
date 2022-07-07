@@ -23,10 +23,11 @@
                 </div>
             </div>
         </div>
+
         <div class="submit-address dashboard-list">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <h4 class="bg-grea-3" id="inner-header">داده های مربوط به پروژه</h4>
+                <h4 class="bg-grea-3" id="inner-header">داده های مربوط به جاب</h4>
                 <div class="search-contents-sidebar">
                     <div class="row pad-20" style="column-gap: 11em; row-gap: 2em;">
                         {% for job_field in forms.visible_fields %}
@@ -36,7 +37,7 @@
                                         {{job_field.label_tag|cut:job_field.label }}
                                         <p id="max-len-tag-error">طول تگ شما نباید طولانی باشد.</p>
                                         <p id="duplicate-tag-error">این تگ تکراری میباشد.</p>
-                                        <p id="max-tag-error">بیشتر از 4 تگ نمیتوانید وارد کنید</p>
+                                        <p id="max-tag-error">بیشتر از 5 تگ نمیتوانید وارد کنید</p>
                                     
                                     {% elif job_field.auto_id != "id_description"%}
                                         {% if job_field.errors %}

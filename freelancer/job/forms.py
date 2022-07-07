@@ -14,6 +14,33 @@ class AddJobForm(forms.Form):
         ('internship','کاراموز'),
         ('temporary','موقت')
     )
+
+    MILITARY_SERVICE_STATUS_CHOICES  = (
+        ('no_matter','مهم نیست'),
+        ('end_Soldeir','پایان خدمت',),
+        ('soldier','سرباز'),
+        ('exempt','معافیت'),
+    )
+
+    EDUCATIONAL_LEVEL_CHOICES  = (
+        ('no_matter','مهم نیست',),
+        ('diploma','دیپلم'),
+        ('lisanse','لیسانس'),
+        ('mastersdegree','فوق لیسانس'),
+        ('phd','دکترا و بالاتر'),
+    )
+
+    GENDER_CHOICES  = (
+        ('no_matter','مهم نیست'),
+        ('man','اقا'),
+        ('femail','خانوم'),
+
+    )
+    category = forms.ModelChoiceField(
+        label="دسته بندی",
+        queryset=Category.objects.filter(status=True),
+        widget=forms.Select(attrs={"class":"input-text"}))
+
     title = forms.CharField(
         label="عنوان پروژه (کار)",
         max_length=100,
@@ -26,11 +53,34 @@ class AddJobForm(forms.Form):
         widget=forms.TextInput(
             attrs={"class":"input-text", "placeholder":"اسم شرکت (پیشفرض شخصی)"}))
 
+    tags = SimpleArrayField(
+        forms.CharField(max_length=100),
+        label_suffix="تگ های پروژه(حداکثر 10 مورد)")
+
+
+    description = QuillFormField(
+        max_length=20000,
+        label="توضیحات",
+        error_messages={"required":"لطفا توضیحات پروژه را قرار دهید"})
+
     place = forms.CharField(
         label="موقعیت مکانی",
         max_length=100,
         widget=forms.TextInput(
             attrs={"class":"input-text", "placeholder":"تهران , تهران"}))
+
+
+    work_type = forms.ChoiceField(
+        label="نوع همکاری",
+        widget=forms.Select(attrs={"class":"input-text"}),
+        choices=WORK_TYPES)
+
+
+    image = forms.FileField(
+        label="عکس",
+        required=False,
+        allow_empty_file=True)
+
 
     experience = forms.CharField(
         required=False,
@@ -38,36 +88,34 @@ class AddJobForm(forms.Form):
         widget=forms.TextInput(
             attrs={"class":"input-text", "placeholder":"بین 2 تا 3 سال"}))
 
-    price = forms.CharField(
+    salary = forms.CharField(
         max_length=100,
         error_messages={"invalid": "بودجه یا حقوق در نظر گرفته شده را وارد نمایید."},
         label="بودجه یا حقوق در نظر گرفته شده (ریال|توافقی)",
         widget=forms.TextInput(
                 attrs={"class":"input-text", "placeholder":"1000000"}))
 
-    category = forms.ModelChoiceField(
-        label="دسته بندی",
-        queryset=Category.objects.filter(status=True),
-        widget=forms.Select(attrs={"class":"input-text"}))
-
-    tags = SimpleArrayField(
-        forms.CharField(max_length=100),
-        label_suffix="تگ های پروژه(حداکثر 4 مورد)")
-
-    work_type = forms.ChoiceField(
-        label="نوع همکاری",
+    gender = forms.ChoiceField(
+        label="جنسیت",
         widget=forms.Select(attrs={"class":"input-text"}),
-        choices=WORK_TYPES)
+        choices=GENDER_CHOICES)
 
-    image = forms.FileField(
-        label="عکس",
-        required=False,
-        allow_empty_file=True)
 
-    description = QuillFormField(
-        max_length=4000,
-        label="توضیحات",
-        error_messages={"required":"لطفا توضیحات پروژه را قرار دهید"})
+    military_status = forms.ChoiceField(
+        label="نظام وظیفه",
+        widget=forms.Select(attrs={"class":"input-text"}),
+        choices=MILITARY_SERVICE_STATUS_CHOICES)   
+
+
+    educational_level = forms.ChoiceField(
+        label="مدرک تحصیلی",
+        widget=forms.Select(attrs={"class":"input-text"}),
+        choices=EDUCATIONAL_LEVEL_CHOICES)   
+
+    urgent = forms.BooleanField()
+    highlight = forms.BooleanField()
+    private = forms.BooleanField()
+
 
 
     def clean_work_type(self):
@@ -81,21 +129,22 @@ class AddJobForm(forms.Form):
             return data["work_type"]
 
 
-    def clean_price(self):
+    def clean_salary(self):
         """
-            Ensure the job price format is valid.
+            Ensure the job salary format is valid.
         """
         data = self.cleaned_data
-        price = data["price"]
+        salary = data["salary"]
 
-        if price.strip() == "توافقی":
-            return price
+        if salary.strip() == "توافقی":
+            return salary
         else:
             try:
-                int_price = int(price)
-                return price
+                int_price = int(salary)
+                return salary
             except ValueError:
-                raise forms.ValidationError("لطفا هزینه پروژه را به ریال وارد نمایید یا از کلید واژه توافقی استفاده کنید")
+                raise forms.ValidationError("لطفا حقوق پیشنهادی را به ریال وارد نمایید یا از کلید واژه توافقی استفاده کنید")
+
 
 
 class EditJobForm(forms.ModelForm, AddJobForm):
