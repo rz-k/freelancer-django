@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator
 from .forms import UserLoginForm, UserRegisterForm
-from freelancer.job.models import Apply
+from freelancer.job.models import ApplyJob
 
 
 def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):

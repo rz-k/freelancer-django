@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 
-from .models import Apply, Category, Job
+from .models import ApplyJob, Category, Job
 
 
 class CategoryFilter(SimpleListFilter):
@@ -39,16 +39,16 @@ class JobCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "status", "price")
-    list_editable = ("price", "status")
+    list_display = ("id", "title", "status", "calary")
+    list_editable = ("calary", "status")
     list_display_links = ("title",)
     list_filter = ("status",)
     prepopulated_fields = {"slug": ("title",)}
 
 
-@admin.register(Apply)
+@admin.register(ApplyJob)
 class ApplyJobAdmin(admin.ModelAdmin):
-    list_display = ("id", "job", "status", "bid_date")
+    list_display = ("id", "job", "status")
     list_editable = ("status", )
     list_filter = ("status", )
     list_display_links = ("job",)

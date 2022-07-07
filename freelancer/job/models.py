@@ -200,7 +200,7 @@ class Job(models.Model):
         super().save(*args, **kwargs)
 
 
-class Apply(models.Model):
+class ApplyJob(models.Model):
     APPLY_STATUS_CHOICES = (
         ('accept', 'پذیرفته شد'),
         ('reject', 'رد شد'),

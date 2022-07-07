@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import AddJobForm, ApplyForm, EditJobForm
-from .models import Apply, Job
+from .models import ApplyJob, Job
 
 
 def pagination(object_list, per_page: int, page_number: int):
