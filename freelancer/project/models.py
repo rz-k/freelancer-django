@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from freelancer.job.models import Category
+from django.utils.text import slugify
+from django_quill.fields import QuillField
 
 
 class Project(models.Model):
@@ -38,9 +40,9 @@ class Project(models.Model):
         size=5,
         verbose_name="تگ های پروژه")
 
-    description = models.TextField(
-        max_length=500,
-        verbose_name='توضیحات برای کارفرما')
+    description = QuillField(
+        max_length=20000,
+        verbose_name='توضیحات پروژه')
 
     status = models.BooleanField(
         default=False,
@@ -69,10 +71,19 @@ class Project(models.Model):
     created = models.DateTimeField(auto_now=True)
 
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         return self.title
 
 
+    def save(self, *args, **kwargs):
+        """
+            Create a new job with a 'Persian' dynamic slug.
+        """
+        self.slug = slugify(value=self.title, allow_unicode=True)
+        super().save(*args, **kwargs)
+
+    def get_tags(self):
+        return " ,".join(self.tags)
 
 class ApplyProject(models.Model):
 
