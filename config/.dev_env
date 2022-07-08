@@ -2,6 +2,7 @@
 SECRET_KEY='django-insecure-o928%220v6n)c!7$(fsh_!bq#1aq%6be9$qvcmkl@^2q3_fke='
 DEBUG=True
 ALLOWED_HOSTS='*'
+BASE_SITE_URL=''
 CSRF_TRUSTED_ORIGINS='https://*,http://*'
 
 #> Email

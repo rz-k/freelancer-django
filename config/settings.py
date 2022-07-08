@@ -6,14 +6,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent.joinpath("freelancer")
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 DEBUG = os.environ.get("DEBUG") == "True"
+BASE_SITE_URL = os.environ.get("BASE_SITE_URL")
 
 #=> Zarinpal
 MERCHANT = os.environ.get("MERCHANT")
-BASE_SITE_URL = 'https://3dd9-45-86-200-186.ngrok.io'
 
-CSRF_TRUSTED_ORIGINS = ['https://3dd9-45-86-200-186.ngrok.io']#os.environ.get('CSRF_TRUSTED_ORIGINS').split(' ')
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS').split(',')
 
 
 
