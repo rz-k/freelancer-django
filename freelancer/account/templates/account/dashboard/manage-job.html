@@ -1,10 +1,8 @@
 {% extends 'base/base_dashboard.html' %}
 {% load static %}
+{% load delete_endpoint %}
 
 {% block content %}
-
-
-
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
     <div class="content-area5 dashboard-content">
         <div class="dashboard-header clearfix">
@@ -26,10 +24,13 @@
                     <table class="table" id="job-table">
                         <thead>
                             <tr>
+                                <th class="hdav">آواتار</th>
                                 <th>عنوان</th>
+                                <th class="ds-none"></th>
                                 <th class="hdn">تاریخ</th>
                                 <th class="hd-req">تعداد درخواست ها</th>
                                 <th class="hd-stat">وضعیت</th>
+                                <th> </th>
                                 <th>پرداخت</th>
                                 <th class="actions">اکشن</th>
                             </tr>
@@ -37,6 +38,17 @@
                         <tbody>
                             {% for job in obj_list %}
                                 <tr class="responsive-table" id="job-table-{{job.id}}">
+                                    <td class="hdav">
+                                        <a href="{% url 'job:detail-job' job.id %}">
+                                            {% if job.image %}
+                                                <img alt="my-properties-3" src="{{job.image.url}}" width="100" height="90" style="border-radius:5px;">
+                                            {% else %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                                </svg>
+                                            {% endif %}
+                                        </a>
+                                    </td>
                                     <td class="head-job">
                                         <div class="inner">
                                             <h5>
@@ -58,7 +70,6 @@
                                             {{job.project_applay.count}}
                                         {% endif %}
                                     </td>
-
                                     <td class="hd-stat">
                                         {% if job.status %}
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" width="30px" stroke="#31ef86">
@@ -70,6 +81,7 @@
                                             </svg>
                                         {% endif %}
                                     </td>
+                                    <td></td>
                                     <td class="pay">
                                         {% if job.payed %}
                                             <div class="payed-job">
@@ -87,35 +99,21 @@
                                             </a>
                                         {% endif %}
                                     </td>
-
                                     <td class="actions">
                                         {% if  job.job_applay%}
                                             <a href="{% url 'job:edit-job' job.id %}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-
+                                        {% else %}
+                                                <a href="{% url 'project:edit-project' job.id %}">
+                                        {% endif %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
                                         <a href="#delete-modal-{{job.id}}" class="trigger-btn" data-toggle="modal">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="delete-action" fill="none" viewBox="0 0 24 24" stroke="#f15e5e" stroke-width="2" width="20px">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </a>
-
-                                        {% else %}
-                                                <a href="{% url 'project:edit-project' job.id %}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                    </svg>
-                                                </a>
-
-                                            <a href="#delete-modal-{{job.id}}" class="trigger-btn" data-toggle="modal">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="delete-action" fill="none" viewBox="0 0 24 24" stroke="#f15e5e" stroke-width="2" width="20px">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </a>
-
-                                        {% endif %}
                                     </td>
                                 </tr>
                                 <div class="modal-confirm modal fade" id="delete-modal-{{job.id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -139,7 +137,7 @@
                                             </div>
                                             <div class="modal-footer-centered mt-3">
                                                 <button type="button" class="btn btn-info" data-dismiss="modal" id="cancel-delete-{{job.id}}">کنسل</button>
-                                                <button type="button" value="Delete" class="btn btn-danger" onclick="delete_job(job_id={{job.id}})">حذف</button>
+                                                <button type="button" value="Delete" class="btn btn-danger" onclick="delete_job(endpoint='{{job|get_delete_endpoint:job.id}}', job_id={{job.id}})">حذف</button>
                                             </div>
                                         </div>
                                     </div>
@@ -148,19 +146,15 @@
                         </tbody>
                     </table>
                 </div>
-                {% include 'job/inc/pagination.html' %}
+                {% include "account/dashboard/inc/pagination.html" %}
             </div>
         </div>
     </div>
 </div>
-
 <script>
-    function delete_job(job_id){
-
-        var end_point = "{% url 'job:delete-job' id=0 %}".replace("0", job_id);
-
+    function delete_job(endpoint, job_id){
         $.ajax({
-            url: end_point,
+            url: endpoint,
             method: "GET",
             data: {},
             success: function(response){
@@ -168,7 +162,8 @@
                 $('#job-table-'+job_id).remove();
 
                 var job_count = $(".responsive-table").length;
-                if (job_count == 0) {
+                var current_url = window.location.href;
+                if (job_count == 0 && current_url.includes("?page=")) {
                     window.location.replace("{% url 'account:manage-job' %}")
                 }
             }
