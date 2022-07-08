@@ -1,17 +1,15 @@
 import json
 from tkinter.messagebox import NO
-
 import requests
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from .models import PaymentAccount, PaymentJob, PaymentProject
-
 from freelancer.job.models import Job
 from freelancer.project.models import Project
+from django.conf import settings
 
 
 class ZarinpalInfo:
@@ -23,7 +21,7 @@ class ZarinpalInfo:
     zarinpal_api_request = "https://api.zarinpal.com/pg/v4/payment/request.json"
     zarinpal_api_verify = "https://api.zarinpal.com/pg/v4/payment/verify.json"
     zarinpal_api_startpay = "https://www.zarinpal.com/pg/StartPay/{authority}"
-    zarinpal_callback = 'https://3dd9-45-86-200-186.ngrok.io/pay/verify/'
+    zarinpal_callback = settings.BASE_SITE_URL+'/pay/verify/'
     zarinpal_headers = {
         "accept": "application/json",
         "content-type": "application/json'"}
@@ -32,7 +30,7 @@ class ZarinpalInfo:
         "merchant_id": zarinpal_merchant,
         "description": description,
         "callback_url": zarinpal_callback,
-        "amount": "1000",
+        "amount": amount,
         "metadata": {"mobile": mobile, "email": ""}}
 
 
