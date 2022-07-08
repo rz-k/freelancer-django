@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.forms import SimpleArrayField
 
 
 class UserRegisterForm(forms.Form):
@@ -114,4 +115,54 @@ class UserLoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={"class":"input-text",
                 "placeholder":" رمز عبور"}))
-    
+
+
+class EditProfileForm(forms.Form):
+    first_name = forms.CharField(
+        label="اسم",
+        max_length=70,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"نام"}))
+
+    last_name = forms.CharField(
+        label="اسم خانوادگی",
+        max_length=70,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"نام خانوادگی"}))
+
+    bio = forms.CharField(
+        label="توضیحات پروفایل",
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={"class":"input-text",
+                "placeholder":"بیوگرافی شما، حد اکثر 100 کاراکتر"}))
+
+    skills = SimpleArrayField(
+        forms.CharField(max_length=400),
+        label_suffix="مهارت های شما(حد اکثر 10 مورد)")
+
+    avatar = forms.FileField(
+        label="عکس پروفایل",
+        required=False,
+        allow_empty_file=True)
+
+
+    def save(self, user_id, profile_model):
+        """
+        Update the user profile and User model.
+        """
+        data = self.cleaned_data
+
+        user = get_user_model().objects.get(id=user_id)
+        user.first_name=data['first_name']
+        user.last_name=data['last_name']
+        user.save()
+
+        profile_model(
+            user=user,
+            bio=data["bio"],
+            skills=data["skills"],
+            avatar=data["avatar"]
+        ).save()
