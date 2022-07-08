@@ -4,7 +4,7 @@ from django.db import models
 from freelancer.job.models import Category
 from django.utils.text import slugify
 from django_quill.fields import QuillField
-
+import uuid
 
 class Project(models.Model):
     User = get_user_model()
@@ -67,6 +67,10 @@ class Project(models.Model):
     paid = models.BooleanField(
         default=False,
         verbose_name="پرداخت شده؟")
+
+
+    uuid = models.UUIDField(default = uuid.uuid4, editable=False, unique=True)
+    
 
     created = models.DateTimeField(auto_now=True)
 

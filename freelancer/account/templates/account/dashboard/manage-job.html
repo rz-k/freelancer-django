@@ -26,11 +26,9 @@
                     <table class="table" id="job-table">
                         <thead>
                             <tr>
-                                <th class="hdav">آواتار</th> 
-                                <th>عنوان پروژه</th>
-                                <th class="ds-none"></th>
+                                <th>عنوان</th>
                                 <th class="hdn">تاریخ</th>
-                                <th class="hd-req">درخواست ها</th>
+                                <th class="hd-req">تعداد درخواست ها</th>
                                 <th class="hd-stat">وضعیت</th>
                                 <th>پرداخت</th>
                                 <th class="actions">اکشن</th>
@@ -39,50 +37,28 @@
                         <tbody>
                             {% for job in obj_list %}
                                 <tr class="responsive-table" id="job-table-{{job.id}}">
-                                    <td class="hdav">
-                                        <a href="{% url 'job:detail-job' job.id %}">
-                                            {% if job.image %}
-                                                <img alt="my-properties-3" src="{{job.image.url}}" width="100" height="90" style="border-radius:5px;">
-                                            {% else %}
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                                                </svg>
-                                            {% endif %}
-                                        </a>
-                                    </td>
                                     <td class="head-job">
                                         <div class="inner">
                                             <h5>
-                                                <a href="{% url 'job:detail-job' job.id %}">{{job.title}}</a>
+                                                {% if job.job_applay %}
+                                                    <a href="{% url 'job:detail-job' job.id %}">{{job.title}}</a>
+                                                {% else %}
+                                                    <a href="{% url 'project:detail-project' job.id %}">{{job.title}}</a>
+                                                {% endif %}
                                             </h5>
-                                            <ul class="job-details">
-                                                <li>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                    </svg>
-                                                    {{job.company_name}}
-                                                </li>
-                                                <li>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
-                                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                                                    </svg>
-                                                    {{job.place}}
-                                                </li>
-                                                <li>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                    {{job.get_work_type_display}}
-                                                </li>
-                                            </ul>
                                         </div>
                                     </td>
                                     <td class="hdn">
                                         {{job.created|date:"H:m ,Y/m/d"}}
                                     </td>
                                     <td class="hd-req">
-                                        {{job.job_apply.count}}
+                                        {% if  job.job_applay%}
+                                            {{job.job_applay.count}}
+                                        {% else %}
+                                            {{job.project_applay.count}}
+                                        {% endif %}
                                     </td>
+
                                     <td class="hd-stat">
                                         {% if job.status %}
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" width="30px" stroke="#31ef86">
@@ -103,7 +79,7 @@
                                                 منتشر شده
                                             </div>
                                         {% else %}
-                                            <a href="{% url 'payment:send_request' job.id %}">
+                                            <a href="{% url 'payment:send_request' job.uuid %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5a36f5" stroke-width="1" width="30px">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                                 </svg>
@@ -111,17 +87,35 @@
                                             </a>
                                         {% endif %}
                                     </td>
+
                                     <td class="actions">
-                                        <a href="{% url 'job:edit-job' job.id %}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </a>
+                                        {% if  job.job_applay%}
+                                            <a href="{% url 'job:edit-job' job.id %}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+
                                         <a href="#delete-modal-{{job.id}}" class="trigger-btn" data-toggle="modal">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="delete-action" fill="none" viewBox="0 0 24 24" stroke="#f15e5e" stroke-width="2" width="20px">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </a>
+
+                                        {% else %}
+                                                <a href="{% url 'project:edit-project' job.id %}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </a>
+
+                                            <a href="#delete-modal-{{job.id}}" class="trigger-btn" data-toggle="modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="delete-action" fill="none" viewBox="0 0 24 24" stroke="#f15e5e" stroke-width="2" width="20px">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </a>
+
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 <div class="modal-confirm modal fade" id="delete-modal-{{job.id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -162,6 +156,7 @@
 
 <script>
     function delete_job(job_id){
+
         var end_point = "{% url 'job:delete-job' id=0 %}".replace("0", job_id);
 
         $.ajax({

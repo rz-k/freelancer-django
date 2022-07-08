@@ -7,7 +7,7 @@ from django.http import JsonResponse
 
 
 
-def add_project(request, success_url="job:manage-job", form_class=AddProjectForm, template_name='project/add-proj.html'):
+def add_project(request, success_url="account:manage-job", form_class=AddProjectForm, template_name='project/add-proj.html'):
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
@@ -31,7 +31,7 @@ def add_project(request, success_url="job:manage-job", form_class=AddProjectForm
     return render(request=request, template_name=template_name, context=context)
 
 
-def edit_project(request, id, success_url="job:manage-job", form_class=EditProjectForm, template_name='project/edit-proj.html'):
+def edit_project(request, id, success_url="account:manage-job", form_class=EditProjectForm, template_name='project/edit-proj.html'):
     project = get_object_or_404(klass=Project, user=request.user, id=id)
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES, instance=project)
@@ -65,7 +65,7 @@ def detail_project(request, id, form_class=ApplyProjectForm, template_name='proj
     return render(request=request, template_name=template_name, context=context)
 
 
-def delete_project(request, id, success_url="job:manage-job"):
+def delete_project(request, id, success_url="account:manage-job"):
     """
         Using the `GET` request method to delete the user job.
     """

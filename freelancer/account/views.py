@@ -5,6 +5,10 @@ from django.core.paginator import Paginator
 from .forms import UserLoginForm, UserRegisterForm
 from freelancer.job.models import ApplyJob, Job
 from freelancer.project.models import Project
+from django.db.models import Count
+from django.contrib.auth import get_user_model
+from itertools import chain 
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -158,13 +162,16 @@ def edit_profile(request, template_name='account/dashboard/edit-profile.html'):
     return render(request, template_name=template_name)
 
 
-
+@login_required
 def manage_job(request, template_name='account/dashboard/manage-job.html'):
     page_number = request.GET.get('page')
-    jobs = Job.objects.filter(user=request.user).order_by("-created")
-    project = Project.objects.filter(user=request.user).order_by("-created")
+    jobs = Job.objects.filter(
+        user=request.user
+            ).order_by("-created")
+    projects = Project.objects.filter(
+        user=request.user
+            ).order_by("-created")
 
-    jobs_ = jobs.union(project)
-    # print(jobs_)
-    context = pagination(object_list=jobs, per_page=5, page_number=page_number)
+    combined_list = list(chain(jobs,projects))
+    context = pagination(object_list=combined_list, per_page=5, page_number=page_number)
     return render(request=request, template_name=template_name, context=context)

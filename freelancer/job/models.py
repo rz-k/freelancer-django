@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.text import slugify
 from django_quill.fields import QuillField
-
+import uuid
 
 def image_job_directory_path(instance, filename: str) -> "File Path":
     """
@@ -182,6 +182,8 @@ class Job(models.Model):
     paid = models.BooleanField(
         default=False,
         verbose_name="پرداخت شده؟")
+
+    uuid = models.UUIDField(default = uuid.uuid4, editable=False, unique=True)
 
     created = models.DateTimeField(auto_now=True)
 

@@ -1,12 +1,17 @@
 import json
+from tkinter.messagebox import NO
 
 import requests
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import PaymentAccount, PaymentJob
+from .models import PaymentAccount, PaymentJob, PaymentProject
+
+from freelancer.job.models import Job
+from freelancer.project.models import Project
 
 
 class ZarinpalInfo:
@@ -18,7 +23,7 @@ class ZarinpalInfo:
     zarinpal_api_request = "https://api.zarinpal.com/pg/v4/payment/request.json"
     zarinpal_api_verify = "https://api.zarinpal.com/pg/v4/payment/verify.json"
     zarinpal_api_startpay = "https://www.zarinpal.com/pg/StartPay/{authority}"
-    zarinpal_callback = 'https://ce96-154-6-16-197.ngrok.io/pay/verify/'
+    zarinpal_callback = 'https://3dd9-45-86-200-186.ngrok.io/pay/verify/'
     zarinpal_headers = {
         "accept": "application/json",
         "content-type": "application/json'"}
@@ -27,22 +32,32 @@ class ZarinpalInfo:
         "merchant_id": zarinpal_merchant,
         "description": description,
         "callback_url": zarinpal_callback,
-        "amount": "",
+        "amount": "1000",
         "metadata": {"mobile": mobile, "email": ""}}
 
 
-class ZarinpalSendPayRequest(View, ZarinpalInfo):
-    def get(self, request, id):
-        job = get_object_or_404(klass=Job, user=request.user, id=id)
+class ZarinpalSendPayRequest(LoginRequiredMixin,View, ZarinpalInfo):
+    def get(self, request, uuid):
+        # job , project = None
+        print(uuid)
+        project = None
+        job = Job.objects.filter(user=request.user,uuid=uuid).first()
+        if not job:
+            project = Project.objects.filter(user=request.user,uuid=uuid).first()
+            
         
-        #=> Pack the data.
+
+        print(job)
+        print(project)
+        print("="*100)
+
         data = self.zarinpal_send_data
         data["amount"] = self.amount
         data["metadata"]["email"] = request.user.email
-
+        print(data)
         #=> send information
         response = self.send_information(data=data)
-
+        print(response)
         #=> validate response
         if response['errors']:
             return JsonResponse({
@@ -52,14 +67,22 @@ class ZarinpalSendPayRequest(View, ZarinpalInfo):
             #=> Create a successful payment for the job.
             authority = response['data']['authority']
             success_url = self.zarinpal_api_startpay.format(authority=authority)
-            payment = PaymentJob(
-                user=request.user,
-                job=job,
-                price=self.amount,
-                authority=authority).save()
+            print(success_url)
+            if project:
+                payment = PaymentProject(
+                    user=request.user,
+                    project=project,
+                    price=self.amount,
+                    authority=authority).save()
+            else:
+                payment = PaymentJob(
+                    user=request.user,
+                    job=job,
+                    price=self.amount,
+                    authority=authority).save()
+
 
             return redirect(success_url)
-
 
     def send_information(self, data):
         """Send ``zarinpal`` information and return the response.
@@ -82,25 +105,46 @@ class ZarinpalSendPayRequest(View, ZarinpalInfo):
 class ZarinpalVerify(View, ZarinpalInfo):
     error_template_name = "payment/error.html"
     success_template_name = "payment/success.html"
+    
 
     def get(self , request):
         status = request.GET.get("Status").lower()
         authority = request.GET["Authority"]
-        payment = PaymentJob.objects.get(authority=authority)
+
+        payjob, payproj = None
+
+        payjob = PaymentJob.objects.filter(authority=authority).first()
+        if not payjob:
+            payproj = PaymentProject.objects.filter(authority=authority).first()
 
         if status == 'ok':
-            data = {
-                "merchant_id": self.zarinpal_merchant,
-                "amount": payment.price,
-                "authority": authority
-            }
+            if payjob:
+                data = {
+                    "merchant_id": self.zarinpal_merchant,
+                    "amount": payjob.price,
+                    "authority": authority
+                }
+            else:
+                data = {
+                    "merchant_id": self.zarinpal_merchant,
+                    "amount": payproj.price,
+                    "authority": authority
+                }
+
+
+
+
             response = requests.post(
                 url=self.zarinpal_api_verify,
                 data=json.dumps(data),
                 headers=self.zarinpal_headers
             ).json()
-            self.handel_verify_response(response=response, payment=payment, authority=authority)
 
+
+            if payjob:
+                self.handel_verify_response(request, response=response, payment=payjob, authority=authority)
+            else:
+                self.handel_verify_response(request,response=response, payment=payproj, authority=authority)
         else:
             context = {
                 "message": "تراکنش با خطا مواجه شده است",
@@ -110,7 +154,7 @@ class ZarinpalVerify(View, ZarinpalInfo):
                 template_name=self.error_template_name, context={"result": context})
 
 
-    def handel_verify_response(self, response: "json", payment: [PaymentAccount, PaymentJob], authority: str):
+    def handel_verify_response(self,request,  response: "json", payment, authority: str):
         """Handel the success verification responses and errors.
         
         Response Status Code:
@@ -132,8 +176,10 @@ class ZarinpalVerify(View, ZarinpalInfo):
                 template_name=self.error_template_name, context={"result": context})
 
         else:
+
             status_code = response['data']['code']
             if status_code == 100:
+
                 payment.payed = True
                 payment.job.payed = True
                 payment.job.save()

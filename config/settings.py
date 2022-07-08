@@ -12,7 +12,7 @@ DEBUG = os.environ.get("DEBUG") == "True"
 #=> Zarinpal
 MERCHANT = os.environ.get("MERCHANT")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS').split(' ')
+CSRF_TRUSTED_ORIGINS = ['https://3dd9-45-86-200-186.ngrok.io']#os.environ.get('CSRF_TRUSTED_ORIGINS').split(' ')
 
 
 

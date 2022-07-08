@@ -22,7 +22,7 @@ def Home(request):
     return render(request=request, template_name='job/home/index.html', context={"jobs": jobs})
 
 
-def add_job(request, success_url="job:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
+def add_job(request, success_url="account:manage-job", form_class=AddJobForm, template_name='job/add-job.html'):
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
@@ -76,7 +76,7 @@ def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.
     return render(request=request, template_name=template_name, context=context)
 
 
-def edit_job(request, id, success_url="job:manage-job", form_class=EditJobForm, template_name='job/edit-job.html'):
+def edit_job(request, id, success_url="account:manage-job", form_class=EditJobForm, template_name='job/edit-job.html'):
     job = get_object_or_404(klass=Job, user=request.user, id=id)
 
     if request.method == 'POST':
@@ -94,7 +94,7 @@ def edit_job(request, id, success_url="job:manage-job", form_class=EditJobForm, 
         return render(request=request, template_name=template_name, context=context)
 
 
-def delete_job(request, id, success_url="job:manage-job"):
+def delete_job(request, id, success_url="account:manage-job"):
     """
         Using the `GET` request method to delete the user job.
     """
