@@ -1,10 +1,12 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from freelancer.job.models import Category
 from django.utils.text import slugify
 from django_quill.fields import QuillField
-import uuid
+from freelancer.job.models import Category
+
 
 class Project(models.Model):
     User = get_user_model()
@@ -68,9 +70,10 @@ class Project(models.Model):
         default=False,
         verbose_name="پرداخت شده؟")
 
-
-    uuid = models.UUIDField(default = uuid.uuid4, editable=False, unique=True)
-    
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True)
 
     created = models.DateTimeField(auto_now=True)
 
@@ -89,8 +92,8 @@ class Project(models.Model):
     def get_tags(self):
         return " ,".join(self.tags)
 
-class ApplyProject(models.Model):
 
+class ApplyProject(models.Model):
     APPLY_STATUS_CHOICES = (
         ('accept', 'پذیرفته شد'),
         ('reject', 'رد شد'),

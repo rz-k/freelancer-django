@@ -2,18 +2,16 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from freelancer.project.models import Project
 
 from .forms import AddJobForm, ApplyForm, EditJobForm
-from .models import ApplyJob, Job
+from .models import Job
 
 
 def pagination(object_list, per_page: int, page_number: int):
     paginator = Paginator(object_list=object_list, per_page=per_page)
     jobs = paginator.get_page(number=page_number)
-
-    context = {
-        'jobs': jobs
-    }
+    context = {'jobs': jobs}
     return context
 
 
@@ -56,27 +54,33 @@ def add_job(request, success_url="account:manage-job", form_class=AddJobForm, te
     return render(request=request, template_name=template_name, context=context)
 
 
+def detail_job(request, id, redirect_url="job:home", form_class=ApplyForm, template_name='job/detail-job.html'):
+    """
+    Show Job Details.
+    """
+    if request.method == "GET":
+        job = get_object_or_404(klass=Job, id=id)
+        if not job.paid :
+            if request.user != job.user:
+                return redirect(redirect_url)
 
+        form = form_class()
+        is_employer = False
+        if request.user == job.user:
+            is_employer = True
 
-def detail_job(request, id, form_class=ApplyForm, template_name='job/detail-job.html'):
-    job = get_object_or_404(klass=Job, id=id)
-    if not job.paid :
-        if request.user != job.user:
-            return redirect('job:home')
+        context = {
+            "job": job,
+            "is_employer": is_employer,
+            "apply_form": form}
 
-    form = form_class()
-    is_employer = False
-    if request.user == job.user:
-        is_employer = True
-
-    context = {
-        "job": job,
-        "is_employer": is_employer,
-        "apply_form": form}
-    return render(request=request, template_name=template_name, context=context)
+        return render(request=request, template_name=template_name, context=context)
 
 
 def edit_job(request, id, success_url="account:manage-job", form_class=EditJobForm, template_name='job/edit-job.html'):
+    """
+    Update User job.
+    """
     job = get_object_or_404(klass=Job, user=request.user, id=id)
 
     if request.method == 'POST':
@@ -85,13 +89,11 @@ def edit_job(request, id, success_url="account:manage-job", form_class=EditJobFo
             form.save()
             return redirect(success_url)
 
-        context = {'forms': form}
-        return render(request=request, template_name=template_name, context=context)
+        return render(request=request, template_name=template_name, context={'forms': form})
 
     else:
         form = form_class(instance=job)
-        context = {'forms': form}
-        return render(request=request, template_name=template_name, context=context)
+        return render(request=request, template_name=template_name, context={'forms': form})
 
 
 def delete_job(request, id, success_url="account:manage-job"):
@@ -99,8 +101,7 @@ def delete_job(request, id, success_url="account:manage-job"):
         Using the `GET` request method to delete the user job.
     """
     if request.method == "GET":
-        job = get_object_or_404(klass=Job, user=request.user, id=id).delete()
-
+        get_object_or_404(klass=Job, user=request.user, id=id).delete()
         return JsonResponse({
             "delete-job": True,
         })
@@ -129,5 +130,4 @@ def apply_to(request, id, next_url="job:home", success_url="job:detail-job", for
         return redirect(success_url, job.id)
     else:
         form = form_class()
-        context = {"apply_form": form}
-        return render(request=request, template_name=template_name, context=context)
+        return render(request=request, template_name=template_name, context={"apply_form": form})

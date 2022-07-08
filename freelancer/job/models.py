@@ -1,9 +1,11 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.text import slugify
 from django_quill.fields import QuillField
-import uuid
+
 
 def image_job_directory_path(instance, filename: str) -> "File Path":
     """
@@ -62,7 +64,7 @@ class Job(models.Model):
         ('soldier','در حال انجام'),
         ('exempt','معافیت'),
         ('included','مشمول'),
-        ('no_matter','مهم نیست'),
+        ('no_matter','مهم نیست')
     )
 
     EDUCATIONAL_LEVEL_CHOICES  = (
@@ -70,14 +72,13 @@ class Job(models.Model):
         ('diploma','دیپلم'),
         ('lisanse','لیسانس'),
         ('mastersdegree','فوق لیسانس'),
-        ('phd','دکترا و بالاتر'),
+        ('phd','دکترا و بالاتر')
     )
 
     GENDER_CHOICES  = (
         ('no_matter','مهم نیست'),
         ('man','اقا'),
-        ('femail','خانوم'),
-
+        ('femail','خانوم')
     )
 
     user = models.ForeignKey(
@@ -151,17 +152,20 @@ class Job(models.Model):
     gender = models.CharField(
         max_length=30,
         choices=GENDER_CHOICES,
-        verbose_name='جنسیت')
+        default="no_matter",
+        verbose_name="جنسیت")
 
     military_status = models.CharField(
         max_length=30,
         choices=MILITARY_SERVICE_STATUS_CHOICES,
-        verbose_name='نظام وظیفه')
+        default="no_matter",
+        verbose_name="نظام وظیفه")
 
     educational_level = models.CharField(
         max_length=30,
         choices=EDUCATIONAL_LEVEL_CHOICES,
-        verbose_name='مدرک تحصیلی') 
+        default="no_matter",
+        verbose_name="مدرک تحصیلی")
 
     status = models.BooleanField(
         default=False,
@@ -183,7 +187,10 @@ class Job(models.Model):
         default=False,
         verbose_name="پرداخت شده؟")
 
-    uuid = models.UUIDField(default = uuid.uuid4, editable=False, unique=True)
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True)
 
     created = models.DateTimeField(auto_now=True)
 
@@ -191,13 +198,14 @@ class Job(models.Model):
     def __str__(self) -> str:
         return self.title
 
+
     def get_tags(self):
         return " ,".join(self.tags)
 
 
     def save(self, *args, **kwargs):
         """
-            Create a new job with a 'Persian' dynamic slug.
+        Create a new job with a 'Persian' dynamic slug.
         """
         self.slug = slugify(value=self.title, allow_unicode=True)
         super().save(*args, **kwargs)
