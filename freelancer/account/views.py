@@ -1,15 +1,15 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.shortcuts import get_object_or_404, redirect, render
-from django.core.paginator import Paginator
-from .forms import UserLoginForm, UserRegisterForm
-from freelancer.job.models import ApplyJob, Job
-from freelancer.project.models import Project
-from django.db.models import Count
-from django.contrib.auth import get_user_model
-from itertools import chain 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, redirect, render
+from freelancer.job.models import Job
+from freelancer.project.models import Project
+from freelancer.account.models import Profile
 
+from .forms import UserLoginForm, UserRegisterForm, EditProfileForm
 
 
 def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
@@ -121,26 +121,39 @@ def logout_user(request):
 
 
 def pagination(object_list, per_page: int, page_number: int):
-    paginator = Paginator(object_list=object_list, per_page=per_page)
-    candid = paginator.get_page(number=page_number)
+    """
+    Determine how many jobs will be displayed per page.
 
-    context = {
-        'obj_list': candid
-    }
+    Args:
+        object_list (Job): Job QuerySet.
+        per_page (int): Number of jobs per page.
+        page_number (int): page number(page=1, page=2, etc...)
+
+    Returns:
+        list of jobs.
+    """
+    paginator = Paginator(object_list=object_list, per_page=per_page)
+    jobs = paginator.get_page(number=page_number)
+
+    context = {'obj_list': jobs}
     return context
 
 
 def dashboard(request, template_name='account/dashboard/dashboard.html'):
+    """ Not completed """
     return render(request=request, template_name=template_name)
 
 
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
+    """ Not completed """
     page_number = request.GET.get('page')
     applays = Apply.objects.filter(job__user=request.user)
     applays = pagination(applays, 10, page_number)
     return render(request, template_name=template_name, context=applays)
 
+
 def manage_applay_send(request, template_name='account/dashboard/manage-applay-send.html'):
+    """ Not completed """
     page_number = request.GET.get('page')
     applays = Apply.objects.filter(user=request.user)
     applays = pagination(applays, 10, page_number)
@@ -148,30 +161,56 @@ def manage_applay_send(request, template_name='account/dashboard/manage-applay-s
 
 
 def candidate_profile(request, username, template_name='account/dashboard/candidate-profile.html'):
+    """ Not completed """
     user = get_object_or_404(get_user_model(), username=username)
-    context = {
-        'user_prof':user
-    }
+    context = {'user_prof':user}
     return render(request, template_name=template_name, context=context)
 
-def user_messages(request, template_name='account/dashboard/user-messages.html'):    
-    return render(request, template_name=template_name)
 
-
-def edit_profile(request, template_name='account/dashboard/edit-profile.html'):
+def user_messages(request, template_name='account/dashboard/user-messages.html'):
+    """ Not completed """
     return render(request, template_name=template_name)
 
 
 @login_required
-def manage_job(request, template_name='account/dashboard/manage-job.html'):
-    page_number = request.GET.get('page')
-    jobs = Job.objects.filter(
-        user=request.user
-            ).order_by("-created")
-    projects = Project.objects.filter(
-        user=request.user
-            ).order_by("-created")
+def edit_profile(request, success_url="account:dashboard", form_class=EditProfileForm, template_name='account/dashboard/edit-profile.html'):
+    """
+    Update user profile.
+    """
+    profile = get_object_or_404(klass=Profile, user=request.user)
 
-    combined_list = list(chain(jobs,projects))
-    context = pagination(object_list=combined_list, per_page=5, page_number=page_number)
+    #=> Add existing values
+    initial_form_data = {
+        "first_name": profile.user.first_name,
+        "last_name": profile.user.last_name,
+        "bio": profile.bio,
+        "skills": profile.skills,
+        "avatar": profile.avatar}
+
+    if request.method == "POST":
+        form = form_class(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save(user_id=request.user.id, profile_model=Profile)
+            messages.success(request=request, message="پروفایل شما با موفقیت اپدیت شد.")
+            return redirect(success_url)
+    else:
+        form = form_class(initial=initial_form_data)
+        return render(request=request, template_name=template_name, context={'forms': form})
+
+
+@login_required
+def manage_job(request, template_name='account/dashboard/manage-job.html'):
+    """
+    Show a list of available user jobs (Project OR Corporate job).
+    """
+    page_number = request.GET.get('page')
+
+    jobs = Job.objects.filter(
+        user=request.user).order_by("-created")
+
+    projects = Project.objects.filter(
+        user=request.user).order_by("-created")
+
+    combine_querysets = list(chain(jobs, projects))
+    context = pagination(object_list=combine_querysets, per_page=5, page_number=page_number)
     return render(request=request, template_name=template_name, context=context)
