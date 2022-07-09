@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from freelancer.job.models import Job,ApplyJob
+from freelancer.job.models import Job, ApplyJob
 from freelancer.project.models import Project, ApplyProject
 from freelancer.account.models import Profile
 
@@ -178,7 +178,8 @@ def user_messages(request, template_name='account/dashboard/user-messages.html')
 
 
 @login_required
-def edit_profile(request, success_url="account:dashboard", form_class=EditProfileForm, template_name='account/dashboard/edit-profile.html'):
+def edit_profile(request, success_url="account:dashboard", form_class=EditProfileForm,
+    template_name='account/dashboard/edit-profile.html'):
     """
     Update user profile.
     """
@@ -193,7 +194,7 @@ def edit_profile(request, success_url="account:dashboard", form_class=EditProfil
         "avatar": profile.avatar}
 
     if request.method == "POST":
-        form = form_class(data=request.POST, files=request.FILES)
+        form = form_class(data=request.POST, files=request.FILES, initial=initial_form_data)
         if form.is_valid():
             form.save(user_id=request.user.id, profile_model=Profile)
             messages.success(request=request, message="پروفایل شما با موفقیت اپدیت شد.")
