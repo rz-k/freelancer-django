@@ -1,174 +1,267 @@
 {% extends 'base/base_dashboard.html' %}
 {% load static %}
-{% block content %}
 
+{% block custom_tag %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/update-profile.css' %}">
+{% endblock custom_tag %}
+
+
+{% block content %}
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
-    <div class="content-area5">
-        <div class="dashboard-content">
-            <div class="dashboard-header clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6"><h4>Edit Profile</h4></div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="breadcrumb-nav">
-                            <ul>
-                                <li>
-                                    <a href="index.html">Index</a>
-                                </li>
-                                <li>
-                                    <a href="dashboard.html">Dashboard</a>
-                                </li>
-                                <li class="active">Edit Profile</li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="content-area5 dashboard-content">
+        <div class="dashboard-header clearfix">
+            <div class="row" id="breadcrumb-head">
+                <div class="col-sm-12 col-md-6" id="breadcrumb-title">
+                    <h4>ادیت پروفایل کاربری</h4>
                 </div>
-            </div>
-            <div class="dashboard-list">
-                <h3 class="heading">Basic Info</h3>
-                <div class="dashboard-message contact-2 bdr clearfix">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3">
-                            <!-- Edit profile photo -->
-                            <div class="edit-profile-photo">
-                                <img src="img/company-logo/logo-4.png" alt="company-logo" class="img-fluid">
-                                <div class="change-photo-btn">
-                                    <div class="photoUpload">
-                                        <span><i class="fa fa-upload"></i></span>
-                                        <input type="file" class="upload">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                            <form action="#" method="GET" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group name">
-                                            <label>Company Name</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Company Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group name">
-                                            <label>Username</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group subject">
-                                            <label>Phone</label>
-                                            <input type="text" name="phone" class="form-control" placeholder="Phone">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group number">
-                                            <label>Email</label>
-                                            <input type="email" name="email" class="form-control" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group email">
-                                            <label>Address</label>
-                                            <input type="text" name="title" class="form-control" placeholder="Address">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group email">
-                                            <label>Category</label>
-                                            <input type="text" name="title" class="form-control" placeholder="Category">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <div class="form-group mb-0 message">
-                                            <label>About Us</label>
-                                            <textarea class="form-control" name="message" placeholder="Write"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="dashboard-list">
-                        <h3 class="heading">Change Password</h3>
-                        <div class="dashboard-message contact-2">
-                            <form action="#" method="GET" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group name">
-                                            <label>Current Password</label>
-                                            <input type="password" name="current-password" class="form-control" placeholder="Current Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group email">
-                                            <label>New Password</label>
-                                            <input type="password" name="new-password" class="form-control" placeholder="New Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group subject">
-                                            <label>Confirm New Password</label>
-                                            <input type="password" name="confirm-new-password" class="form-control" placeholder="Confirm New Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="send-btn">
-                                            <button type="submit" class="btn btn-md button-theme">Change Password</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="dashboard-list">
-                        <h3 class="heading">Socials</h3>
-                        <div class="dashboard-message contact-2">
-                            <form action="#" method="GET" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group name">
-                                            <label>Facebook</label>
-                                            <input type="text" name="facebook" class="form-control" placeholder="https://www.facebook.com/">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group email">
-                                            <label>Twitter</label>
-                                            <input type="text" name="twitter" class="form-control" placeholder="https://twitter.com/">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group subject">
-                                            <label>Vkontakte</label>
-                                            <input type="text" name="vkontakte" class="form-control" placeholder="vk.com">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group number">
-                                            <label>Whatsapp</label>
-                                            <input type="email" name="whatsapp" class="form-control" placeholder="https://www.whatsapp.com/">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="send-btn">
-                                            <button type="submit" class="btn btn-md button-theme">Send Changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                <div class="col-sm-12 col-md-6" id="breadcrumb-items">
+                    <div class="breadcrumb-nav" dir="ltr">
+                        <ul>
+                            {{get_breadcrumb}}
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="sub-banner-2 text-center">© 2019 Theme Vessel. Trademarks and brands are the property of their respective owners.</p>
+        <div class="submit-address dashboard-list">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="search-contents-sidebar">
+                    <div class="row pad-20">
+                        <div class="profile-pic-wrapper">
+                            <div class="pic-holder">
+                                <!-- uploaded pic shown here -->
+                                {% if forms.initial.avatar %}
+                                    <img id="profilePic" class="pic" src="{{forms.initial.avatar.url}}">
+                                {% else %}
+                                    <img id="profilePic" class="pic" src="{{ user.get_avatar }}" alt="avatar">
+                                {% endif %}
+                                {{forms.avatar}}
+                                <label for="id_avatar" class="upload-file-block">
+                                    <div class="text-center">
+                                    <div class="mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="26px">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="text-uppercase">
+                                        تغیر <br /> عکس پروفایل
+                                    </div>
+                                    </div>
+                              </label>
+                            </div>
+                            </hr>
+                            <p class="text-info text-center small">برای اپلود روی عکس کلیک کنید</p>
+                        </div>
+                        {% for profile_field in forms.visible_fields %}
+                            {% if profile_field.auto_id != "id_avatar"%}
+                                <div class="col-lg-5 col-md-6 col-sm-12 job-filds-head mt-5 mr-5 ms-5">
+                                    <div class="form-group" id="label">
+                                        {% if profile_field.auto_id == "id_skills" %}
+                                            {{profile_field.label_tag|cut:profile_field.label }}
+                                            <p id="max-len-tag-error">طول تگ شما نباید طولانی باشد.</p>
+                                            <p id="duplicate-tag-error">این تگ تکراری میباشد.</p>
+                                            <p id="max-tag-error">بیشتر از 4 تگ نمیتوانید وارد کنید</p>
+                                        {% else %}
+                                            {{profile_field.label_tag}}
+                                        {% endif %}
+                                        {{profile_field}}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                            <div class="col col-sm-12 text-right mt-5">
+                            <button type="submit" class="btn-update-profile" name="send" style="letter-spacing:0">
+                                ذخیره تغییرات
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+<script>
+    // upload profile image
+    var loadImgFile = function (event) {
+        var image = document.getElementById("profilePic");
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    (function(){
+        // Plugin Constructor
+        var TagsInput = function(opts){
+            this.options = Object.assign(TagsInput.defaults , opts);
+            this.init();
+        }
 
+        // Initialize the plugin
+        TagsInput.prototype.init = function(opts){
+            this.options = opts ? Object.assign(this.options, opts) : this.options;
+
+            if(this.initialized)
+                this.destroy();
+
+            if(!(this.orignal_input = document.getElementById(this.options.selector)) ){
+                console.error("tags-input couldn't find an element with the specified ID");
+                return this;
+            }
+
+            this.arr = [];
+            this.wrapper = document.createElement('div');
+            this.input = document.createElement('input');
+            init(this);
+            initEvents(this);
+
+            this.initialized =  true;
+            return this;
+        }
+
+        // Add Tags
+        TagsInput.prototype.addTag = function(string){
+
+            if(this.anyErrors(string))
+                return ;
+
+            this.arr.push(string);
+            var tagInput = this;
+
+            var tag = document.createElement('span');
+            tag.className = this.options.tagClass;
+            tag.innerText = string;
+
+            var closeIcon = document.createElement('a');
+            closeIcon.innerHTML = '&times;';
+
+            // delete the tag when icon is clicked
+            closeIcon.addEventListener('click' , function(e){
+                e.preventDefault();
+                var tag = this.parentNode;
+
+                for(var i =0 ;i < tagInput.wrapper.childNodes.length ; i++){
+                    if(tagInput.wrapper.childNodes[i] == tag)
+                        tagInput.deleteTag(tag , i);
+                }
+            })
+
+            tag.appendChild(closeIcon);
+            this.wrapper.insertBefore(tag , this.input);
+            this.orignal_input.value = this.arr.join(',');
+            return this;
+        }
+
+        // Delete Tags
+        TagsInput.prototype.deleteTag = function(tag , i){
+            tag.remove();
+            this.arr.splice( i , 1);
+            this.orignal_input.value =  this.arr.join(',');
+            return this;
+        }
+
+        // Make sure input string have no error with the plugin
+        TagsInput.prototype.anyErrors = function(string){
+            if( this.options.max != null && this.arr.length >= this.options.max ){
+                var tag = document.getElementById("max-tag-error");
+                tag.style.display="block";
+                setTimeout(function(){tag.style.display="none";}, 3200);
+                return true;
+            }
+
+            if( string.length >= 15 ){
+                var tag = document.getElementById("max-len-tag-error");
+                tag.style.display="block";
+                setTimeout(function(){tag.style.display="none";}, 3200);
+                return true;
+            }
+
+            if(!this.options.duplicate && this.arr.indexOf(string) != -1 ){
+                var tag = document.getElementById("duplicate-tag-error");
+                tag.style.display="block";
+                setTimeout(function(){tag.style.display="none";}, 3200);
+                return true;
+            }
+
+            return false;
+        }
+
+        // Add tags programmatically
+        TagsInput.prototype.addData = function(array){
+            var plugin = this;
+
+            array.forEach(function(string){
+                plugin.addTag(string);
+            })
+            return this;
+        }
+
+        // Get the Input String
+        TagsInput.prototype.getInputString = function(){
+            return this.arr.join(',');
+        }
+
+        // destroy the plugin
+        TagsInput.prototype.destroy = function(){
+            this.orignal_input.removeAttribute('hidden');
+
+            delete this.orignal_input;
+            var self = this;
+
+            Object.keys(this).forEach(function(key){
+                if(self[key] instanceof HTMLElement)
+                    self[key].remove();
+
+                if(key != 'options')
+                    delete self[key];
+            });
+
+            this.initialized = false;
+        }
+
+        // Private function to initialize the tag input plugin
+        function init(tags){
+            tags.wrapper.append(tags.input);
+            tags.wrapper.classList.add(tags.options.wrapperClass);
+            tags.orignal_input.setAttribute('hidden' , 'true');
+            tags.orignal_input.parentNode.insertBefore(tags.wrapper , tags.orignal_input);
+        }
+
+        // initialize the Events
+        function initEvents(tags){
+            tags.wrapper.addEventListener('click' ,function(){
+                console.log("dsad");
+                tags.input.focus();
+            });
+
+            tags.input.addEventListener('keydown' , function(e){
+                var str = tags.input.value.trim();
+                if( !!(~[9 , 13, 188].indexOf( e.keyCode )) && e.key != "و")
+                {
+                    e.preventDefault();
+                    tags.input.value = "";
+                    if(str != "")
+                        tags.addTag(str);
+                }
+            });
+        }
+
+        // Set All the Default Values
+        TagsInput.defaults = {
+            selector : '',
+            wrapperClass : 'tags-input-wrapper',
+            tagClass : 'tag',
+            max : 10,
+            duplicate: false
+        }
+
+        window.TagsInput = TagsInput;
+
+    })();
+    var tagInput1 = new TagsInput({
+        selector: 'id_skills',
+        duplicate : false,
+        max : 10
+    });
+    let available_tags = '{{forms.skills.value}}';
+    tagInput1.addData(available_tags.split(","))
+</script>
 {% endblock content %}
