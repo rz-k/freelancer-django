@@ -143,18 +143,21 @@ class EditProfileForm(forms.Form):
         forms.CharField(max_length=400),
         label_suffix="مهارت های شما(حد اکثر 10 مورد)")
 
-    avatar = forms.FileField(
+    avatar = forms.ImageField(
         label="عکس پروفایل",
         required=False,
-        allow_empty_file=True)
-
+        allow_empty_file=True,
+        widget=forms.FileInput(attrs={
+            "class":"uploadProfileInput",
+            "style":"opacity: 0;",
+            "onchange":"loadImgFile(event)",
+            "accept":"image/jpg,image/png,image/jpeg"}))
 
     def save(self, user_id, profile_model):
         """
         Update the user profile and User model.
         """
         data = self.cleaned_data
-
         user = get_user_model().objects.get(id=user_id)
         user.first_name=data['first_name']
         user.last_name=data['last_name']
