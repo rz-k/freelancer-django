@@ -11,7 +11,7 @@ def avatar_directory_path(instance, filename: str) -> "File Path":
         file_path: str
     """
     path = 'users/{0}/profile/{1}'
-    return path.format(instance.user.id, filename)
+    return path.format(instance.user.id, "avatar.jpg")
 
 
 class User(AbstractUser):
