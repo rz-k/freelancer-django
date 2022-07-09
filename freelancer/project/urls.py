@@ -8,4 +8,6 @@ urlpatterns = [
     path('edit/<int:id>', edit_project, name='edit-project'),
     path('visit/<int:id>', detail_project, name='detail-project'),
     path('delete/<int:id>', delete_project, name='delete-project'),
+    path('apply-to/<int:id>', apply_to, name='apply-to'),
+
 ]

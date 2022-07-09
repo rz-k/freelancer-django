@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from freelancer.job.models import Job
-from freelancer.project.models import Project
+from freelancer.job.models import Job,ApplyJob
+from freelancer.project.models import Project, ApplyProject
 from freelancer.account.models import Profile
 
 from .forms import UserLoginForm, UserRegisterForm, EditProfileForm
@@ -147,16 +147,21 @@ def dashboard(request, template_name='account/dashboard/dashboard.html'):
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
     """ Not completed """
     page_number = request.GET.get('page')
-    applays = Apply.objects.filter(job__user=request.user)
-    applays = pagination(applays, 10, page_number)
+    applay_job = ApplyJob.objects.filter(job__user=request.user)
+    applay_project = ApplyProject.objects.filter(project__user=request.user)
+    combine_querysets = list(chain(applay_job, applay_project))
+    applays = pagination(combine_querysets, 10, page_number)
     return render(request, template_name=template_name, context=applays)
 
 
 def manage_applay_send(request, template_name='account/dashboard/manage-applay-send.html'):
     """ Not completed """
     page_number = request.GET.get('page')
-    applays = Apply.objects.filter(user=request.user)
-    applays = pagination(applays, 10, page_number)
+
+    applay_job = ApplyJob.objects.filter(user=request.user)
+    applay_project = ApplyProject.objects.filter(user=request.user)
+    combine_querysets = list(chain(applay_job, applay_project))
+    applays = pagination(combine_querysets, 10, page_number)
     return render(request, template_name=template_name, context=applays)
 
 

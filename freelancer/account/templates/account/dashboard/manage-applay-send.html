@@ -28,31 +28,33 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>نام پروژه</th>
-                                <th>مبلغ</th>
-                                <th>تاریخ تحویل(روز)</th>
-                                <th>تاریخ درخواست</th>
+                                <th>عنوان</th>
+                                <th>تاریخ</th>
                                 <th>وضعیت درخواست</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for sender in obj_list %}
                                 <tr class="responsive-table">
-                                    <td>
-                                        <a href="{% url 'job:detail-job' sender.job.id %}">{{sender.job.title}}</a>
-                                    </td>
 
                                     <td>
-                                        {{ sender.bid_amount|intcomma:False}}
-                                    </td>
-                                    <td>
-                                        {{ sender.bid_date}} 
+                                        {% if sender.project.id %}
+                                            <a href="{% url 'project:detail-project' sender.project.id %}">{{sender.project.title}}</a>
+                                        {% else %}
+                                            <a href="{% url 'job:detail-job' sender.job.id %}">{{sender.job.title}}</a>
+                                        {% endif %}
                                     </td>
                                     <td>
                                         {{ sender.created|date:"H:m ,Y/m/d" }}
                                     </td>
                                     <td>
-                                        {{ sender.status}}
+                                        {% if sender.status == 'wait' %}
+                                            در حال انتظار
+                                        {% elif sender.status == 'reject'%}
+                                            رد شد
+                                        {% else%}
+                                            تایید شد
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

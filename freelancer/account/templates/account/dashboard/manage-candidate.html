@@ -28,22 +28,26 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>نام پروژه</th>
+                                <th>عنوان</th>
                                 <th>درخواست دهنده</th>
                                 <th>تاریخ</th>
-                                <th>مبلغ پیشنهادی (ریال)</th>
-                                <th>تاریخ تحویل(روز)</th>
+                                <th>وضعیت درخواست</th>
+                                <th>مشاهده</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for candid in obj_list %}
                                 <tr class="responsive-table">
                                     <td>
-                                        <a href="{% url 'job:detail-job' candid.job.id %}">{{candid.job.title}}</a>
+                                        {% if candid.project.id %}
+                                            <a href="{% url 'project:detail-project' candid.project.id %}">{{candid.project.title}}</a>
+                                        {% else %}
+                                            <a href="{% url 'job:detail-job' candid.job.id %}">{{candid.job.title}}</a>
+                                        {% endif %}
                                     </td>
 
                                     <td>
-                                        <a href="{% url 'account:candidate-profile' candid.user.username %}">{{ candid.user.username }}</a>
+                                        <a href="{% url 'account:candidate-profile' candid.user.username %}">{{candid.user.username}}</a>
                                     </td>
 
                                     <td>
@@ -51,11 +55,17 @@
                                     </td>
 
                                     <td>
-                                        {{ candid.bid_amount|intcomma:False}}
+                                        {% if candid.status == 'wait' %}
+                                            در حال انتظار
+                                        {% elif candid.status == 'reject'%}
+                                            رد شد
+                                        {% else%}
+                                            تایید شد
+                                        {% endif %}
                                     </td>
                                     
                                     <td>
-                                        {{ candid.bid_date}} 
+                                        <a href="#"> {% if candid.project %} مشاهده درخواست{% else %}دیدن رزومه{% endif %} <a>
                                     </td>
                                 </tr>
                             {% endfor %}

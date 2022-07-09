@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from .forms import AddProjectForm, EditProjectForm, ApplyProjectForm
-from .models import Project
+from .models import ApplyProject, Project
 from django.http import JsonResponse
-
+from django.contrib import messages
 
 
 
@@ -75,3 +75,29 @@ def delete_project(request, id, success_url="account:manage-job"):
             "delete-job": True,
         })
 
+
+def apply_to(request, id, next_url="job:home", success_url="job:detail-job", form_class=ApplyProjectForm, template_name='job/detail-job.html'):
+    project = get_object_or_404(klass=Project, id=id)
+
+    if request.method == "POST":
+        if request.user == project.user:
+            return redirect(next_url)
+
+        form = form_class(data=request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            apply = ApplyProject.objects.create(
+                user = request.user,
+                project=project,
+                description=cd['description'],
+                bid_amount=cd['bid_amount'],
+                bid_date=cd['bid_date']
+                )
+            messages.success(request=request, message="درخواست شما برای گرفتن این پروژه ارسال شد", extra_tags="success")
+            return redirect(next_url)
+
+        messages.error(request=request, message="لطفا مقادیر گفته شده را به درستی وارد نمایید.", extra_tags="danger")
+        return redirect(success_url, project.id)
+    else:
+        form = form_class()
+        return render(request=request, template_name=template_name, context={"apply_form": form})

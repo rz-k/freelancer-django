@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from freelancer.project.models import Project
 
 from .forms import AddJobForm, ApplyForm, EditJobForm
-from .models import Job
+from .models import Job, ApplyJob
 
 
 def pagination(object_list, per_page: int, page_number: int):
@@ -117,13 +117,11 @@ def apply_to(request, id, next_url="job:home", success_url="job:detail-job", for
         form = form_class(data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            apply = Apply.objects.create(
+            apply = ApplyJob.objects.create(
                 user = request.user,
                 job=job,
-                description=cd["description"],
-                bid_amount=cd["bid_amount"],
-                bid_date=cd["bid_date"])
-            messages.success(request=request, message="پیشنهاد شما با موفقیت ارسال شد.", extra_tags="success")
+                )
+            messages.success(request=request, message="رزومه شما برای شعل مورد نظر ارسال شد.", extra_tags="success")
             return redirect(next_url)
 
         messages.error(request=request, message="لطفا مقادیر گفته شده را به درستی وارد نمایید.", extra_tags="danger")
