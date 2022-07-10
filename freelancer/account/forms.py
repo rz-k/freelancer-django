@@ -121,12 +121,14 @@ class EditProfileForm(forms.Form):
     first_name = forms.CharField(
         label="اسم",
         max_length=70,
+        required=False,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"نام"}))
 
     last_name = forms.CharField(
         label="اسم خانوادگی",
+        required=False,
         max_length=70,
         widget=forms.TextInput(
             attrs={"class":"input-text",
@@ -135,12 +137,14 @@ class EditProfileForm(forms.Form):
     bio = forms.CharField(
         label="توضیحات پروفایل",
         max_length=200,
+        required=False,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"بیوگرافی شما، حد اکثر 100 کاراکتر"}))
 
     skills = SimpleArrayField(
-        forms.CharField(max_length=400),
+        forms.CharField(max_length=400, required=False),
+        required=False,
         label_suffix="مهارت های شما(حد اکثر 10 مورد)")
 
     avatar = forms.ImageField(
@@ -166,6 +170,8 @@ class EditProfileForm(forms.Form):
         profile_model(
             user=user,
             bio=data["bio"],
-            skills=data["skills"],
             avatar=data["avatar"]
         ).save()
+
+        user.user_cv.skills = data["skills"]
+        user.user_cv.save()
