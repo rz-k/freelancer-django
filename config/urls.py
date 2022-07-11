@@ -9,6 +9,7 @@ urlpatterns = [
     path('account/', include('freelancer.account.urls', namespace='account')),
     path('pay/', include('freelancer.payment.urls', namespace='pay')),
     path('project/', include('freelancer.project.urls', namespace='project')),
+    path('faq/', include('freelancer.faq.urls', namespace='faq')),
 ]
 
 if settings.DEBUG:
