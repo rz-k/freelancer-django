@@ -33,11 +33,11 @@ class CV(models.Model):
         on_delete=models.CASCADE,
         related_name="user_cv")
 
-    summary = models.TextField(
-        max_length=350,
+    title = models.CharField(
+        max_length=50,
         null=True,
         blank=True,
-        verbose_name="توصیف خود در چند خط")
+        verbose_name="عنوان و سمت")
 
     skills = ArrayField(
         models.CharField(

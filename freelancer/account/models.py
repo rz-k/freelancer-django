@@ -1,5 +1,4 @@
 from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
@@ -65,17 +64,6 @@ class Profile(models.Model):
     approved = models.BooleanField(
         default=False,
         verbose_name='کاربر تایید شده توسط سایت')
-
-    skills = ArrayField(
-        models.CharField(
-            max_length=50,
-            blank=True,
-            null=True),
-        blank=True,
-        null=True,
-        size=10,
-        verbose_name="مهارت های کاربر")
-
 
     def __str__(self):
         return self.user.username

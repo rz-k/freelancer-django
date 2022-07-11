@@ -190,7 +190,7 @@ def edit_profile(request, success_url="account:dashboard", form_class=EditProfil
         "first_name": profile.user.first_name,
         "last_name": profile.user.last_name,
         "bio": profile.bio,
-        "skills": profile.skills,
+        "skills": request.user.user_cv.skills,
         "avatar": profile.avatar}
 
     if request.method == "POST":
