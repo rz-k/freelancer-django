@@ -84,7 +84,7 @@ def register_user(request, next_url='account:dashboard', form_class=UserRegister
             user =  get_user_model().objects.create_user(
                 first_name=cd['first_name'],
                 last_name=cd['last_name'],
-                username=cd['username'],
+                username=cd['username'].lower(),
                 email=cd['email'],
                 password=cd['password'],
             )

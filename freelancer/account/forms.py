@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.forms import SimpleArrayField
+from django.contrib.auth.validators import UnicodeUsernameValidator
 
 
 class UserRegisterForm(forms.Form):
@@ -16,8 +17,8 @@ class UserRegisterForm(forms.Form):
             attrs={"class":"input-text",
                 "placeholder":"نام خانوادگی"}))
     
-    username = forms.CharField(
-        max_length=70,
+    username = forms.RegexField(r'^[A-Za-z][A-Za-z0-9_.]*$', 
+    max_length=70,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"نام کاربری"}))
@@ -53,11 +54,10 @@ class UserRegisterForm(forms.Form):
         """
         email = self.cleaned_data.get("email")    
         user = get_user_model().objects.filter(email=email)
-        
+
         if user.exists():
             raise forms.ValidationError("این ایمیل قبلا در سایت ثبت نام کرده است")
         return email
-    
     
     def clean_username(self) -> "username":
         """ 
@@ -69,11 +69,12 @@ class UserRegisterForm(forms.Form):
         Returns:
             username: new username.
         """
-        username = self.cleaned_data.get("username")
+        username = str(self.cleaned_data.get("username")).lower()
         user = get_user_model().objects.filter(username=username)
         if user.exists():
             raise forms.ValidationError("این یوزرنیم از قبل در سایت وجود دارد")
-        return username
+        
+        return username.lower()
     
     
     def clean_password(self) -> "password":
@@ -116,6 +117,9 @@ class UserLoginForm(forms.Form):
             attrs={"class":"input-text",
                 "placeholder":" رمز عبور"}))
 
+    def clean_username(self):
+        return str(self.cleaned_data.get("username")).lower()
+
 
 class EditProfileForm(forms.Form):
     first_name = forms.CharField(
@@ -135,6 +139,7 @@ class EditProfileForm(forms.Form):
     bio = forms.CharField(
         label="توضیحات پروفایل",
         max_length=200,
+        required=False,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"بیوگرافی شما، حد اکثر 100 کاراکتر"}))
