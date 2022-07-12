@@ -4,11 +4,8 @@
 {% load humanize %}
 
 {% block custom_tag %}
-
-    <!---Put in Body html-->
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/user-profile.css' %}">
 {% endblock custom_tag %}
-
 
 {% block content %}
 
@@ -24,349 +21,231 @@
         </div>
     </div>
 </div>
-<!-- Sub banner end -->
+
 <div class="candidate-section content-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-12">
-                <!-- job box start -->
-                <div class="job-box-2">
-                    <div class="company-logo">
-                        
-                        {% if user_prof.user_profile.avatar %}
-                            <img src="{{user_prof.user_profile.avatar.url}}" alt="avatar">
-                        {% else %}
-                            {%if user_prof.user_cv.gender == 'مرد' %}
-                                <img src="{% static 'img/avatar/m-avatar.png' %}" alt="avatar">
-                            {% elif user_prof.user_cv.gender == 'زن' %}
-                                <img src="{% static 'img/avatar/w-avatar.webp' %}" alt="avatar">
-                            {%else%}   
-                                <img src="{% static 'img/avatar/ng.png' %}" alt="avatar">
-                            {%endif%}
-                        {% endif %}
-                    </div>
-                    <div class="description">
-                        <h5 class="title"><a href="#">
-                            {{user_prof.first_name}} {{user_prof.last_name}}
-                             {% if user_prof.user_profile.approved %}
-                                کاربر مورد تایید سایت                             
-                            {% endif %}
-                            </a>
-                        </h5>
-                        <div class="candidate-listing-footer">
-                            <ul>
-                                <li><i class="flaticon-pin"></i> {{user_prof.user_cv.country}} - {{user_prof.user_cv.city}}  </li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="profile container">
+        <div class="employers-header">
+            <div class="inner-heading d-flex">
+                <div class="heading-image">
+                    <a href="#">
+                        <figure>
+                            <img alt="freelancer" src="{{user.user_profile.avatar.url}}">
+                        </figure>
+                    </a>
                 </div>
-
-                <hr class="hr-boder clearfix">
-                <!-- about me start -->
-                <div class="about-me mb-40">
-                    <h3 class="heading-2">درباره من </h3>
-                    <p>
-                        {% if  user_prof.user_profile.bio %}
-                            {{user_prof.user_profile.bio}}
-                        
-                        {% endif %} 
-                    </p>
-                </div>
-                <!-- Education start-->
-                <div class="education mb-50">
-                    <h4 class="heading-2">لیست مدارک</h4>
-
-                    <div class="education-box">
-                        <div class="icon">
-                            <i class="flaticon-mortarboard"></i>
-                        </div>
-                        {% for education in user_prof.user_cv.cv_education.all %}
-                            <div class="employer-info">
-                                <h5>{{ education.evidence }}</h5>
-                                <h6>از سال{{education.start_year}} تا {{education.end_year}}</h6>
-                                <p>
-                                    ادرس محل اخذ مدرک : {{education.location}}
-                                </p>
-                            </div>
-                            <hr>
-                        {% endfor %}
+                <div class="heading-main-info">
+                    <div class="approved-profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#308eff" viewBox="0 0 24 24" stroke="#bbebe0" stroke-width="1.3" width="36px">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <h4 class="head-profile-username">{{user.username}}</h4>
                     </div>
-
-                    
-                </div>
-                <!-- Work experiance start-->
-                <div class="work-experiance mb-50">
-                    <h3 class="heading-2">لیست شرکتهایی که در انها کار کرده</h3>
-                    <div class="education-box">
-                        <div class="icon">
-                            <i class="flaticon-work"></i>
-                        </div>
-
-                        {% for education in user_prof.user_cv.cv_experience.all %}
-                            <div class="employer-info">
-                                <h5>{{ education.position }}</h5>
-                                <h6>از سال{{education.start_year}} تا {{education.end_year}}</h6>
-                                <p>
-                                    {{education.location}}
-                                </p>
-                            </div>
-                            <hr>
-                        {% endfor %}
+                    <div class="head-info-profile">
+                        <span class="text-small mr-20">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="22px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            {{user.user_cv.country}}, {{user.user_cv.city}}
+                        </span>
+                        <span class="text-small mr-20">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="22px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            {{user.user_cv.title}}
+                        </span>
+                        <span class="text-small mr-20" style="gap: 5px">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="22px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                            <span class="ml-10 text-muted text-small">10</span>
+                        </span>
                     </div>
-                </div>
-                <div class="work-experiance mb-50">
-                    <h3 class="heading-2">مهارت ها</h3>
-                    <div class="education-box">
-                        <div class="icon">
-                            <i class="flaticon-work"></i>
-                        </div>
-
-                        {% for skill in user_prof.user_cv.skills %}
-                            <div class="employer-info">
-                                <h5>{{skill}}</h5>
-                            </div>
-                            <hr>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="work-experiance mb-50">
-                    <h3 class="heading-2">زبان ها</h3>
-                    <div class="education-box">
-                        <div class="icon">
-                            <i class="flaticon-work"></i>
-                        </div>
-
-                        {% for lang in user_prof.user_cv.languages %}
-                            <div class="employer-info">
-                                <h5>{{lang}}</h5>
-                            </div>
-                            <hr>
-                        {% endfor %}
-                    </div>
-                </div>
-                
-                <!-- Progressbar example start -->
-                <div class="progressbar-example mb-40">
-                    <h3 class="heading-2">Professional Skills</h3>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="progress-box">
-                                <p class="progress-title">Web Development</p>
-                                <p class="progress-size">80%</p>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="progress-box">
-                                <p class="progress-title">Consulting</p>
-                                <p class="progress-size">100%</p>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="progress-box">
-                                <p class="progress-title">Branding &amp; Identity</p>
-                                <p class="progress-size">70%</p>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="progress-box">
-                                <p class="progress-title">Graphic Design</p>
-                                <p class="progress-size">90%</p>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio start -->
-                <div class="portfolio">
-                    <h3 class="heading-2">Portfolio</h3>
-                    <div class="container">
-                        <div class="slick-slider-area">
-                            <div class="row slick-carousel slick-initialized slick-slider" data-slick="{&quot;slidesToShow&quot;: 3, &quot;responsive&quot;:[{&quot;breakpoint&quot;: 1024,&quot;settings&quot;:{&quot;slidesToShow&quot;: 3}}, {&quot;breakpoint&quot;: 768,&quot;settings&quot;:{&quot;slidesToShow&quot;: 2}}]}"><div class="slick-list draggable" style="padding: 0px;"><div class="slick-track" style="opacity: 1; width: 2928px; transform: translate3d(-732px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-2.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-2.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-3.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-3.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-1.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-1.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned slick-active" data-slick-index="-1" aria-hidden="false" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item clearfix" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-4.jpg" title="Portfolio" tabindex="0">
-                                            <img src="img/gallery/img-4.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-current slick-active slick-center" data-slick-index="0" aria-hidden="false" style="width: 244px;"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-2.jpg" title="Portfolio" tabindex="0">
-                                            <img src="img/gallery/img-2.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 244px;"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-3.jpg" title="Portfolio" tabindex="0">
-                                            <img src="img/gallery/img-3.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" style="width: 244px;"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-1.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-1.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide" data-slick-index="3" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item clearfix" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-4.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-4.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned slick-center" data-slick-index="4" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-2.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-2.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-3.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-3.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-1.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-1.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div><div class="slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style="width: 244px;" tabindex="-1"><div><div class="slick-slide-item clearfix" style="width: 100%; display: inline-block;">
-                                    <div class="portfolio-item">
-                                        <a href="img/gallery/img-4.jpg" title="Portfolio" tabindex="-1">
-                                            <img src="img/gallery/img-4.jpg" alt="gallery" class="img-fluid">
-                                        </a>
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-content-inner">
-                                                <p>Portfolio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></div></div></div></div></div>
-                            <div class="slick-prev slick-arrow-buton">
-                                <i class="fa fa-angle-left"></i>
-                            </div>
-                            <div class="slick-next slick-arrow-buton">
-                                <i class="fa fa-angle-right"></i>
-                            </div>
+                    <div class="profile-sub-header">
+                        <div class="head-profile-tags col-lg-8">
+                            {% for skill in user.user_cv.skills|slice:"4" %}
+                                <a href="#" class="btn btn-tags-sm">{{skill}}</a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="sidebar-right-2">
-                    <!-- Job overview start -->
-                    <div class="job-overview widget">
-                        <h3 class="sidebar-title">دیگر مشخصات</h3>
-                        <div class="s-border"></div>
-                        <ul>
-                            <li><i class="flaticon-pin"></i><h5>آدرس</h5><span>{{user_prof.user_cv.country}} - {{user_prof.user_cv.city}}</span></li>
-                            <li><i class="flaticon-woman"></i><h5>جنسیت</h5><span>{{user_prof.user_cv.gender}}</span></li>
-                            <li><i class="flaticon-woman"></i><h5>تاهل</h5><span>{{user_prof.user_cv.marital_status}}</span></li>
-                            <li><i class="flaticon-notepad"></i><h5>سال تولد</h5><span>{{user_prof.user_cv.birthday}}</span></li>
-                        </ul>
+            <a href="#" class="invitation">دعوت به همکاری</a>
+        </div>
+
+        <div class="sidebars">
+            <div class="sidebar-shadow">
+                <h5 class="font-bold text-right">اطلاعات حساب کاربری</h5>
+                <div class="sidebar-list-info mt-10">
+                    <ul>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3" width="30px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span class="text-description">پروژه های انجام شده</span>
+                            {% with project_done_count=user.user_project.count %}
+                            {% with job_done_count=user.user_job.count %}
+                                <strong class="small-heading">{{job_done_count|add:project_done_count}}</strong>
+                            {% endwith %}
+                            {% endwith %}
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3" width="30px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="text-description">تاریخ عضویت</span>
+                            <strong class="small-heading">{{user.date_joined}}</strong>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3" width="30px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="text-description">آدرس</span>
+                            <strong class="small-heading">{{user.user_cv.country}}, {{user.user_cv.city}}</strong>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3" width="30px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            <span class="text-description">جنسیت</span>
+                            <strong class="small-heading">{{user.user_cv.gender}}</strong>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3" width="30px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="text-description">وضعیت تاهل</span>
+                            <strong class="small-heading">{{user.user_cv.marital_status}}</strong>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3" width="30px">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-description">زبان ها</span>
+                            {% for lang in  user.user_cv.languages %}
+                                <strong class="small-heading">{{lang}}</strong>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="divider mt-3 mb-5"></div>
+                <div class="block-tags">
+                    {% for skill in user.user_cv.skills %}
+                        <a href="#" class="btn btn-tags-sm">{{skill}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="content-single">
+            <h4 class="mb-20">در باره من</h4>
+            <p>{{user.user_project.bio}}</p>
+            <div class="divider"></div>
+            <div class="time-line">
+                <div class="experience">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#4c79f9" stroke-width="1.3" width="36px">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <h4 class="mt-30 mb-30">تجربه های کاری</h4>
+                </div>
+                <div class="profile-work-experience row">
+                    <div class="work col-md-4 col-sm-6 col-12 mb-30">
+                        <strong class="text-md-bold">مدیر پروژه</strong>
+                        <span class="dis-block text-muted text-md-lh24">
+                            مشهد <br>
+                            Jan 2021 — Feb 2022
+                        </span>
                     </div>
-                    <div class="clearfix"></div>
-                    <!-- Quick contact start -->
-                    <div class="widget-5 contact-2 quick-contact">
-                        <h3 class="sidebar-title">Quick Contacts</h3>
-                        <div class="s-border"></div>
-                        <form action="#" method="GET" enctype="multipart/form-data">
-                            <div class="form-group name">
-                                <input type="text" name="name" class="form-control" placeholder="Name">
-                            </div>
-                            <div class="form-group email">
-                                <input type="email" name="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="form-group message">
-                                <textarea class="form-control" name="message" placeholder="Write message"></textarea>
-                            </div>
-                            <div class="send-btn">
-                                <button type="submit" class="btn btn-md button-theme">Send Message</button>
-                            </div>
-                        </form>
+                    <div class="work col-md-4 col-sm-6 col-12 mb-30">
+                        <strong class="text-md-bold">توسعه دهنده بک اند</strong>
+                        <span class="dis-block text-muted text-md-lh24">
+                            تهران، تهران <br>
+                            Marc 2021 — Present
+                        </span>
+                    </div>
+                    <div class="work col-md-4 col-sm-6 col-12 mb-30">
+                        <strong class="text-md-bold">توسعه دهنده بک اند</strong>
+                        <span class="dis-block text-muted text-md-lh24">
+                            شیراز <br>
+                            September 2021 — November 2021
+                        </span>
+                    </div>
+                    <div class="work col-md-4 col-sm-6 col-12 mb-30">
+                        <strong class="text-md-bold">تیم منیجر</strong>
+                        <span class="dis-block text-muted text-md-lh24">
+                            بوشهر <br>
+                            May 2021 — Present
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="educations">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#4c79f9" stroke-width="1.3" width="36px">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                </svg>
+                <h4 class="mt-30 mb-30">تحصیلات، آموزش ها، دوره ها</h4>
+            </div>
+            <div class="profile-educations row">
+                <div class="col-lg-6">
+                    <ul>
+                        <li>Cambridge University(2001-2004)</li>
+                        <li>Brads University(2004-2006)</li>
+                        <li>Cambridge University(2006-2010)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="skills">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#4c79f9" stroke-width="1.3" width="36px">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <h4>مهارتهای حرفه ای</h4>
+            </div>
+
+            <div class="block-progress-status">
+                <div class="item-progress">
+                    <div class="info-progress">
+                        <div class="progress">
+                            <div style="width: 90%" class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div class="title-progress"><strong class="text-md-bold">Figma</strong> (8.5/10)</div>
+                </div>
+                <div class="item-progress">
+                    <div class="title-progress"><strong class="text-md-bold">Sketch</strong> (8.5/10)</div>
+                    <div class="info-progress">
+                        <div class="progress">
+                            <div style="width: 60%" class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-progress">
+                    <div class="title-progress"><strong class="text-md-bold">After Effect</strong> (8.5/10)</div>
+                    <div class="info-progress">
+                        <div class="progress">
+                            <div style="width: 80%" class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-progress">
+                    <div class="title-progress"><strong class="text-md-bold">Photoshop</strong> (8.5/10)</div>
+                    <div class="info-progress">
+                        <div class="progress">
+                            <div style="width: 70%" class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-progress">
+                    <div class="title-progress"><strong class="text-md-bold">HTML &amp; CSS</strong> (8.5/10)</div>
+                    <div class="info-progress">
+                        <div class="progress">
+                            <div style="width: 40%" class="progress-bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
