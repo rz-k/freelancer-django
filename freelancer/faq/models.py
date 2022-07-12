@@ -3,20 +3,17 @@ from django_quill.fields import QuillField
 
 
 class Faq(models.Model):
-
     question = models.CharField(
-        max_length=100,   
-        verbose_name='سوال متداول'      
-    )
+        max_length=100,
+        verbose_name="متن سوال")
+
     answer = QuillField(
         max_length=20000,
-        verbose_name='جواب سوال متداول')
+        verbose_name="جواب سوال")
 
-    position = models.IntegerField(
+    position = models.PositiveSmallIntegerField(
         unique=True,
-        verbose_name='موقعیت سوال'
-    )
+        verbose_name="یک عدد صحیح برای مرتب کردن سوال در میان سایر سوالات")
 
     def __str__(self) -> str:
         return self.question
-
