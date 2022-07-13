@@ -3,6 +3,7 @@ from django.urls import reverse
 
 
 def get_breadcrumb(request):
+    # print(request.path)
     """
         Generate Breadcrumb(secondary navigation scheme).
     """
@@ -23,9 +24,10 @@ def get_breadcrumb(request):
             continue
 
         href = "/".join(url_path[:counter+1])
+        # print(url_path)
         if url_path[counter] == url_path[-1]:
             breadcrumb_html += f"""<li class="active"><em>{sub_path}</em></li>"""
         else:
             breadcrumb_html += f"""<a href='/{href}'>{sub_path}</a>""" + arrow_icon
-
+            # print(breadcrumb_html)
     return {"get_breadcrumb": mark_safe(breadcrumb_html)}

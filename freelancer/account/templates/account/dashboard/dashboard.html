@@ -5,11 +5,10 @@
 {% block content %}
     <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
         <div class="content-area5">
-            
             <div class="dashboard-content">
                 <div class="dashboard-header clearfix">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
+                    <div class="row" id="breadcrumb-head">
+                        <div class="col-sm-12 col-md-6" id="breadcrumb-title">
                             <h4>سلام, {{user.first_name}}</h4>
                         </div>
                         <div class="col-sm-12 col-md-6" id="breadcrumb-items">
@@ -21,7 +20,6 @@
                         </div>
                     </div>
                 </div>
-
                 {% if messages %}
                     {% for msg in messages %}
                     <div class="alert alert-success alert-2" role="alert" style="text-align: right">

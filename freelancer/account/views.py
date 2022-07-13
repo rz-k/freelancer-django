@@ -12,6 +12,11 @@ from freelancer.account.models import Profile
 from .forms import UserLoginForm, UserRegisterForm, EditProfileForm
 
 
+def Home(request):
+    jobs = Job.objects.all()[:4]
+    return render(request=request, template_name='account/home/index.html', context={"jobs": jobs})
+
+
 def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
     """
     Login user to the account
