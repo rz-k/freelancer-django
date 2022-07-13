@@ -12,29 +12,30 @@ class UserRegisterForm(forms.Form):
                 "placeholder":"نام"}))
 
     last_name = forms.CharField(
-        max_length=70,        
+        max_length=70,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"نام خانوادگی"}))
     
-    username = forms.RegexField(r'^[A-Za-z][A-Za-z0-9_.]*$', 
-    max_length=70,
+    username = forms.RegexField(
+        regex=r"^[A-Za-z][A-Za-z0-9_.]*$",
+        max_length=70,
         widget=forms.TextInput(
             attrs={"class":"input-text",
                 "placeholder":"نام کاربری"}))
-    
+
     email = forms.CharField(
         max_length=70,
         widget=forms.EmailInput(
             attrs={"class":"input-text",
                 "placeholder":"ایمیل"}))
-    
+
     password = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(
             attrs={"class":"input-text",
                 "placeholder":"رمز عبور"}))
-        
+
     confirm_password = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(
@@ -73,18 +74,18 @@ class UserRegisterForm(forms.Form):
         user = get_user_model().objects.filter(username=username)
         if user.exists():
             raise forms.ValidationError("این یوزرنیم از قبل در سایت وجود دارد")
-        
+
         return username.lower()
-    
-    
+
+
     def clean_password(self) -> "password":
         data = self.cleaned_data
         password = data.get("password")
 
         if len(password) < 4:
             raise forms.ValidationError("رمز عبور شما کوتاه میباشد، لطفا رمز عبور طولانی تری را وارد نمایید.")
-        
-        
+
+
     def clean_confirm_password(self) -> "password":
         """
         Check the first password and confirm password is the same or not.
@@ -94,7 +95,7 @@ class UserRegisterForm(forms.Form):
         """
         cd = self.cleaned_data
         password = cd.get('password')
-        confirm_password = cd.get('confirm_password')        
+        confirm_password = cd.get('confirm_password')
         
         if password and confirm_password and confirm_password != password:
             raise forms.ValidationError("دو پسورد وارد شده با هم مطابقت ندارد.")
@@ -109,7 +110,7 @@ class UserLoginForm(forms.Form):
         widget=forms.EmailInput(
             attrs={"placeholder":"ایمیل",
                 "class":"input-text"}))
-    
+
     password = forms.CharField(
         max_length=100,
         error_messages={"required": "لطفا مقدار خواسته شده برای فیلد زیر را وارد نمایید."},
