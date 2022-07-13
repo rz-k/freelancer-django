@@ -1,27 +1,16 @@
-<style>
-    .dashboard-inner > h4 {
-        padding: 25px 12px;
-    }
-    
-    .dashboard-inner {
-        text-align: right;
-    }
-    
-    .dashboard-inner > ul > li > a {
-        display: flex;
-        gap: 10px;
-        padding-top: 11px;
-        padding-bottom: 11px;        
-    }
-    
-</style>
+{% load static %}
+{% load active_menu %}
+
+{% block custom_tag %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
+{% endblock custom_tag%}
+
 <div class="col-lg-3 col-md-12 col-sm-12 col-pad" style="max-width: 45%;">
     <div class="dashboard-nav d-none d-xl-block d-lg-block">
         <div class="dashboard-inner">
             <h4>منوی اصلی</h4>
-
             <ul>
-                <li class="active">
+                <li class="{{request|is_active:'dashboard'}}">
                     <a href="{% url 'account:dashboard' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -29,16 +18,15 @@
                         داشبورد
                     </a>
                 </li>
-                <li class="">
-                    <a href="{% url 'job:add-job' %}">
+                <li class="{{request|is_active:'add'}}">
+                    <a href="" data-toggle="modal" data-target="#exampleModal">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                         </svg>
                         افزودن پروژه
                     </a>
                 </li>
-                
-                <li class="">
+                <li class="{{request|is_active:'manage-job'}}">
                     <a href="{% url 'account:manage-job' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -46,8 +34,7 @@
                         مدیریت پروژه ها
                     </a>
                 </li>
-                
-                <li class="">
+                <li class="{{request|is_active:'manage-applays'}}">
                     <a href="{% url 'account:manage-applays' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -55,17 +42,15 @@
                         مدیریت اپلای های ارسالی
                     </a>
                 </li>
-                
-                <li class="">
+                <li class="{{request|is_active:'manage-candidate'}}">
                     <a href="{% url 'account:manage-candidate' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">                            
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-                        مدیریت اپلای های دریافتی                        
+                        مدیریت اپلای های دریافتی
                     </a>
                 </lic>
-                
-                <li class="">
+                <li class="{{request|is_active:'messages'}}">
                     <a href="{% url 'account:messages' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">                            
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -77,8 +62,8 @@
             </ul>
             <h4>حساب کاربری</h4>
             <ul>
-                <li class="">
-                    <a href="{% url 'account:edit-profile' %}">
+                <li class="{{request|is_active:'edit-profile'}}">
+                    <a href="{% url 'dashboard:edit-profile' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
@@ -94,6 +79,36 @@
                     </a>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+<div class="modal-box">
+    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="modal-header">
+                    <h3 class="title">ایجاد پروژه جدید.</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="description">لطفا نوع پروژه ای که میخواید ایجاد نمایید را انتخاب کنید</p>
+                    <div class="d-flex justify-content-between modal-footer">
+                        <a href="{% url 'project:add-project' %}" class="btn btn-create-project">
+                            افزودن پروژه عادی
+                        </a>
+                        <a href="{% url 'job:add-job' %}" class="btn btn-create-job">
+                            افزدون پروژه شرکتی
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

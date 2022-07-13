@@ -1,0 +1,94 @@
+/* inner dashboard 
+***************************/
+.dashboard-inner > h4 {
+    padding: 25px 12px;
+}
+
+.dashboard-inner {
+    text-align: right;
+}
+
+.dashboard-inner > ul > li > a {
+    display: flex;
+    gap: 10px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
+
+
+/* Modal
+****************/
+.modal-box > .modal.fade > .modal-dialog > .modal-content > .icon-box > svg {
+    width: 120px;
+    stroke: #5f6bff;
+    stroke-width: 1.2;
+}
+
+.modal-box > .modal.fade > .modal-dialog > .modal-content {
+    margin-top: 180px;
+    margin-right: 70px;        
+}
+
+.modal-box > .modal.fade.show > .modal-dialog > .modal-content > .modal-header {
+    display: flex;
+    justify-content: center;
+    border: 0;
+    margin: 0 1rem 1rem;
+    padding: 0;
+}
+
+.modal-box > .modal.fade.show > .modal-dialog > .modal-content > .modal-header > .close {
+    color: #d1d1d1;
+    font-size: 33px;
+    font-weight: 500;
+    text-shadow: none;
+    line-height: 13px;
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+    left: auto;
+    right: 7px;
+    top: 11px;
+    z-index: 1;
+    transition: all 0.3s;
+}
+
+.modal-box > .modal.fade.show > .modal-dialog > .modal-content > .modal-header > .close:focus {
+    outline: none; 
+}
+
+.modal-box > .modal.fade.show > .modal-dialog > .modal-content > .modal-body > .title {
+    color: #626A81;
+    font-size: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0 0 30px;
+}
+
+.modal-box > .modal.fade.show > .modal-dialog > .modal-content > .modal-body > .description {
+    color: #8b8b8b;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    line-height: 25px;
+    margin: 0 0 30px;
+}
+
+.modal-box > .modal.fade.show > .modal-dialog > .modal-content > .modal-body >.modal-footer {
+    align-items: center;
+    padding: 1rem 0 0;
+    border-top: 0;
+}
+
+.btn-create-job, .btn-create-project {
+    color: #fff;
+    background-color: #ff975a;
+    border-color: #ffb386;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.btn-create-job:hover, .btn-create-project:hover {
+    border-color: #9ea5ff;
+    background-color: #5f6bff;
+    color: #ffffff
+}
