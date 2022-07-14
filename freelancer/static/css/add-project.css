@@ -1,0 +1,62 @@
+.radio-check {
+    appearance: none;
+    width: 1.3em;
+    height: 1.3em;
+    background: #ddd;
+    border-radius: 5px;
+    margin: 5px;
+    margin-top: -1px;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    outline: 0;
+    transition: content 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
+.radio-check:checked {
+    background: #636dff;
+}
+
+.radio-check:checked::after {
+    content: '\2713';
+    left: 50%;
+    top: 50%;
+    font-size: 0;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+    animation: checkAppear 0.4s ease-in-out forwards;
+}
+
+.radio-check::after {
+    content: '';
+    color: white;
+    font-size: 100%;
+}
+
+
+.add-job-btn {
+    letter-spacing:0;
+    color: #ffffff;
+    background-color: #9777fa;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 45px;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+
+.add-job-btn {
+    color: #ffffff;
+    background-color: #6d4bd3;
+}
+
+@keyframes checkAppear {
+	50% { font-size: 2em; }
+	100% { font-size: 1.15em; }
+}

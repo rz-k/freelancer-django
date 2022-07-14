@@ -3,8 +3,10 @@
 {% load static %}
 
 {% block custom_tag %}
-{{ forms.media }}
+    {{ forms.media }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-project.css' %}">
 {% endblock custom_tag %}
+
 
 {% block content %}
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
@@ -33,16 +35,16 @@
                             <div class="col-lg-5 col-md-6 col-sm-12 job-filds-head">
                                 <div class="form-group" id="label">
                                     {% if job_field.auto_id == "id_tags" %}
-                                        {{job_field.label_tag|cut:job_field.label }}
                                         <p id="max-len-tag-error">طول تگ شما نباید طولانی باشد.</p>
                                         <p id="duplicate-tag-error">این تگ تکراری میباشد.</p>
                                         <p id="max-tag-error">بیشتر از 5 تگ نمیتوانید وارد کنید</p>
-                                    
-                                    {% elif job_field.auto_id != "id_description"%}
+                                    {% endif %}
+
+                                    {% if job_field.auto_id != "id_description"%}
+                                        {{job_field.label_tag|cut:job_field.label}}
                                         {% if job_field.errors %}
                                             <p id="other-job-field-error">{{job_field.errors.as_text|cut:"*"}}</p>
                                         {% endif %}
-                                        {{job_field.label_tag}}
                                     {% endif %}
 
                                     {% if job_field.auto_id != "id_description" %}
@@ -56,7 +58,7 @@
                                         {% if job_field.errors %}
                                             <p id="other-job-field-error">{{job_field.errors.as_text|cut:"*"}}</p>
                                         {% endif %}
-                                        {{job_field.label_tag}}
+                                        {{job_field.label_tag|cut:job_field.label}}
                                         {{job_field|safe}}
                                     </div>
                                 </div>
@@ -64,7 +66,7 @@
                         {% endfor %}
                         <div style="width:-webkit-fill-available">
                             <div class="col-lg-1 mt-2">
-                                <button type="submit" class="btn btn-md button-theme" name="send" style="letter-spacing:0">
+                                <button type="submit" class="btn add-job-btn" name="send" style="letter-spacing:0">
                                     اضافه کردن پروژه
                                 </button>
                             </div>
