@@ -1,15 +1,16 @@
-/* Job Box Header 
+/* project Box Header 
 *********************/
-.job-header-detail {
+.project-header-detail {
     display:flex;
     gap: 20px;
 }
 
-.job-header-detail > li{
+.project-header-detail > li{
     display:flex;
+    align-items: center;
     gap: 5px;
     margin: 5px 0 0 0;
-    font-size: 14px;
+    font-size: 15px;
     color: #88929b;
 }
 
@@ -31,9 +32,9 @@
 
 
 
-/* Related Job Box Header
+/* Related project Box Header
 ***************************/
-.job-box{
+.project-box{
     border: 1px solid rgba(6, 18, 36, 0.1);
     padding: 26px 23px;
     border-radius: 10px;
@@ -41,22 +42,22 @@
     margin-bottom: 30px;
 }
 
-.job-box .company-logo{
+.project-box .company-logo{
     width: 90px;
 }
 
-.job-box .company-logo img{
+.project-box .company-logo img{
     width: 100%;
     border-radius: 50% !important;
 }
 
-.job-box .apply-button{    
+.project-box .apply-button{    
     margin-top: 0;
     color: #9a9898;
     border: solid 1px #9a9898;
 }
 
-.job-box .apply-button:hover{
+.project-box .apply-button:hover{
     color: #9777fa !important;
     border: solid 1px #9777fa !important;
 }
@@ -94,7 +95,7 @@
     transition: 0.2s;
 }
 
-.single-apply-jobs {
+.single-apply-projects {
     display: flex;
     width: 100%;
     padding: 47px 0px;
@@ -106,9 +107,9 @@
 
 
 
-/* Job Description p tag 
+/* project Description p tag 
 *************************/
-.job-description > p {
+.project-description > p {
     font-size: 16px;
     line-height: 200%;
     color: #37404e;
@@ -117,54 +118,59 @@
 
 
 
-/* Job  Description Body
+/* project  Description Body
 **************************/
-.job-description {
+.project-description {
     text-align: right;
+    min-height: 200px;
 }
 
 
 
-/* Related Job
+/* Related project
 ********************/
-.related-job-header {
+.related-project-header {
     display: grid;
     grid-template-columns: 100px 1fr 1fr;
     grid-template-rows: 60px 1fr 1fr;
-
 }
 
-.related-job-header > .related-job-top-header,
-.related-job-header > .related-job-deadline,
-.related-job-header > .tag-list {
+.header-item-value {
+    font-size: 16px;
+    color: #9777fa;
+}
+
+.related-project-header > .related-project-top-header,
+.related-project-header > .related-project-deadline,
+.related-project-header > .tag-list {
     grid-column: 2/4;
 }
 
-.related-job-header > .apply-button {
+.related-project-header > .apply-button {
     grid-column: 4/5;
     grid-row: 3/2;
 }
 
-.related-job-require {
+.related-project-require {
     display:flex;
     gap: 10px ;
 }
 
-.related-Jobs {
+.related-projects {
     padding: 26px 23px;
     border-radius: 10px;
     background-color: #ffffff;
     margin-bottom: 30px;
 }
 
-.related-job-description{
+.related-project-description{
     display: flex;
     justify-content: space-between;
     margin-right: 100px;
 
 }
 
-.related-job-summary {
+.related-project-summary {
     color: #727272;
     display: inline-block;
     width: 100%;
@@ -174,9 +180,9 @@
 
 
 
-/* Job Overview 
+/* project Overview 
 *****************/
-.job-overview {
+.project-overview {
     text-align: right;
     border: 1px solid rgba(6, 18, 36, 0.1);
     border-radius: 10px;
@@ -187,13 +193,13 @@
     padding-bottom: 80px;
 }
 
-.job-overview > ul {
+.project-overview > ul {
     display: flex;
     flex-direction: column;
     gap: 20px
 }
 
-.job-overview > ul > li {
+.project-overview > ul > li {
     grid-template-columns: 35px 1fr;
     grid-template-rows: 32px 1fr;
     display: grid;
@@ -201,7 +207,7 @@
     margin: 10px 0;
 }
 
-.job-overview > ul > li > .sidebar-text-info {
+.project-overview > ul > li > .sidebar-text-info {
     grid-column: 2/3;
 }
 
@@ -217,7 +223,7 @@
 
 
 
-/* Job Heading
+/* project Heading
 *************************/
 .small-heading {
     display: flex;
@@ -251,7 +257,7 @@
     border-top: 1px solid rgba(6, 18, 36, 0.1);
 }
 
-#job-header-box {
+#project-header-box {
     display: flex;
     gap: 20px;
     justify-content: flex-start;
@@ -259,6 +265,6 @@
     margin: 0;
 }    
 
-#job-columns {
+#project-columns {
     text-align: right;
 }
