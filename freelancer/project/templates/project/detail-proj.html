@@ -2,13 +2,12 @@
 
 {% load static %}
 {% load humanize %}
-{% load job_extras %}
-
+{% load project_tags %}
 
 {% block custom_tag %}
     {{ forms.media }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/apply-to.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/job-details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project-details.css' %}">
 {% endblock custom_tag %}
 
 
@@ -28,14 +27,14 @@
     </div>
 </div>
 
-<!-- Job details page start -->
-<div class="job-details-page content-area">
+<!-- project details page start -->
+<div class="project-details-page content-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-12" id="job-columns">
-                <!-- job header -->
-                <div class="job-box-2" id="job-header-box">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+            <div class="col-lg-8 col-md-12" id="project-columns">
+                <!-- project header -->
+                <div class="project-box-2" id="project-header-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="project-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </svg>
                     <div class="description">
@@ -43,38 +42,47 @@
                             <a href="#">{{ project.title }}</a>
                         </h5>
                         <div class="candidate-listing-footer">
-                            <ul class="job-header-detail">
-                                {% comment %} <li>
+                            <ul class="project-header-detail">
+                                <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                                     </svg>
-                                    {{job.company_name}}
-                                </li> {% endcomment %}
-                                {% comment %} <li>
+                                    پیشنهاد ها:  
+                                    <div class="header-item-value">
+                                        {{project.project_applay.count}}
+                                    </div>
+                                </li>
+                                <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
-                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
-                                    {{job.place}}
-                                </li> {% endcomment %}
-                                {% comment %} <li>
+                                    ایجاد شده توسط:  
+                                    <div class="header-item-value">
+                                        {{project.user.username}}
+                                    </div>
+                                </li>
+                                <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                                     </svg>
-                                    {{job.get_work_type_display}}
-                                </li> {% endcomment %}
+                                    وضعیت پروژه:  
+                                    <div class="header-item-value">
+                                        {% if project.status %}باز{% else %}بسته{% endif %}
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <hr class="hr-boder">
-                <!-- job description -->
-                <div class="job-description mb-40">
+                <!-- project description -->
+                <div class="project-description mb-40">
                     <p>
                         {{project.description.html | safe}}
                     </p>
                 </div>
                 <!-- Social list 2 -->
-                <div class="single-apply-jobs">
+                <div class="single-apply-projects">
                         {% if is_employer %}
                             <button type="button" class="send-apply-button">
                                 ارسال پیشنهاد
@@ -104,24 +112,24 @@
                         </div>
                 </div>
                 <div class="clearfix"></div>
-                <!-- Related jobs -->
-                <div class="related-Jobs clearfix">
+                <!-- Related projects -->
+                <div class="related-projects clearfix">
                     <h4 class="heading-border">
                         <span>جاب های مرتبط</span>
                     <h4>
 
-                    <div class="job-box">
-                        <div class="related-job-header">
+                    <div class="project-box">
+                        <div class="related-project-header">
                             <div class="company-logo">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="project-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
                             </div>
-                            <div class="related-job-top-header">
+                            <div class="related-project-top-header">
                                 <h5 class="title">
-                                    <a href="{% url 'job:detail-job' project.id %}">{{project.title}}</a>
+                                    <a href="{% url 'project:detail-project' project.id %}">{{project.title}}</a>
                                 </h5>
-                                <ul class="related-job-require job-header-detail">
+                                <ul class="related-project-require project-header-detail">
                                     <li>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -142,26 +150,26 @@
                                     </li>
                                 </ul>
                             </div>
-                            <h6 class="related-job-deadline">دد لاین:  {{project.job_pay.first.created|date:"M d Y"}}</h6>
+                            <h6 class="related-project-deadline">دد لاین:  {{project.project_pay.first.created|date:"M d Y"}}</h6>
                             <a href="#" class="apply-button">ارسال پیشنهاد</a>
                             <div class="tag-list">
-                                {% get_job_tags job.get_tags %}
+                                {% get_project_tags project.get_tags %}
                             </div>
                        
                         </div>
                     </div>
-                    <div class="job-box">
-                        <div class="related-job-header">
+                    <div class="project-box">
+                        <div class="related-project-header">
                             <div class="company-logo">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="project-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
                             </div>
-                            <div class="related-job-top-header">
+                            <div class="related-project-top-header">
                                 <h5 class="title">
-                                    <a href="{% url 'job:detail-job' project.id %}">{{project.title}}</a>
+                                    <a href="{% url 'project:detail-project' project.id %}">{{project.title}}</a>
                                 </h5>
-                                <ul class="related-job-require job-header-detail">
+                                <ul class="related-project-require project-header-detail">
                                     <li>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -182,17 +190,17 @@
                                     </li>
                                 </ul>
                             </div>
-                            <h6 class="related-job-deadline">دد لاین:  {{project.job_pay.first.created|date:"M d Y"}}</h6>
+                            <h6 class="related-project-deadline">دد لاین:  {{project.project_pay.first.created|date:"M d Y"}}</h6>
                             <a href="#" class="apply-button">ارسال پیشنهاد</a>
                             <div class="tag-list">
-                                {% get_job_tags project.get_tags %}
+                                {% get_project_tags project.get_tags %}
                             </div>
                        
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Job requirements sidebar -->
+            <!-- project requirements sidebar -->
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right-2">
                     <!-- Modal send apply -->
@@ -207,7 +215,7 @@
                           </div>
                           <div class="modal-body">
                             <div class="submit-address dashboard-list">
-                                <form method="POST" action="{% url 'job:apply-to' project.id %}">
+                                <form method="POST" action="{% url 'project:apply-to' project.id %}">
                                     {% csrf_token %}
                                     {% for field in apply_form %}
                                         <div class="form-group">
@@ -225,8 +233,8 @@
                         </div>
                       </div>
                     </div>
-                    <!-- Job Overview -->
-                    <div class="job-overview widget">
+                    <!-- project Overview -->
+                    <div class="project-overview widget">
 
                         <!-- Send apply button -->
                         <div class="send-apply-box">
@@ -241,7 +249,7 @@
                             {% endif %}
                         </div>
 
-                        <!-- Job Overview sidebar-->
+                        <!-- project Overview sidebar-->
                         <h3 class="sidebar-title">مشخصات درخواستی</h3>
                         <div class="s-border"></div>
                         <ul>
@@ -275,7 +283,7 @@
                             </div>
                             <div class="sidebar-text-info">
                                 <span class="text-description">تاریخ انتشار</span>
-                                <strong class="small-heading">{{project.job_pay.first.created|timesince}} ago</strong>
+                                <strong class="small-heading">{{project.project_pay.first.created|timesince}} ago</strong>
                             </div>
                         </li>
                         </ul>
