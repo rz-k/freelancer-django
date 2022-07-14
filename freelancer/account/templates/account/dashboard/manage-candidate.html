@@ -28,6 +28,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>*</th>
                                 <th>عنوان</th>
                                 <th>درخواست دهنده</th>
                                 <th>تاریخ</th>
@@ -38,11 +39,12 @@
                         <tbody>
                             {% for candid in obj_list %}
                                 <tr class="responsive-table">
+                                    <td>{{ forloop.counter }}</td>
                                     <td>
                                         {% if candid.project.id %}
-                                            <a href="{% url 'project:detail-project' candid.project.id %}">{{candid.project.title}}</a>
+                                            <a href="{% url 'project:detail-project' candid.project.id %}">{{candid.project.title|truncatechars:15}}</a>
                                         {% else %}
-                                            <a href="{% url 'job:detail-job' candid.job.id %}">{{candid.job.title}}</a>
+                                            <a href="{% url 'job:detail-job' candid.job.id %}">{{candid.job.title|truncatechars:15}}</a>
                                         {% endif %}
                                     </td>
 

@@ -41,9 +41,9 @@
 
                                     <td>
                                         {% if sender.project.id %}
-                                            <a href="{% url 'project:detail-project' sender.project.id %}">{{sender.project.title}}</a>
+                                            <a href="{% url 'project:detail-project' sender.project.id %}">{{sender.project.title|truncatechars:15}}</a>
                                         {% else %}
-                                            <a href="{% url 'job:detail-job' sender.job.id %}">{{sender.job.title}}</a>
+                                            <a href="{% url 'job:detail-job' sender.job.id %}">{{sender.job.title|truncatechars:15}}</a>
                                         {% endif %}
                                     </td>
                                     <td>

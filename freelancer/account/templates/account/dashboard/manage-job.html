@@ -54,9 +54,9 @@
                                         <div class="inner">
                                             <h5>
                                                 {% if job.job_applay %}
-                                                    <a href="{% url 'job:detail-job' job.id %}">{{job.title}}</a>
+                                                    <a href="{% url 'job:detail-job' job.id %}">{{job.title|truncatechars:15}}</a>
                                                 {% else %}
-                                                    <a href="{% url 'project:detail-project' job.id %}">{{job.title}}</a>
+                                                    <a href="{% url 'project:detail-project' job.id %}">{{job.title|truncatechars:15}}</a>
                                                 {% endif %}
                                             </h5>
                                         </div>
