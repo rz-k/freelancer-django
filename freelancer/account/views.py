@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from freelancer.job.models import Job, ApplyJob
 from freelancer.project.models import Project, ApplyProject
 from freelancer.account.models import Profile
 
@@ -13,8 +12,8 @@ from .forms import UserLoginForm, UserRegisterForm, EditProfileForm
 
 
 def Home(request):
-    jobs = Job.objects.all()[:4]
-    return render(request=request, template_name='account/home/index.html', context={"jobs": jobs})
+    projects = Project.objects.all()[:4]
+    return render(request=request, template_name='account/home/index.html', context={"projects": projects})
 
 
 def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
@@ -122,7 +121,7 @@ def logout_user(request):
         request=request,
         message='خروج از حساب کاربری با موفقیت انجام شد.', 
         extra_tags="success")
-    return redirect("job:home")
+    return redirect("account:home")
 
 
 def pagination(object_list, per_page: int, page_number: int):
@@ -152,21 +151,16 @@ def dashboard(request, template_name='account/dashboard/dashboard.html'):
 def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
     """ Not completed """
     page_number = request.GET.get('page')
-    applay_job = ApplyJob.objects.filter(job__user=request.user)
     applay_project = ApplyProject.objects.filter(project__user=request.user)
-    combine_querysets = list(chain(applay_job, applay_project))
-    applays = pagination(combine_querysets, 10, page_number)
+    applays = pagination(applay_project, 10, page_number)
     return render(request, template_name=template_name, context=applays)
 
 
 def manage_applay_send(request, template_name='account/dashboard/manage-applay-send.html'):
     """ Not completed """
     page_number = request.GET.get('page')
-
-    applay_job = ApplyJob.objects.filter(user=request.user)
     applay_project = ApplyProject.objects.filter(user=request.user)
-    combine_querysets = list(chain(applay_job, applay_project))
-    applays = pagination(combine_querysets, 10, page_number)
+    applays = pagination(applay_project, 10, page_number)
     return render(request, template_name=template_name, context=applays)
 
 
@@ -215,13 +209,7 @@ def manage_job(request, template_name='account/dashboard/manage-job.html'):
     Show a list of available user jobs (Project OR Corporate job).
     """
     page_number = request.GET.get('page')
-
-    jobs = Job.objects.filter(
-        user=request.user).order_by("-created")
-
     projects = Project.objects.filter(
         user=request.user).order_by("-created")
-
-    combine_querysets = list(chain(jobs, projects))
-    context = pagination(object_list=combine_querysets, per_page=5, page_number=page_number)
+    context = pagination(object_list=projects, per_page=5, page_number=page_number)
     return render(request=request, template_name=template_name, context=context)

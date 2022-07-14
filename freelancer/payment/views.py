@@ -7,9 +7,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
 from django.views import View
 from freelancer.project.models import Project
-from freelancer.job.models import Job
 
-from .models import PaymentAccount, PaymentJob, PaymentProject
+from .models import PaymentAccount, PaymentProject
 
 
 class ZarinpalInfo:
@@ -37,10 +36,8 @@ class ZarinpalInfo:
 
 class ZarinpalSendPayRequest(LoginRequiredMixin,View, ZarinpalInfo):
     def get(self, request, uuid):
-        job = Job.objects.filter(user=request.user, uuid=uuid).first()
-        if not job:
-            project = get_object_or_404(klass=Project, user=request.user, uuid=uuid)
-            self.amount += self.project_amount
+        project = get_object_or_404(klass=Project, user=request.user, uuid=uuid)
+        self.amount += self.project_amount
 
         data = self.zarinpal_send_data
         data["amount"] = self.amount
@@ -58,17 +55,10 @@ class ZarinpalSendPayRequest(LoginRequiredMixin,View, ZarinpalInfo):
             #=> Create a successful payment for the job.
             authority = response['data']['authority']
             success_url = self.zarinpal_api_startpay.format(authority=authority)
-
-            if job:
-                payment = PaymentJob(user=request.user,
-                    job=job, 
-                    price=self.amount,
-                    authority=authority).save()
-            else:
-                payment = PaymentProject(user=request.user,
-                    project=project,
-                    price=self.amount,
-                    authority=authority).save()
+            payment = PaymentProject(user=request.user,
+                project=project,
+                price=self.amount,
+                authority=authority).save()
 
             return redirect(success_url)
 
@@ -87,7 +77,7 @@ class ZarinpalSendPayRequest(LoginRequiredMixin,View, ZarinpalInfo):
         return response
 
 
-    def post(self, request, id, success_url="job:home"):
+    def post(self, request, id, success_url="account:home"):
         return redirect(success_url)
 
 
@@ -99,15 +89,13 @@ class ZarinpalVerify(View, ZarinpalInfo):
     def get(self , request):
         status = str(request.GET.get("Status")).lower()
         authority = request.GET.get("Authority")
-        
-        paying_job = PaymentJob.objects.filter(authority=authority).first()
-        if not paying_job:
-            paying_project = PaymentProject.objects.filter(authority=authority).first()
+
+        paying_project = PaymentProject.objects.filter(authority=authority).first()
         
         if status == 'ok':
             data = {
                 "merchant_id": self.zarinpal_merchant,
-                "amount": paying_job.price if paying_job else paying_project.price,
+                "amount": paying_project.price,
                 "authority": authority
             }
 
@@ -117,11 +105,8 @@ class ZarinpalVerify(View, ZarinpalInfo):
                 headers=self.zarinpal_headers
             ).json()
             
-            payment = paying_job
-            rel = "job"
-            if not paying_job:
-                rel = "project"
-                payment = paying_project
+            rel = "project"
+            payment = paying_project
 
             data = self.handel_verify_response(
                 response=response, authority=authority,
@@ -137,7 +122,7 @@ class ZarinpalVerify(View, ZarinpalInfo):
                 template_name=self.error_template_name, context={"result": context})
 
 
-    def handel_verify_response(self, response: "json", authority: str, rel: str, payment: [PaymentAccount, PaymentJob, PaymentProject]):
+    def handel_verify_response(self, response: "json", authority: str, rel: str, payment: [PaymentAccount, PaymentProject]):
         """
         Handel the success verification responses and errors.
         
@@ -161,12 +146,8 @@ class ZarinpalVerify(View, ZarinpalInfo):
         else:
             status_code = response['data']['code']            
             if status_code == 100:
-                if rel == "job":
-                    payment.job.paid = True
-                    payment.job.save()
-                else:
-                    payment.project.paid = True
-                    payment.project.save()
+                payment.project.paid = True
+                payment.project.save()
                 payment.paid = True
                 payment.save()
 

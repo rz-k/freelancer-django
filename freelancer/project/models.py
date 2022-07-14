@@ -5,8 +5,38 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.text import slugify
 from django_quill.fields import QuillField
-from freelancer.job.models import Category
+from django.core.validators import MaxValueValidator, MinValueValidator
 
+
+
+class Category(models.Model):
+    parent = models.ForeignKey(
+        to='self',
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name='زیردسته',
+        related_name='children')
+    
+    name = models.CharField(
+        max_length=200,
+        verbose_name='عنوان دسته')
+    
+    slug = models.CharField(
+        max_length=200,
+        unique=True,
+        verbose_name='آدرس دسته')
+    
+    status = models.BooleanField(
+        default=True,
+        verbose_name='فعال شود ؟')
+    
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self) -> str:
+        return self.name
 
 class Project(models.Model):
     User = get_user_model()
@@ -130,3 +160,24 @@ class ApplyProject(models.Model):
         verbose_name="زمان انجام پروژه")
 
     created = models.DateTimeField(auto_now=True)
+
+
+class EmployersComment(models.Model):
+
+    to = models.OneToOneField(
+        ApplyProject, 
+        on_delete=models.CASCADE, 
+        related_name='comment_to', 
+        unique=True
+        )
+ 
+    comment = models.TextField(max_length=150)
+
+    star = models.IntegerField(
+        default=0, 
+        validators = [
+            MaxValueValidator(5),
+            MinValueValidator(0)
+        ]
+    )
+

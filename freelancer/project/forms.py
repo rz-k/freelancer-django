@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
 from django_quill.forms import QuillFormField
-from freelancer.job.models import Category
-from .models import Project
+from .models import Project, Category
 
 
 class AddProjectForm(forms.Form):

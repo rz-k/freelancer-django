@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import PaymentAccount, PaymentJob, PaymentProject
+from .models import PaymentAccount, PaymentProject
 
-admin.site.register(PaymentJob)
 
 admin.site.register(PaymentProject)
 
