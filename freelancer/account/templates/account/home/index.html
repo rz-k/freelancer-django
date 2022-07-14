@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% load job_extras %}
 
 {% block custom_tag %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/job-details.css' %}">
@@ -159,7 +158,6 @@
                             <h6 class="related-job-deadline">دد لاین:  {{job.job_pay.first.created|date:"M d Y"}}</h6>
                             <a href="#" class="apply-button">ارسال پیشنهاد</a>
                             <div class="tag-list">
-                                {% get_job_tags job.get_tags %}
                             </div>
                         </div>
                     </div>
