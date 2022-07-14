@@ -4138,6 +4138,7 @@ footer {
 /** Transaction table start **/
 .transaction-table .table{
     margin: 0;
+    
 }
 
 .transaction-table .table thead th{
@@ -4229,6 +4230,7 @@ footer {
 
 .job-info .table{
     margin-bottom: 0;
+    
 }
 
  .t-right{
@@ -4238,6 +4240,7 @@ footer {
 
 .job-info-2 table tbody tr td.image{
     display: none;
+    
 }
 
 .job-info-2 .ds-none{
@@ -4931,6 +4934,7 @@ employer-box-2{
     border-bottom: 1px solid #eee;
     border-top: none;
     font-weight: 500;
+    
 }
 
 .badge-pink {
@@ -4945,11 +4949,13 @@ employer-box-2{
 
 .dashboard-table-responsive .table td, .table th {
     border-top: 1px solid #eee;
+    text-align: center;
 }
 
 .dashboard-table-responsive .table th, .table td {
     padding: 20px 10px;
     font-size: 14px;
+    text-align: center;
 }
 
 /** Accounts box start **/
