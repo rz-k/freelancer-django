@@ -30,6 +30,10 @@ h1 {
     margin-bottom: 5px !important;    
 }
 
+select {
+    background-color: #fff;
+}
+
 .job-description > .ql-toolbar, #user-data > .vLargeTextField {
     float:right;
     width: 50em;
