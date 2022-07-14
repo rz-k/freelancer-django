@@ -38,6 +38,7 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
 class Project(models.Model):
     User = get_user_model()
 
@@ -163,21 +164,16 @@ class ApplyProject(models.Model):
 
 
 class EmployersComment(models.Model):
-
     to = models.OneToOneField(
         ApplyProject, 
         on_delete=models.CASCADE, 
         related_name='comment_to', 
-        unique=True
-        )
- 
-    comment = models.TextField(max_length=150)
+        unique=True)
 
     star = models.IntegerField(
-        default=0, 
+        default=0,
         validators = [
             MaxValueValidator(5),
-            MinValueValidator(0)
-        ]
-    )
+            MinValueValidator(0)])
 
+    comment = models.TextField(max_length=150)
