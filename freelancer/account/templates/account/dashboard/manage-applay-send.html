@@ -1,6 +1,8 @@
 {% extends 'base/base_dashboard.html' %}
 {% load static %}
 {% load humanize %}
+{% load jformat %}
+
 {% block content %}
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
     <div class="content-area5">
@@ -45,7 +47,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {{ sender.created|date:"H:m ,Y/m/d" }}
+                                        {{ sender.created|jformat:"%Y/%m/%d"}}
                                     </td>
                                     <td>
                                         {% if sender.status == 'wait' %}
