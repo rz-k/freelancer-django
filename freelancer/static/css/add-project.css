@@ -51,7 +51,7 @@
     transition: 0.2s;
 }
 
-.add-job-btn {
+.add-job-btn:hover {
     color: #ffffff;
     background-color: #6d4bd3;
 }
