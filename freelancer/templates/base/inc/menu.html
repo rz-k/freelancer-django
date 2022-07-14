@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li class="{{request|is_active:'add'}}">
-                    <a href="" data-toggle="modal" data-target="#exampleModal">
+                    <a href="{% url 'project:add-project' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" width="20px">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                         </svg>
@@ -79,33 +79,6 @@
                     </a>
                 </li>
             </ul>
-        </div>
-    </div>
-</div>
-<div class="modal-box">
-    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="icon-box">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <div class="modal-header">
-                    <h3 class="title">ایجاد پروژه جدید.</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="description">لطفا نوع پروژه ای که میخواید ایجاد نمایید را انتخاب کنید</p>
-                    <div class="d-flex justify-content-between modal-footer">
-                        <a href="{% url 'project:add-project' %}" class="btn btn-create-project">
-                            افزودن پروژه
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

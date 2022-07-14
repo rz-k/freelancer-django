@@ -37,7 +37,7 @@
 }
 
 
-.add-job-btn {
+.add-project-btn {
     letter-spacing:0;
     color: #ffffff;
     background-color: #9777fa;
@@ -51,7 +51,7 @@
     transition: 0.2s;
 }
 
-.add-job-btn:hover {
+.add-project-btn:hover {
     color: #ffffff;
     background-color: #6d4bd3;
 }
