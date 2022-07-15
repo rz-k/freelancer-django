@@ -28,28 +28,20 @@ class AddProjectForm(forms.Form):
         label_suffix="تگ های پروژه(حداکثر 5 مورد)",
         base_field=forms.CharField(max_length=100))
 
-
     urgent = forms.BooleanField(
         label_suffix="این پروژه دارای تگ فوری باشد؟ (50 هزار تومان)",
         widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
-        required=False
-        )
-
+        required=False)
 
     highlight = forms.BooleanField(
         label_suffix="این پروژه دارای قالب رنگی متفاوتی باشد؟ (30 هزار تومان)",
         widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
-        required=False
-        )
-
+        required=False)
 
     private = forms.BooleanField(
         label_suffix="این پورژه فقط برای کاربران سایت نمایش داده شود؟ (20 هزار تومان)",
         widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
-        required=False
-        )
-
-
+        required=False        )
 
     description = QuillFormField(
         max_length=10000,
