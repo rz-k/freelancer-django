@@ -1,3 +1,52 @@
+#add-project-fields {
+    column-gap: 11em;
+    row-gap: 2em;
+}
+
+@media (max-width: 1515px) and (min-width: 1387px) {
+    #add-project-fields {        
+        column-gap: 10em !important;
+    }
+}
+
+@media (max-width: 1386px) and (min-width: 1259px) {
+    #add-project-fields {
+        column-gap: 4em !important;
+    }
+
+    .project-filds-head {
+        margin: 0 20px !important;
+    }
+}
+
+@media (max-width: 1258px) and (min-width: 1131px) {
+    #add-project-fields {
+        column-gap: 3em !important;
+    }
+
+    .project-filds-head {
+        margin: 0 20px !important;
+    }
+}
+
+@media (max-width: 1130px) and (min-width: 1003px) {
+    #add-project-fields {
+        column-gap: 5em !important;
+    }
+
+    .project-filds-head {
+        margin: 0 4px !important;
+    }
+}
+
+@media (max-width: 1002px) and (min-width: 500px) {
+    #add-project-fields {
+        column-gap: 6em !important;
+    }
+}
+
+
+
 .radio-check {
     appearance: none;
     width: 1.3em;

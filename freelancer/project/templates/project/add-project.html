@@ -30,7 +30,7 @@
                 {% csrf_token %}
                 <h4 class="bg-grea-3" id="inner-header">داده های مربوط به پروژه</h4>
                 <div class="search-contents-sidebar">
-                    <div class="row pad-20" style="column-gap: 8em; row-gap: 2em;">
+                    <div class="row pad-20" id="add-project-fields">
                         {% for project_field in forms.visible_fields %}
                             <div class="col-lg-5 col-md-6 col-sm-12 project-filds-head">
                                 <div class="form-group" id="label">
