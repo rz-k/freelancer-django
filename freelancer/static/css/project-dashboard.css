@@ -1,6 +1,6 @@
-/* Add Job Section 
+/* Add project Section 
 ***************************/
-.job-description > .vLargeTextField {
+.project-description > .vLargeTextField {
     height: 25rem;
     margin-top: 1rem;
     padding-right:-15em;
@@ -34,13 +34,13 @@ select {
     background-color: #fff;
 }
 
-.job-description > .ql-toolbar, #user-data > .vLargeTextField {
+.project-description > .ql-toolbar, #user-data > .vLargeTextField {
     float:right;
     width: 50em;
     height: 10rem;
 }
 
-.job-description > .des-label{
+.project-description > .des-label{
     margin-bottom: 18rem;
     float:right
 }
@@ -76,7 +76,7 @@ select {
     color: #ff6969;
 }
 
-#other-job-field-error {
+#other-project-field-error {
     color: #ff6969;
 }
 
