@@ -35,8 +35,8 @@ class ZarinpalInfo:
 
 
 class ZarinpalSendPayRequest(LoginRequiredMixin,View, ZarinpalInfo):
-    def get(self, request, uuid):
-        project = get_object_or_404(klass=Project, user=request.user, uuid=uuid)
+    def get(self, request, id):
+        project = get_object_or_404(klass=Project, user=request.user, id=id)
         self.amount += self.project_amount
 
         data = self.zarinpal_send_data

@@ -30,6 +30,11 @@ class User(AbstractUser):
     score = models.IntegerField(
         default=0,
         verbose_name='امتیاز کاربر')
+    
+    
+    balance = models.IntegerField(
+        default=0,
+        verbose_name='میزان حساب کاربر (ریال)')
 
     def get_avatar(self):
         """

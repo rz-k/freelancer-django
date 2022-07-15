@@ -40,6 +40,13 @@ class Category(models.Model):
 
 
 class Project(models.Model):
+    
+    IS_PUBLISH_ADMIN = (
+        ('publish', 'منتشر شد'),
+        ('rejection', 'رد شد'),
+        ('wait', 'منتظر تایید ادمین')
+    )
+    
     User = get_user_model()
 
     user = models.ForeignKey(
@@ -101,10 +108,12 @@ class Project(models.Model):
         default=False,
         verbose_name="پرداخت شده؟")
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False,
-        unique=True)
+    publish = models.CharField(
+        max_length=30,
+        choices=IS_PUBLISH_ADMIN,
+        default="wait",
+        verbose_name="انتشار پروژه"
+    )
 
     created = models.DateTimeField(auto_now=True)
 

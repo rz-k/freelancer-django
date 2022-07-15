@@ -33,6 +33,11 @@ def add_project(request, success_url="account:manage-job", form_class=AddProject
 
 def edit_project(request, id, success_url="account:manage-job", form_class=EditProjectForm, template_name='project/edit-proj.html'):
     project = get_object_or_404(klass=Project, user=request.user, id=id)
+    if project.paid:
+        if project.publish == 'wait' or project.publish == 'publish':
+            return redirect(success_url)
+        
+    
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES, instance=project)
         if form.is_valid():
