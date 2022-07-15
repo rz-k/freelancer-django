@@ -10,7 +10,7 @@ class AddProjectForm(forms.Form):
         label_suffix="عنوان پروژه (کار)",
         max_length=100,
         widget=forms.TextInput(
-            attrs={"class": "input-text", "placeholder": "عنوان پروژه یا شغل"}))
+            attrs={"class": "input-text", "placeholder": "عنوان پروژه"}))
 
     category = forms.ModelChoiceField(
         label_suffix="دسته بندی",
@@ -28,17 +28,28 @@ class AddProjectForm(forms.Form):
         label_suffix="تگ های پروژه(حداکثر 5 مورد)",
         base_field=forms.CharField(max_length=100))
 
-    private = forms.BooleanField(
-        label_suffix="این پورژه فقط برای افراد دارای اکانت نمایش داده شود؟",
-        widget=forms.CheckboxInput(attrs={"class": "radio-check"}))
-
-    highlight = forms.BooleanField(
-        label_suffix="این پروژه دارای قالب رنگی متفاوتی باشد؟",
-        widget=forms.CheckboxInput(attrs={"class": "radio-check"}))
 
     urgent = forms.BooleanField(
-        label_suffix="این پروژه دارای تگ فوری باشد؟",
-        widget=forms.CheckboxInput(attrs={"class": "radio-check"}))
+        label_suffix="این پروژه دارای تگ فوری باشد؟ (50 هزار تومان)",
+        widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
+        required=False
+        )
+
+
+    highlight = forms.BooleanField(
+        label_suffix="این پروژه دارای قالب رنگی متفاوتی باشد؟ (30 هزار تومان)",
+        widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
+        required=False
+        )
+
+
+    private = forms.BooleanField(
+        label_suffix="این پورژه فقط برای کاربران سایت نمایش داده شود؟ (20 هزار تومان)",
+        widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
+        required=False
+        )
+
+
 
     description = QuillFormField(
         max_length=10000,

@@ -7,7 +7,7 @@ from django.contrib import messages
 
 
 
-def add_project(request, success_url="account:manage-job", form_class=AddProjectForm, template_name='project/add-project.html'):
+def add_project(request, success_url="account:manage-job", form_class=AddProjectForm, template_name='project/add-proj.html'):
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
