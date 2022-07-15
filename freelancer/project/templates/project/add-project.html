@@ -1,0 +1,262 @@
+{% extends 'base/base_dashboard.html' %}
+
+{% load static %}
+
+{% block custom_tag %}
+    {{ forms.media }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-project.css' %}">
+{% endblock custom_tag %}
+
+
+{% block content %}
+<div class="col-lg-9 col-md-12 col-sm-12 col-pad">
+    <div class="content-area5 dashboard-content">
+        <div class="dashboard-header clearfix">
+            <div class="row" id="breadcrumb-head">
+                <div class="col-sm-12 col-md-6" id="breadcrumb-title">
+                    <h4>افزودن پروژه</h4>
+                </div>
+                <div class="col-sm-12 col-md-6" id="breadcrumb-items">
+                    <div class="breadcrumb-nav" dir="ltr">
+                        <ul>
+                            {{get_breadcrumb}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-address dashboard-list">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h4 class="bg-grea-3" id="inner-header">داده های مربوط به پروژه</h4>
+                <div class="search-contents-sidebar">
+                    <div class="row pad-20" style="column-gap: 11em; row-gap: 2em;">
+                        {% for job_field in forms.visible_fields %}
+                            <div class="col-lg-5 col-md-6 col-sm-12 job-filds-head">
+                                <div class="form-group" id="label">
+                                    {% if job_field.auto_id == "id_tags" %}
+                                        <p id="max-len-tag-error">طول تگ شما نباید طولانی باشد.</p>
+                                        <p id="duplicate-tag-error">این تگ تکراری میباشد.</p>
+                                        <p id="max-tag-error">بیشتر از 5 تگ نمیتوانید وارد کنید</p>
+                                    {% endif %}
+
+                                    {% if job_field.auto_id != "id_description"%}
+                                        {{job_field.label_tag|cut:job_field.label}}
+                                        {% if job_field.errors %}
+                                            <p id="other-job-field-error">{{job_field.errors.as_text|cut:"*"}}</p>
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if job_field.auto_id != "id_description" %}
+                                        {{job_field}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if job_field.auto_id == "id_description" %}
+                                <div class="col-lg-12">
+                                    <div class="form-group job-description" id="label">
+                                        {% if job_field.errors %}
+                                            <p id="other-job-field-error">{{job_field.errors.as_text|cut:"*"}}</p>
+                                        {% endif %}
+                                        {{job_field.label_tag|cut:job_field.label}}
+                                        {{job_field|safe}}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div style="width:-webkit-fill-available">
+                            <div class="col-lg-1 mt-2">
+                                <button type="submit" class="btn add-job-btn" name="send" style="letter-spacing:0">
+                                    اضافه کردن پروژه
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    (function(){
+        // Plugin Constructor
+        var TagsInput = function(opts){
+            this.options = Object.assign(TagsInput.defaults , opts);
+            this.init();
+        }
+
+        // Initialize the plugin
+        TagsInput.prototype.init = function(opts){
+            this.options = opts ? Object.assign(this.options, opts) : this.options;
+
+            if(this.initialized)
+                this.destroy();
+
+            if(!(this.orignal_input = document.getElementById(this.options.selector)) ){
+                console.error("tags-input couldn't find an element with the specified ID");
+                return this;
+            }
+
+            this.arr = [];
+            this.wrapper = document.createElement('div');
+            this.input = document.createElement('input');
+            init(this);
+            initEvents(this);
+
+            this.initialized =  true;
+            return this;
+        }
+
+        // Add Tags
+        TagsInput.prototype.addTag = function(string){            
+            if(this.anyErrors(string))
+                return ;
+
+            this.arr.push(string);
+            var tagInput = this;
+
+            var tag = document.createElement('span');
+            tag.className = this.options.tagClass;
+            tag.innerText = string;
+
+            var closeIcon = document.createElement('a');
+            closeIcon.innerHTML = '&times;';
+
+            // delete the tag when icon is clicked
+            closeIcon.addEventListener('click' , function(e){
+                e.preventDefault();
+                var tag = this.parentNode;
+
+                for(var i =0 ;i < tagInput.wrapper.childNodes.length ; i++){
+                    if(tagInput.wrapper.childNodes[i] == tag)
+                        tagInput.deleteTag(tag , i);
+                }
+            })
+
+
+            tag.appendChild(closeIcon);
+            this.wrapper.insertBefore(tag , this.input);
+            this.orignal_input.value = this.arr.join(',');
+            return this;
+        }
+
+        // Delete Tags
+        TagsInput.prototype.deleteTag = function(tag , i){
+            tag.remove();
+            this.arr.splice( i , 1);
+            this.orignal_input.value =  this.arr.join(',');
+            return this;
+        }
+
+        // Make sure input string have no error with the plugin
+        TagsInput.prototype.anyErrors = function(string){
+            if( this.options.max != null && this.arr.length >= this.options.max ){                
+                var tag = document.getElementById("max-tag-error");
+                tag.style.display="block";
+                setTimeout(function(){tag.style.display="none";}, 3200);
+                return true;
+            }
+
+            if( string.length >= 15 ){
+                var tag = document.getElementById("max-len-tag-error");
+                tag.style.display="block";
+                setTimeout(function(){tag.style.display="none";}, 3200);
+                return true;
+            }
+
+            if(!this.options.duplicate && this.arr.indexOf(string) != -1 ){
+                var tag = document.getElementById("duplicate-tag-error");
+                tag.style.display="block";
+                setTimeout(function(){tag.style.display="none";}, 3200);
+                return true;
+            }
+
+            return false;
+        }
+
+        // Add tags programmatically 
+        TagsInput.prototype.addData = function(array){
+            var plugin = this;
+
+            array.forEach(function(string){
+                plugin.addTag(string);
+            })
+            return this;
+        }
+
+        // Get the Input String
+        TagsInput.prototype.getInputString = function(){
+            return this.arr.join(',');
+        }
+
+
+        // destroy the plugin
+        TagsInput.prototype.destroy = function(){
+            this.orignal_input.removeAttribute('hidden');
+
+            delete this.orignal_input;
+            var self = this;
+
+            Object.keys(this).forEach(function(key){
+                if(self[key] instanceof HTMLElement)
+                    self[key].remove();
+
+                if(key != 'options')
+                    delete self[key];
+            });
+
+            this.initialized = false;
+        }
+
+        // Private function to initialize the tag input plugin
+        function init(tags){
+            tags.wrapper.append(tags.input);
+            tags.wrapper.classList.add(tags.options.wrapperClass);
+            tags.orignal_input.setAttribute('hidden' , 'true');
+            tags.orignal_input.parentNode.insertBefore(tags.wrapper , tags.orignal_input);
+        }
+
+        // initialize the Events
+        function initEvents(tags){
+            tags.wrapper.addEventListener('click' ,function(){
+                tags.input.focus();           
+            });
+
+
+            tags.input.addEventListener('keydown' , function(e){
+                var str = tags.input.value.trim(); 
+
+                if( !!(~[9 , 13 , 188].indexOf( e.keyCode ))  )
+                {
+                    e.preventDefault();
+                    tags.input.value = "";
+                    if(str != "")
+                        tags.addTag(str);
+                }
+
+            });
+        }
+
+
+        // Set All the Default Values
+        TagsInput.defaults = {
+            selector : '',
+            wrapperClass : 'tags-input-wrapper',
+            tagClass : 'tag',
+            max : 4,
+            duplicate: false
+        }
+
+        window.TagsInput = TagsInput;
+
+    })();
+
+     var tagInput1 = new TagsInput({
+                selector: 'id_tags',
+                duplicate : false,
+                max : 4
+            });
+            tagInput1.addData(['Python'])
+
+</script>
+{% endblock content %} 
