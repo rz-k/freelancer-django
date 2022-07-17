@@ -30,17 +30,17 @@ class AddProjectForm(forms.Form):
 
     urgent = forms.BooleanField(
         label_suffix="این پروژه دارای تگ فوری باشد؟ (50 هزار تومان)",
-        widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
+        widget=forms.CheckboxInput(attrs={"class": "radio-check", "onclick":"add_urgent_price(this)"}),
         required=False)
 
     highlight = forms.BooleanField(
         label_suffix="این پروژه دارای قالب رنگی متفاوتی باشد؟ (30 هزار تومان)",
-        widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
+        widget=forms.CheckboxInput(attrs={"class": "radio-check", "onclick":"add_highlight_price(this)"}),
         required=False)
 
     private = forms.BooleanField(
         label_suffix="این پورژه فقط برای کاربران سایت نمایش داده شود؟ (20 هزار تومان)",
-        widget=forms.CheckboxInput(attrs={"class": "radio-check"}),
+        widget=forms.CheckboxInput(attrs={"class": "radio-check", "onclick":"add_private_price(this)"}),
         required=False        )
 
     description = QuillFormField(
