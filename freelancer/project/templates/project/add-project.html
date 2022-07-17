@@ -1,3 +1,4 @@
+<!-- EXD ===> Except except the description field -->
 {% extends 'base/base_dashboard.html' %}
 
 {% load static %}
@@ -29,25 +30,44 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h4 class="bg-grea-3" id="inner-header">داده های مربوط به پروژه</h4>
+                <div class="total-price">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    قیمت پرداختی :‌
+                    <div class="price-value">
+                        100ریال
+                    </div>
+                </div>
                 <div class="search-contents-sidebar">
                     <div class="row pad-20" id="add-project-fields">
                         {% for project_field in forms.visible_fields %}
                             <div class="col-lg-5 col-md-6 col-sm-12 project-filds-head">
                                 <div class="form-group" id="label">
                                     {% if project_field.auto_id == "id_tags" %}
+                                        <!--
+                                            Tag Erorr
+                                        -->
                                         <p id="max-len-tag-error">طول تگ شما نباید طولانی باشد.</p>
                                         <p id="duplicate-tag-error">این تگ تکراری میباشد.</p>
                                         <p id="max-tag-error">بیشتر از 5 تگ نمیتوانید وارد کنید</p>
                                     {% endif %}
-
+                                    <!--
+                                        Project fields label EXD
+                                    -->
                                     {% if project_field.auto_id != "id_description"%}
                                         {{project_field.label_tag|cut:project_field.label}}
                                         {% if project_field.errors %}
+                                            <!--
+                                                Show errors at the top of the label EXD
+                                            -->
                                             <p id="other-project-field-error">{{project_field.errors.as_text|cut:"*"}}</p>
                                         {% endif %}
                                     {% endif %}
-
                                     {% if project_field.auto_id != "id_description" %}
+                                        <!--
+                                            Show Project field EXD
+                                        -->
                                         {{project_field}}
                                     {% endif %}
                                 </div>
@@ -56,8 +76,14 @@
                                 <div class="col-lg-12">
                                     <div class="form-group project-description" id="label">
                                         {% if project_field.errors %}
+                                            <!--
+                                                Show description error
+                                            -->
                                             <p id="other-project-field-error">{{project_field.errors.as_text|cut:"*"}}</p>
                                         {% endif %}
+                                        <!--
+                                            Show description field and label
+                                        -->
                                         {{project_field.label_tag|cut:project_field.label}}
                                         {{project_field|safe}}
                                     </div>
@@ -65,7 +91,7 @@
                             {% endif %}
                         {% endfor %}
                         <div style="width:-webkit-fill-available">
-                            <div class="col-lg-1 mt-2">
+                            <div class="col-lg-1 m-3">
                                 <button type="submit" class="btn add-project-btn" name="send" style="letter-spacing:0">
                                     اضافه کردن پروژه
                                 </button>
@@ -251,5 +277,50 @@
         max : 10
     });
     tagInput1.addData(['Python'])        
+</script>
+
+<script>
+    function add_urgent_price(checkbox) {
+        var element = $(".price-value")[0]
+        var total_price = element.innerText.replace("ریال", "");
+
+        if (checkbox.checked == true){
+            var new_price = parseInt(total_price) + 50;
+            element.textContent = "ریال " + new_price;
+        }
+        else {
+            var new_price = parseInt(total_price) - 50;
+            element.textContent = "ریال " + new_price;
+        }
+    };
+
+    function add_highlight_price(checkbox) {
+        var element = $(".price-value")[0]
+        var total_price = element.innerText.replace("ریال", "");
+
+        if (checkbox.checked == true){
+            var new_price = parseInt(total_price) + 150;
+            element.textContent = "ریال " + new_price;
+        }
+        else {
+            var new_price = parseInt(total_price) - 150;
+            element.textContent = "ریال " + new_price;
+        }
+    };
+
+    function add_private_price(checkbox) {
+        var element = $(".price-value")[0]
+        var total_price = element.innerText.replace("ریال", "");
+
+        if (checkbox.checked == true){
+            var new_price = parseInt(total_price) + 250;
+            element.textContent = "ریال " + new_price;
+        }
+        else {
+            var new_price = parseInt(total_price) - 250;
+            element.textContent = "ریال " + new_price;
+        }
+    };
+
 </script>
 {% endblock content %}
