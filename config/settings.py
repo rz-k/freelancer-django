@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'freelancer.resume',
     'freelancer.project',
     'freelancer.faq',
+    'freelancer.pricing',
 
 
     # 3rd party
