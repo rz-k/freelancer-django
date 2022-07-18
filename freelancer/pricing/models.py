@@ -21,45 +21,60 @@ class PricingTag(models.Model):
         return self.name
     
 
-class UserLevelApplay():
+class PricingLevel(models.Model):
+    
+    title = models.CharField(
+        max_length=35,
+        verbose_name='اسم لول : عادی- برنزی - نقراه ای - طلایی'
+    )
+    
+    count = models.IntegerField(
+        default=5,
+        verbose_name='تعداد درخواست های این پنل'
+    )
+    
+    day = models.IntegerField(
+        verbose_name='تعداد روز های مجاز برای این پنل',
+        default=30
+    )
+    
+    discription = models.TextField()
+    
+    
+    price = models.IntegerField(
+        verbose_name='قیمت این محصول به ریال'
+    )
+    
+    
+class UserLevel(models.Model):
+      
     User = get_user_model()
     
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='user_level_applay'
+        verbose_name='user_level_pricing'
         )
     
-    LEVEL = (
-        ('عادی','normal'),
-        ('برنزی', 'tanned'),
-        ('نقرای','silvered'),
-        ('طلایی','golded')
-    )
     
-    level = models.CharField(
-        max_length=30, 
-        choices=LEVEL,
-        verbose_name='level',
-        default='normal'
+    level = models.ForeignKey(
+        PricingLevel,
+        on_delete=models.CASCADE,
+        verbose_name='level_pricing'
+    ) 
+     
+     
+    timeex = models.DateTimeField(
+        default=timezone.now() + timezone.timedelta(30),
+        verbose_name='ویژه تا '
         )
     
-    count_normal = models.IntegerField(
-        verbose_name='تعداد عادی ماهانه',
-        default=5
-    )
-    
-    
-    count_pro = models.IntegerField(
-        verbose_name='تعداد در صورت خرید',
-        default=0
-    )
-        
-        
-    time = models.DateTimeField(default=timezone.now, verbose_name='ویژه تا ')
     
     def is_time(self):
-        if self.time > timezone.now():
+        if self.timeex > timezone.now():
             return True
         return False
         
+        
+    def days_left(self):
+        return (self.timeex - timezone.now()).days 
