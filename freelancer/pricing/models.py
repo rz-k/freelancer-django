@@ -1,6 +1,8 @@
+from tkinter.tix import Tree
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+User = get_user_model()
 
 class PricingTag(models.Model):
     name = models.CharField(
@@ -47,8 +49,6 @@ class PricingLevel(models.Model):
     
     
 class UserLevel(models.Model):
-      
-    User = get_user_model()
     
     user = models.ForeignKey(
         User,
@@ -62,19 +62,31 @@ class UserLevel(models.Model):
         on_delete=models.CASCADE,
         verbose_name='level_pricing'
     ) 
+    
+    count = models.IntegerField(
+        default=0,
+        verbose_name='تعداد درخواستای ارسال شده'
+    )
      
-     
-    timeex = models.DateTimeField(
+    
+    time_expier = models.DateTimeField(
         default=timezone.now() + timezone.timedelta(30),
         verbose_name='ویژه تا '
         )
     
     
+    
     def is_time(self):
-        if self.timeex > timezone.now():
+        if self.time_expier > timezone.now():
             return True
         return False
         
-        
     def days_left(self):
-        return (self.timeex - timezone.now()).days 
+        #tedad roz baghimande az in pannel
+        return (self.time_expier - timezone.now()).days 
+
+    def is_count(self):
+        # agar tamom shode darkhastash false mide
+        if self.count >= self.level_pricing.count:
+            return False
+        return True
