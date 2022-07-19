@@ -1,97 +1,90 @@
-from tkinter.tix import Tree
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-User = get_user_model()
+
 
 class PricingTag(models.Model):
+    """
+    The price of the dynamic fields
+    that are determined when the project is created,
+    such as 'urgent', 'highlight' and 'private'
+    """
     name = models.CharField(
         max_length=40, 
-        verbose_name='اسم تگ',        
-    )
-    
-    slug = models.SlugField(
-        verbose_name="اسلاگ",
-        unique=True
-        
-    )
+        verbose_name="اسم تگ")
+
     price = models.IntegerField(
         verbose_name='قیمت به ریال',
-        default=200000
-    )
-    
+        default=200000)
+
     def __str__(self):
         return self.name
-    
 
-class PricingLevel(models.Model):
-    
-    title = models.CharField(
-        max_length=35,
-        verbose_name='اسم لول : عادی- برنزی - نقراه ای - طلایی'
-    )
-    
-    count = models.IntegerField(
+
+class PricingPanel(models.Model):
+    panel_type = models.CharField(
+        max_length=150,
+        verbose_name="نوع پنل(برنزی، نقره ای، طلایی، الماس)")
+
+    price = models.PositiveIntegerField(
+        verbose_name="قیمت محصول به ریال")
+
+    count = models.PositiveSmallIntegerField(
         default=5,
-        verbose_name='تعداد درخواست های این پنل'
-    )
-    
-    day = models.IntegerField(
-        verbose_name='تعداد روز های مجاز برای این پنل',
-        default=30
-    )
-    
+        verbose_name="تعداد پیشنهاد های ارسالی در ماه")
+
+    days = models.IntegerField(
+        verbose_name="تعداد روز های مجاز",
+        default=30)
+
+    position = models.PositiveSmallIntegerField(
+        verbose_name="موقعیت و جایگاه این پنل در بین پنل ها",
+        unique=True)
+
     discription = models.TextField()
-    
-    
-    price = models.IntegerField(
-        verbose_name='قیمت این محصول به ریال'
-    )
-    
-    position = models.IntegerField(
-        verbose_name='پوزیشن و موقعیت',
-        unique=True
-    )
-    
-    
-    
-class UserLevel(models.Model):
-    
+
+
+class ActivePricingPanel(models.Model):
+    User = get_user_model()
+
     user = models.ForeignKey(
-        User,
+        to=User,
         on_delete=models.CASCADE,
-        verbose_name='user_level_pricing'
-        )
-    
-    
-    level = models.ForeignKey(
+        verbose_name="user_pricing_panel")
+
+    active_panel = models.ForeignKey(
         PricingLevel,
         on_delete=models.CASCADE,
-        verbose_name='level_pricing'
-    ) 
-    
-    count = models.IntegerField(
+        verbose_name="active_pricing_panel")
+
+    count = models.PositiveSmallIntegerField(
         default=0,
-        verbose_name='تعداد درخواستای ارسال شده'
-    )
-    
-    time_expier = models.DateTimeField(
+        verbose_name="تعداد پیشنهاد های ارسال شده")
+
+    expire_time = models.DateTimeField(
         default=timezone.now() + timezone.timedelta(30),
-        verbose_name='ویژه تا '
-        )
-    
-    
-    def is_time(self):
-        if self.time_expier > timezone.now():
+        verbose_name="تاریخ انقضای پنل")
+
+
+    def is_expire(self) -> bool:
+        """
+        Check expiration date of the panel,
+        return True if panel is available, otherwise False
+        """
+        if self.expire_time > timezone.now():
             return True
         return False
-        
-    def days_left(self):
-        #tedad roz baghimande az in pannel
-        return (self.time_expier - timezone.now()).days 
 
-    def is_count(self):
-        # agar tamom shode darkhastash false mide
-        if self.count >= self.level_pricing.count:
+    def days_left(self) -> int:
+        """
+        Get the remaining days of the active pricing panel
+        """
+        return (self.timeex - timezone.now()).days
+
+    def has_apply(self) -> bool:
+        """
+        Check to see if the user has enough apply count or not.
+        """
+        if self.count >= self.active_panel.count:
             return False
         return True
