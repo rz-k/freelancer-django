@@ -53,7 +53,7 @@ class ActivePricingPanel(models.Model):
         verbose_name="user_pricing_panel")
 
     active_panel = models.ForeignKey(
-        PricingLevel,
+        PricingPanel,
         on_delete=models.CASCADE,
         verbose_name="active_pricing_panel")
 
