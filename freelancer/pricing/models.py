@@ -80,7 +80,7 @@ class ActivePricingPanel(models.Model):
         """
         Get the remaining days of the active pricing panel
         """
-        return (self.timeex - timezone.now()).days
+        return (self.expire_time - timezone.now()).days
 
     def has_apply(self) -> bool:
         """

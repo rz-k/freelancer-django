@@ -4,8 +4,8 @@ from .forms import AddProjectForm, EditProjectForm, ApplyProjectForm
 from .models import ApplyProject, Project
 from django.http import JsonResponse
 from django.contrib import messages
-
-
+from freelancer.pricing.models import PricingPanel, ActivePricingPanel
+from django.utils import timezone
 
 def add_project(request, success_url="account:manage-job", form_class=AddProjectForm, template_name='project/add-project.html'):
     if request.method == 'POST':
@@ -81,9 +81,24 @@ def delete_project(request, id, success_url="account:manage-job"):
         })
 
 
-def apply_to(request, id, next_url="job:home", success_url="job:detail-job", form_class=ApplyProjectForm, template_name='job/detail-job.html'):
-    project = get_object_or_404(klass=Project, id=id)
 
+
+def apply_to(request, id, next_url="account:home", success_url="project:detail-project", form_class=ApplyProjectForm, template_name='project/detail-proj.html'):
+    user_active_pannel =  ActivePricingPanel.objects.get(user=request.user)
+    
+    if not user_active_pannel.has_apply():
+        if user_active_pannel.is_expire():
+            messages.success(request=request, message="تعداد درخواست های شما تمام شده است برای ارسال درخواست لطفا یک پنل انتخاب کنید", extra_tags="danger")
+            return redirect(success_url, id)
+        
+        user_active_pannel.count=0
+        user_active_pannel.expire_time=timezone.now() + timezone.timedelta(30)
+        
+    
+    user_active_pannel.count=user_active_pannel.count+1
+    user_active_pannel.save()
+    
+    project = get_object_or_404(klass=Project, id=id)
     if request.method == "POST":
         if request.user == project.user:
             return redirect(next_url)
