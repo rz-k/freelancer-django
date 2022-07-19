@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from freelancer.resume.models import CV
 
 from .models import Profile, User
+from freelancer.pricing.models import ActivePricingPanel, PricingPanel
 
 
 @receiver(post_save, sender=User)
@@ -18,6 +19,12 @@ def create_or_update_user_profile(sender, instance, created=False, **kwargs):
     if created:
         Profile.objects.create(user=instance)
         CV.objects.create(user=instance)
+        
+        ActivePricingPanel.objects.create(
+            user=instance, 
+            active_panel=PricingPanel.objects.first(),
+            )
+        
 
 
 @receiver(pre_save, sender=Profile)
