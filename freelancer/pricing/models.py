@@ -8,7 +8,8 @@ class PricingTag(models.Model):
     name = models.CharField(
         max_length=40, 
         verbose_name='اسم تگ',        
-    ),
+    )
+    
     slug = models.SlugField(
         verbose_name="اسلاگ",
         unique=True
@@ -47,6 +48,12 @@ class PricingLevel(models.Model):
         verbose_name='قیمت این محصول به ریال'
     )
     
+    position = models.IntegerField(
+        verbose_name='پوزیشن و موقعیت',
+        unique=True
+    )
+    
+    
     
 class UserLevel(models.Model):
     
@@ -67,13 +74,11 @@ class UserLevel(models.Model):
         default=0,
         verbose_name='تعداد درخواستای ارسال شده'
     )
-     
     
     time_expier = models.DateTimeField(
         default=timezone.now() + timezone.timedelta(30),
         verbose_name='ویژه تا '
         )
-    
     
     
     def is_time(self):
