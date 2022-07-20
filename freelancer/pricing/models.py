@@ -1,6 +1,5 @@
-from turtle import position
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils import timezone
 
 
@@ -28,7 +27,7 @@ class PricingPanel(models.Model):
         verbose_name="نوع پنل(برنزی، نقره ای، طلایی، الماس)")
 
     price = models.PositiveIntegerField(
-        verbose_name="قیمت محصول به ریال")
+        verbose_name="قیمت پنل به ریال")
 
     count = models.PositiveSmallIntegerField(
         default=5,
@@ -45,18 +44,24 @@ class PricingPanel(models.Model):
     discription = models.TextField()
 
 
+    def __str__(self):
+        return self.panel_type
+
+
 class ActivePricingPanel(models.Model):
     User = get_user_model()
 
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
-        verbose_name="user_pricing_panel")
+        related_name="user_pricing_panel",
+        verbose_name="کاربر")
 
     active_panel = models.ForeignKey(
-        PricingPanel,
+        to=PricingPanel,
         on_delete=models.CASCADE,
-        verbose_name="active_pricing_panel")
+        related_name="active_pricing_panel",
+        verbose_name="پنل فعال")
 
     count = models.PositiveSmallIntegerField(
         default=0,
