@@ -2,10 +2,10 @@ import os
 
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from freelancer.pricing.models import ActivePricingPanel, PricingPanel
 from freelancer.resume.models import CV
 
 from .models import Profile, User
-from freelancer.pricing.models import ActivePricingPanel, PricingPanel
 
 
 @receiver(post_save, sender=User)
@@ -17,14 +17,16 @@ def create_or_update_user_profile(sender, instance, created=False, **kwargs):
             Model instance(a record) which is saved(the actual instance being saved).
     """
     if created:
+        # Create a Default Profile.
         Profile.objects.create(user=instance)
+
+        # Create a Default Resome.
         CV.objects.create(user=instance)
-        
+
+        # Create a Default Pricing panel.
         ActivePricingPanel.objects.create(
-            user=instance, 
-            active_panel=PricingPanel.objects.first(),
-            )
-        
+            user=instance,
+            active_panel=PricingPanel.objects.get(position=0))
 
 
 @receiver(pre_save, sender=Profile)
