@@ -126,20 +126,20 @@ def logout_user(request):
 
 def pagination(object_list, per_page: int, page_number: int):
     """
-    Determine how many jobs will be displayed per page.
+    Determine how many projects will be displayed per page.
 
     Args:
-        object_list (Job): Job QuerySet.
-        per_page (int): Number of jobs per page.
+        object_list (project): project QuerySet.
+        per_page (int): Number of projects per page.
         page_number (int): page number(page=1, page=2, etc...)
 
     Returns:
-        list of jobs.
+        list of projects.
     """
     paginator = Paginator(object_list=object_list, per_page=per_page)
-    jobs = paginator.get_page(number=page_number)
+    projects = paginator.get_page(number=page_number)
 
-    context = {'obj_list': jobs}
+    context = {'obj_list': projects}
     return context
 
 
@@ -204,9 +204,9 @@ def edit_profile(request, success_url="account:dashboard", form_class=EditProfil
 
 
 @login_required
-def manage_job(request, template_name='account/dashboard/manage-job.html'):
+def manage_project(request, template_name='account/dashboard/manage-project.html'):
     """
-    Show a list of available user jobs (Project OR Corporate job).
+    Show a list of available user projects.
     """
     page_number = request.GET.get('page')
     projects = Project.objects.filter(
