@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------
 [Main Stylesheet]
 
-Project:    JOBB
+Project:    projectB
 Version:    1.1.0
 -------------------------------------------------------------------*/
 
@@ -11,19 +11,19 @@ Version:    1.1.0
     3. Home Page Banner (Main Home) / .banner
     4. Banner Search Box / .search-area
     5. Popular Categories / .popular-categories
-    6. Job Section / .job-box
+    6. project Section / .project-box
     7. Application Counter / .counters
     8. Testimonial / .testimonial
     9. Partner / .partners-block
     10. Single Page Banner / .sub-banner
     11. Candidate Details / .candidate-section
     12. Employer Details / .employer-details-page
-    13. Job Details / .job-details-page
+    13. project Details / .project-details-page
     14. Pricing Plan / .pricing-tables
     15. Comments / .comments
     18. Dashboard / .dashboard
     19. Add Resume / .add-resume
-    20. Post Job / .post-job
+    20. Post project / .post-project
     20. Blog / .blog-body
     21. Contact Form / .contact-form
     22. Signup/Login Wrapper / .form-content-box
@@ -894,7 +894,7 @@ input[type=checkbox]:checked + label:before {
     background: -webkit-linear-gradient(45deg, rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgb(169, 255, 103) 100%);
     background: -o-linear-gradient(45deg, rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
     background: -ms-linear-gradient(45deg, rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
-    background: linear-gradient(45deg, rgb(255, 236, 11) 0%,rgb(236, 25, 55).job-box 71%,rgb(234, 23, 23) 100%);
+    background: linear-gradient(45deg, rgb(255, 236, 11) 0%,rgb(236, 25, 55).project-box 71%,rgb(234, 23, 23) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8b91dd', endColorstr='#10195d',GradientType=1 );
     opacity: 0.7;
 }
@@ -986,14 +986,14 @@ input[type=checkbox]:checked + label:before {
     float: right;
 }
 
-.banner .browse-jobs {
+.banner .browse-projects {
     color: #fff;
     margin-top: 30px;
     font-size: 15px;
     font-weight: 500;
 }
 
-.banner .browse-jobs a {
+.banner .browse-projects a {
     background-color: rgba(255,255,255,.1);
     border: 1px solid rgba(255,255,255,.2);
     padding: 5px 11px;
@@ -4162,16 +4162,16 @@ footer {
     padding: 20px 20px;
 }
 
-/** Job info start **/
-.job-info table thead tr th:first-child {
+/** project info start **/
+.project-info table thead tr th:first-child {
     padding-left: 20px;
 }
 
-.job-info table thead tr th:last-child{
+.project-info table thead tr th:last-child{
     padding-right: 20px;
 }
 
-.job-info table thead tr th {
+.project-info table thead tr th {
     border: none;
     font-weight: 600;
     font-size: 14px;
@@ -4181,54 +4181,55 @@ footer {
     color: #4d4d4d;
 }
 
-.job-info table tbody tr .actions i{
+.project-info table tbody tr .actions i{
     margin-left: 10px;
 }
 
-.job-info table tbody tr td.image {
+.project-info table tbody tr td.image {
     width: 120px;
     padding-left: 20px;
 }
-.job-info table tbody tr td {
+.project-info table tbody tr td {
+    font-family: sans-serif;
     border-top: none;
     border-bottom: 1px solid #f3f3f3;
     padding: 20px 20px 20px 0;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-.job-info table tbody tr td.image img {
+.project-info table tbody tr td.image img {
     border-radius: 3px;
 }
 
-.job-info table h5 {
+.project-info table h5 {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
 }
 
-.job-info ul {
+.project-info ul {
     display: inline-block;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.job-info ul li {
+.project-info ul li {
     float: left;
     margin-right: 20px;
     font-size: 14px;
 }
 
-.job-info ul li:last-child{
+.project-info ul li:last-child{
     margin: 0;
 }
 
-.job-info ul li i {
+.project-info ul li i {
     margin-right: 5px;
 }
 
-.job-info .table{
+.project-info .table{
     margin-bottom: 0;
     
 }
@@ -4238,34 +4239,34 @@ footer {
  }
 
 
-.job-info-2 table tbody tr td.image{
+.project-info-2 table tbody tr td.image{
     display: none;
     
 }
 
-.job-info-2 .ds-none{
+.project-info-2 .ds-none{
     display: none;
 }
 
-.job-info-2 .p-left-20{
+.project-info-2 .p-left-20{
     padding-left: 20px;
 }
 
 
 
-/* Manage Job List Update
+/* Manage project List Update
 ***************************/
-#job-table {
+#project-table {
     text-align: right !important;
 }
 
-.job-details {
+.project-details {
     display: flex !important;
     max-width: fit-content;
     column-gap: 15px;
 }
 
-.job-details > li {
+.project-details > li {
     display: flex;
     height: fit-content;
     align-items: center;
@@ -4295,7 +4296,7 @@ td {
     justify-content: flex-start;
     column-gap: 5px;
     height: 45px;
-    width: 160px;
+    width: 80%;
     border: 2px #ad9bfa solid;
     border-radius: 40px;
     padding-right: 15px;
@@ -4307,13 +4308,13 @@ td {
     border: 2px #9e8ceb solid;
 }
 
-.payed-job {
+.payed-project {
     display: flex;
     align-items:center;
     justify-content: flex-start;
     column-gap: 5px;
     height: 45px;
-    width: 160px;
+    width: 80%;
     border: 2px #5ff96f solid;
     border-radius: 40px;
     padding-right: 15px;
@@ -4339,7 +4340,7 @@ td {
         width: 150px !important;
     }
 
-    .job-details {
+    .project-details {
         flex-direction: column !important;
         row-gap: 7px;
     }
@@ -4582,7 +4583,7 @@ td {
 
 
 /* candidate box  */
-.job-listing-details{
+.project-listing-details{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -6200,7 +6201,7 @@ employer-box-2{
         padding: 30px 10px;
     }
 
-    .job-box .apply-button {
+    .project-box .apply-button {
         padding: 7px 25px;
     }
 
@@ -6676,11 +6677,11 @@ employer-box-2{
         width: 100%;
      }
 
-    .job-box .description h6 {
+    .project-box .description h6 {
         margin-bottom: 15px;
     }
 
-    .job-box .description ul {
+    .project-box .description ul {
         margin-bottom: 5px;
     }
 
@@ -6701,7 +6702,7 @@ employer-box-2{
         font-size: 37px;
     }
 
-    .job-info table thead tr th {
+    .project-info table thead tr th {
         padding: 20px 10px 20px 0;
     }
 
@@ -6743,27 +6744,27 @@ employer-box-2{
         font-size: 14px;
     }
 
-    .job-info table tbody tr td.image{
+    .project-info table tbody tr td.image{
         display: none;
     }
 
-    .job-info .ds-none{
+    .project-info .ds-none{
         display: none;
     }
 
-    .job-info table h5 {
+    .project-info table h5 {
         font-size: 20px;
     }
 
-    .job-info .inner{
+    .project-info .inner{
         padding-left: 20px;
     }
 
-    .job-info-2 .p-left-20 {
+    .project-info-2 .p-left-20 {
         padding-left: 0;
     }
 
-    .job-info table tbody tr td {
+    .project-info table tbody tr td {
         padding: 20px 10px 20px 0;
     }
 
@@ -6772,7 +6773,7 @@ employer-box-2{
         padding: 20px;
     }
 
-    .job-box .apply-button{
+    .project-box .apply-button{
         float: none;
         margin-top: 0;
     }
@@ -6781,20 +6782,20 @@ employer-box-2{
         margin-top: 5px;
     }
 
-    .job-box .favourite{
+    .project-box .favourite{
         margin-top: 0;
         float: left;
     }
 
-    .job-box {
+    .project-box {
         margin-bottom: 10px;
     }
 
-    .job-section .browse-all{
+    .project-section .browse-all{
         padding: 13px 32px 9px 32px;
     }
 
-    .job-box{
+    .project-box{
         padding: 20px;
     }
 
@@ -7412,23 +7413,23 @@ employer-box-2{
         margin: 0 0 10px;
     }
 
-    .job-box .company-logo {
+    .project-box .company-logo {
         width: 100%;
         position: inherit;
     }
 
-    .job-box .company-logo img{
+    .project-box .company-logo img{
         width: 90px;
         margin-bottom: 10px;
     }
 
-    .job-box .description {
+    .project-box .description {
         margin: 0;
         width: 100%;
         float: left;
     }
 
-    .job-box .description h5 {
+    .project-box .description h5 {
         margin-bottom: 10px;
         font-size: 20px;
     }
@@ -7441,16 +7442,16 @@ employer-box-2{
         float: left;
     }
 
-    .job-info table h5 {
+    .project-info table h5 {
         font-size: 17px;
         font-weight: 600;
     }
 
-    .job-info ul li {
+    .project-info ul li {
         margin-right: 5px;
     }
 
-    .job-info table tbody tr td{
+    .project-info table tbody tr td{
         font-size: 13px;
     }
 
