@@ -1,17 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.text import slugify
-from .forms import AddProjectForm, EditProjectForm, ApplyProjectForm
-from .models import ApplyProject, Project
-from django.http import JsonResponse
-from django.contrib import messages
-from freelancer.pricing.models import PricingPanel, ActivePricingPanel
 from django.utils import timezone
+from django.contrib import messages
+from django.http import JsonResponse
+from django.utils.text import slugify
+from django.shortcuts import get_object_or_404, redirect, render
+from freelancer.pricing.models import ActivePricingPanel, PricingPanel
 
-def add_project(request, success_url="account:manage-job", form_class=AddProjectForm, template_name='project/add-project.html'):
+from .forms import AddProjectForm, ApplyProjectForm, EditProjectForm
+from .models import ApplyProject, Project
+
+
+def add_project(request, success_url="account:manage-project", form_class=AddProjectForm, template_name='project/add-project.html'):
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
-            cd = form.cleaned_data          
+            cd = form.cleaned_data
             Project.objects.create(
                 user=request.user,
                 category=cd['category'],
@@ -31,12 +33,11 @@ def add_project(request, success_url="account:manage-job", form_class=AddProject
     return render(request=request, template_name=template_name, context=context)
 
 
-def edit_project(request, id, success_url="account:manage-job", form_class=EditProjectForm, template_name='project/edit-proj.html'):
+def edit_project(request, id, success_url="account:manage-project", form_class=EditProjectForm, template_name='project/edit-proj.html'):
     project = get_object_or_404(klass=Project, user=request.user, id=id)
     if project.paid:
         if project.publish == 'wait' or project.publish == 'publish':
             return redirect(success_url)
-        
     
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES, instance=project)
@@ -56,7 +57,7 @@ def detail_project(request, id, form_class=ApplyProjectForm, template_name='proj
     project = get_object_or_404(klass=Project, id=id)
     if not project.paid :
         if request.user != project.user:
-            return redirect('job:home')
+            return redirect("account:home")
 
     form = form_class()
     is_employer = False
@@ -70,54 +71,77 @@ def detail_project(request, id, form_class=ApplyProjectForm, template_name='proj
     return render(request=request, template_name=template_name, context=context)
 
 
-def delete_project(request, id, success_url="account:manage-job"):
+def delete_project(request, id, success_url="account:manage-project"):
     """
-        Using the `GET` request method to delete the user job.
+        Using the `GET` request method to delete the user project.
     """
     if request.method == "GET":
         get_object_or_404(klass=Project, user=request.user, id=id).delete()
         return JsonResponse({
-            "delete-job": True,
+            "delete-project": True,
         })
 
 
+def check_active_pricing_panel(request) -> bool:
+    """
+    Check the Expire time and apply count of the active pricing panel,
+    if the user has enough apply count then increase the apply counter
+    otherwise return an error.
+    """
+    active_panel =  ActivePricingPanel.objects.get(user=request.user)
+    if active_panel.is_expire():
+        messages.success(
+            request=request,
+            message="زمان پنل شما به اتمام رسیده است، جهت خرید پنل جدید میتوایند از قسمت پنل ها اقدام نمایید",
+            extra_tags="danger")
+        return False
+    else:
+        if active_panel.has_apply():
+            active_panel.count += 1
+            active_panel.save()
+            return True
+        else:
+            messages.success(
+                request=request,
+                message="تعداد درخواست های پنل فعلی شما به پایان رسیده است، جهت خرید پنل جدید میتوایند از قسمت پنل ها اقدام نمایید",
+                extra_tags="danger")
+            return False
 
 
-def apply_to(request, id, next_url="account:home", success_url="project:detail-project", form_class=ApplyProjectForm, template_name='project/detail-proj.html'):
-    user_active_pannel =  ActivePricingPanel.objects.get(user=request.user)
-    
-    if not user_active_pannel.has_apply():
-        if user_active_pannel.is_expire():
-            messages.success(request=request, message="تعداد درخواست های شما تمام شده است برای ارسال درخواست لطفا یک پنل انتخاب کنید", extra_tags="danger")
-            return redirect(success_url, id)
-        
-        user_active_pannel.count=0
-        user_active_pannel.expire_time=timezone.now() + timezone.timedelta(30)
-        
-    
-    user_active_pannel.count=user_active_pannel.count+1
-    user_active_pannel.save()
-    
+def apply_to(request, id, next_url="account:home",
+            success_url="project:detail-project", form_class=ApplyProjectForm,
+            template_name='project/detail-proj.html'):
+    """
+    Check the active pricing panel of sender user and then
+    create a new apply for him or return an error.
+    """
+
+    active_panel_status = check_active_pricing_panel(request=request)
+    if active_panel_status == False:
+        return redirect(success_url, id)
+
     project = get_object_or_404(klass=Project, id=id)
     if request.method == "POST":
+        # Redirect if user is creator of the project.
         if request.user == project.user:
             return redirect(next_url)
-
-        form = form_class(data=request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            apply = ApplyProject.objects.create(
-                user = request.user,
-                project=project,
-                description=cd['description'],
-                bid_amount=cd['bid_amount'],
-                bid_date=cd['bid_date']
-                )
-            messages.success(request=request, message="درخواست شما برای گرفتن این پروژه ارسال شد", extra_tags="success")
-            return redirect(next_url)
-
-        messages.error(request=request, message="لطفا مقادیر گفته شده را به درستی وارد نمایید.", extra_tags="danger")
-        return redirect(success_url, project.id)
+        else:
+            form = form_class(data=request.POST)
+            if form.is_valid():
+                form.save(project=project, sender_user=request.user)
+                messages.success(
+                    request=request,
+                    message="درخواست شما برای گرفتن این پروژه ارسال شد",
+                    extra_tags="success")
+                return redirect(next_url)
+            else:
+                messages.error(
+                    request=request,
+                    message="لطفا مقادیر گفته شده را به درستی وارد نمایید.", 
+                    extra_tags="danger")
+                return redirect(success_url, project.id)
     else:
         form = form_class()
-        return render(request=request, template_name=template_name, context={"apply_form": form})
+        return render(request=request,
+                      template_name=template_name,
+                      context={"apply_form": form})
