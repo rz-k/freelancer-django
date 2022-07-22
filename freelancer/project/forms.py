@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
 from django_quill.forms import QuillFormField
 from freelancer.project.models import Category
-from .models import Project
+
+from .models import ApplyProject, Project
 
 
 class AddProjectForm(forms.Form):
@@ -92,3 +93,16 @@ class ApplyProjectForm(forms.Form):
         widget=forms.Textarea(
             attrs={"class": "input-text", "placeholder": "توضیحات..."}),
         error_messages={"required": "لطفا توضیحات خود را برای کارفرما بنویسید"})
+
+
+    def save(self, project, sender_user):
+        """
+        Update the user profile and User model.
+        """
+        data = self.cleaned_data
+        apply = ApplyProject.objects.create(
+            user = sender_user,
+            project=project,
+            description=data['description'],
+            bid_amount=data['bid_amount'],
+            bid_date=data['bid_date'])
