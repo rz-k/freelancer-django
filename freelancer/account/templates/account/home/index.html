@@ -1,8 +1,9 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load project_tags %}
 
 {% block custom_tag %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/job-details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project-details.css' %}">
 {% endblock custom_tag %}
 
 
@@ -28,7 +29,7 @@
                 <div class="inline-search-area ml-auto mr-auto none-768">
                     <div class="search-boxs">
                         <div class="search-col">
-                            <input type="text" name="search" class="form-control has-icon b-radius" placeholder="Job title, Keywords or company name">
+                            <input type="text" name="search" class="form-control has-icon b-radius" placeholder="project title, Keywords or company name">
                         </div>
                         <div class="search-col">
                             <select class="selectpicker search-fields" name="location">
@@ -106,8 +107,8 @@
 </div>
 <!-- Popular categories end -->
 
-<!-- Job section strat -->
-<div class="job-section content-area-5 bg-grea">
+<!-- project section strat -->
+<div class="project-section content-area-5 bg-grea">
     <div class="container">
         <!-- Main title -->
         <div class="main-title text-center">
@@ -119,57 +120,58 @@
         <div class="row" dir="ltr">
             <div class="col-lg-12" dir="rtl" style="text-align: right;">
                 {% for project in projects %}
-                    <div class="job-box">
-                        <div class="related-job-header">
+                    <div class="project-box">
+                        <div class="related-project-header">
                             <div class="company-logo">
                                 {% if project.image %}
                                     <img alt="my-properties-3" src="{{project.image.url}}" width="100" height="90" style="border-radius:5px;">
                                 {% else %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="job-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="project-icon" fill="none" viewBox="0 0 24 24" stroke="#36c34c" stroke-width="1" width="120px" height="110px">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                     </svg>
                                 {% endif %}
                             </div>
-                            <div class="related-job-top-header">
+                            <div class="related-project-top-header">
                                 <h5 class="title">
                                     <a href="{% url 'project:detail-project' project.id %}">{{project.title}}</a>
                                 </h5>
-                                <ul class="related-job-require job-header-detail">
+                                <ul class="related-project-require project-header-detail">
                                     <li>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
-                                        {{job.company_name}}
+                                        {{project.company_name}}
                                     </li>
                                     <li>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
                                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                                         </svg>
-                                        {{job.place | cut:" "}}
+                                        {{project.place | cut:" "}}
                                     </li>
                                     <li>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20px">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        {{job.get_work_type_display}}
+                                        {{project.get_work_type_display}}
                                     </li>
                                 </ul>
                             </div>
-                            <h6 class="related-job-deadline">دد لاین:  {{job.job_pay.first.created|date:"M d Y"}}</h6>
+                            <h6 class="related-project-deadline">دد لاین:  {{project.project_pay.first.created|date:"M d Y"}}</h6>
                             <a href="#" class="apply-button">ارسال پیشنهاد</a>
                             <div class="tag-list">
+                                {% get_project_tags project.get_tags %}
                             </div>
                         </div>
                     </div>
                 {% endfor %}
                 <div class="text-center clearfix">
-                    <a href="job-list.html" class="browse-all">نمایش تمام شغل ها</a>
+                    <a href="project-list.html" class="browse-all">نمایش تمام شغل ها</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Job section end -->
+<!-- project section end -->
 
 <!-- Counters strat -->
 <div class="counters bg-color-full-2">
