@@ -71,13 +71,12 @@ class ActivePricingPanel(models.Model):
         default=timezone.now() + timezone.timedelta(30),
         verbose_name="تاریخ انقضای پنل")
 
-
     def is_expire(self) -> bool:
         """
         Check expiration date of the panel,
         return True if panel is available, otherwise False
         """
-        if self.expire_time > timezone.now():
+        if timezone.now() > self.expire_time:
             return True
         return False
 
@@ -91,6 +90,6 @@ class ActivePricingPanel(models.Model):
         """
         Check to see if the user has enough apply count or not.
         """
-        if self.count >= self.active_panel.count:
-            return False
-        return True
+        if self.count <= self.active_panel.count:
+            return True
+        return False
