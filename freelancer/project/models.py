@@ -2,35 +2,34 @@ import uuid
 
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.text import slugify
 from django_quill.fields import QuillField
-from django.core.validators import MaxValueValidator, MinValueValidator
-
 
 
 class Category(models.Model):
     parent = models.ForeignKey(
-        to='self',
+        to="self",
         on_delete=models.CASCADE,
         default=None,
         null=True,
         blank=True,
-        verbose_name='زیردسته',
-        related_name='children')
+        verbose_name="زیردسته",
+        related_name="children")
     
     name = models.CharField(
         max_length=200,
-        verbose_name='عنوان دسته')
+        verbose_name="عنوان دسته")
     
     slug = models.CharField(
         max_length=200,
         unique=True,
-        verbose_name='آدرس دسته')
+        verbose_name="آدرس دسته")
     
     status = models.BooleanField(
         default=True,
-        verbose_name='فعال شود ؟')
+        verbose_name="فعال شود ؟")
     
     created = models.DateTimeField(auto_now_add=True)
 
@@ -40,29 +39,30 @@ class Category(models.Model):
 
 
 class Project(models.Model):
-    
-    IS_PUBLISH_ADMIN = (
-        ('publish', 'منتشر شد'),
-        ('rejection', 'رد شد'),
-        ('wait', 'منتظر تایید ادمین')
+    PUBLISH_STATUS_CHOICES = (
+        ("publish", "منتشر شد"),
+        ("reject", "رد شد"),
+        ("wait", "منتظر تایید ادمین")
     )
-    
+
     User = get_user_model()
 
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
-        related_name="user_project")
-    
+        related_name="user_project",
+        verbose_name="ایجاد کننده پروژه")
+
     category = models.ForeignKey(
         to=Category,
         on_delete=models.CASCADE,
-        related_name='category_project')
+        related_name="category_project",
+        verbose_name="دسته بندی پروژه")
 
     title = models.CharField(
         max_length=60,
         verbose_name="عنوان پروژه")
-        
+
     slug = models.SlugField(
         max_length=120,
         blank=True,
@@ -82,7 +82,7 @@ class Project(models.Model):
 
     description = QuillField(
         max_length=20000,
-        verbose_name='توضیحات پروژه')
+        verbose_name="توضیحات پروژه")
 
     status = models.BooleanField(
         default=False,
@@ -94,12 +94,12 @@ class Project(models.Model):
 
     urgent = models.BooleanField(
         default=False,
-        verbose_name="فوری")
+        verbose_name="تگ فوری")
 
     highlight = models.BooleanField(
         default=False,
         verbose_name="برجسته")
-    
+
     private = models.BooleanField(
         default=False,
         verbose_name="محرمانه")
@@ -108,12 +108,11 @@ class Project(models.Model):
         default=False,
         verbose_name="پرداخت شده؟")
 
-    publish = models.CharField(
+    publish_status = models.CharField(
         max_length=30,
-        choices=IS_PUBLISH_ADMIN,
         default="wait",
-        verbose_name="انتشار پروژه"
-    )
+        choices=PUBLISH_STATUS_CHOICES,
+        verbose_name="وضعیت انتشار پروژه")
 
     created = models.DateTimeField(auto_now=True)
 
@@ -121,10 +120,9 @@ class Project(models.Model):
     def __str__(self) -> str:
         return self.title
 
-
     def save(self, *args, **kwargs):
         """
-            Create a new job with a 'Persian' dynamic slug.
+        Create a new job with a 'Persian' dynamic slug.
         """
         self.slug = slugify(value=self.title, allow_unicode=True)
         super().save(*args, **kwargs)
@@ -135,9 +133,9 @@ class Project(models.Model):
 
 class ApplyProject(models.Model):
     APPLY_STATUS_CHOICES = (
-        ('accept', 'پذیرفته شد'),
-        ('reject', 'رد شد'),
-        ('wait', 'در حال انتظار')
+        ("accept", "پذیرفته شد"),
+        ("reject", "رد شد"),
+        ("wait", "در حال انتظار")
     )
 
     user = models.ForeignKey(
@@ -153,12 +151,12 @@ class ApplyProject(models.Model):
     status = models.CharField(
         max_length=20,
         choices=APPLY_STATUS_CHOICES,
-        verbose_name='وضعیت درخواست',
-        default='wait')
+        verbose_name="وضعیت درخواست",
+        default="wait")
 
     description = models.TextField(
         max_length=500,
-        verbose_name='توضیحات برای کارفرما')
+        verbose_name="توضیحات برای کارفرما")
 
     bid_amount = models.CharField(
         max_length=100,
@@ -173,16 +171,18 @@ class ApplyProject(models.Model):
 
 
 class EmployersComment(models.Model):
-    to = models.OneToOneField(
-        ApplyProject, 
-        on_delete=models.CASCADE, 
-        related_name='comment_to', 
-        unique=True)
+    apply_project = models.OneToOneField(
+        to=ApplyProject,
+        on_delete=models.CASCADE,
+        unique=True,
+        related_name="employer_comment")
 
-    star = models.IntegerField(
+    star_rating = models.IntegerField(
         default=0,
+        blank=True,
+        null=True,
         validators = [
             MaxValueValidator(5),
             MinValueValidator(0)])
 
-    comment = models.TextField(max_length=150)
+    comment = models.TextField(max_length=200)
