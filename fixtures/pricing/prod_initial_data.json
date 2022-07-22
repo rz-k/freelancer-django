@@ -1,0 +1,25 @@
+[
+    {
+      "model": "pricing.PricingPanel",
+      "pk": 1,
+      "fields": {
+        "panel_type":"معمولی",
+        "price": 0,
+        "count": 5,
+        "days": 30,
+        "position": 0,
+        "discription": "اعضای معمولی میتوانند 5 پیشنهاد برای پروژه ها ارسال کنند"
+      }
+    },
+
+    {
+        "model": "pricing.ActivePricingPanel",
+        "pk": 1,
+        "fields": {
+          "user": 1,
+          "active_panel": 1,
+          "count": 0,
+          "expire_time": "2022-07-20T16:00:00+00:00"
+        }
+      }
+]

@@ -1,0 +1,50 @@
+[
+    {
+      "model": "pricing.PricingPanel",
+      "pk": 1,
+      "fields": {
+        "panel_type":"معمولی",
+        "price": 0,
+        "count": 5,
+        "days": 30,
+        "position": 0,
+        "discription": "اعضای معمولی میتوانند 5 پیشنهاد برای پروژه ها ارسال کنند"
+      }
+    },
+    {
+      "model": "pricing.PricingPanel",
+      "pk": 2,
+      "fields": {
+        "panel_type":"برنزی",
+        "price": 350000,
+        "count": 60,
+        "days": 30,
+        "position": 1,
+        "discription": "اعضای برنزی پروفایل حرفه ای دریافت می‌کنند، نشان عضویت برنزی می‌گیرند و می‌توانند 60 پیشنهاد در ماه ارسال کنند"
+      }
+    },
+    {
+      "model": "pricing.PricingPanel",
+      "pk": 3,
+      "fields": {
+        "panel_type":"نقره ای",
+        "price": 500000,
+        "count": 12,
+        "days": 30,
+        "position": 2,
+        "discription": "اعضای نقره ای پروفایل حرفه ای دریافت می‌کنند، نشان عضویت نقره ای می‌گیرند و می‌توانند 120 پیشنهاد در ماه ارسال کنند."
+      }
+    },
+    {
+      "model": "pricing.PricingPanel",
+      "pk": 4,
+      "fields": {
+        "panel_type":"طلایی",
+        "price": 700000,
+        "count": 240,
+        "days": 30,
+        "position": 3,
+        "discription": "اعضای طلایی پروفایل حرفه ای دریافت می‌کنند، نشان عضویت طلایی می‌گیرند و می‌توانند 240 پیشنهاد در ماه ارسال کنند"
+      }
+    }
+]
