@@ -3,6 +3,12 @@
 {% load humanize %}
 {% load jformat %}
 
+
+{% block custom_tag %}
+    {{ forms.media }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/manage-apply.css' %}">
+{% endblock custom_tag %}
+
 {% block content %}
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
     <div class="content-area5">
@@ -10,7 +16,7 @@
             <div class="dashboard-header clearfix">
                 <div class="row" id="breadcrumb-head">
                     <div class="col-sm-12 col-md-6" id="breadcrumb-title">
-                        <h4>مدیریت درخواست های دریافتی</h4>
+                        <h4>درخواست های دریافتی</h4>
                     </div>
                     <div class="col-sm-12 col-md-6" id="breadcrumb-items">
                         <div class="breadcrumb-nav" dir="ltr">
@@ -21,15 +27,13 @@
                     </div>
                 </div>
             </div>
-
-            
             <div class="dashboard-list">
                 <div class="job-info">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>*</th>
-                                <th>عنوان</th>
+                                <th>شماره</th>
+                                <th>اسم پروژه</th>
                                 <th>درخواست دهنده</th>
                                 <th>تاریخ</th>
                                 <th>وضعیت درخواست</th>
@@ -38,49 +42,43 @@
                         </thead>
                         <tbody>
                             {% for candid in obj_list %}
-                                <tr class="responsive-table">
-                                    <td>{{ forloop.counter }}</td>
+                                <tr>
                                     <td>
-                                        {% if candid.project.id %}
-                                            <a href="{% url 'project:detail-project' candid.project.id %}">{{candid.project.title|truncatechars:15}}</a>
-                                        {% else %}
-                                            <a href="{% url 'job:detail-job' candid.job.id %}">{{candid.job.title|truncatechars:15}}</a>
-                                        {% endif %}
+                                        {{ forloop.counter }}
                                     </td>
-
                                     <td>
-                                        <a href="{% url 'account:candidate-profile' candid.user.username %}">{{candid.user.username}}</a>
+                                        {{candid.project.title|truncatechars:30}}
                                     </td>
-
                                     <td>
-                                        {% comment %} {{ candid.created|date:"H:m ,Y/m/d" }} {% endcomment %}
+                                        <a href="{% url 'account:candidate-profile' candid.user.username %}">
+                                            {{candid.user.username}}
+                                        </a>
+                                    </td>
+                                    <td>                                        
                                         {{ candid.created|jformat:"%Y/%m/%d" }}
                                     </td>
-
                                     <td>
                                         {% if candid.status == 'wait' %}
-                                            در حال انتظار
+                                            <p class="project-status-wait">
+                                                در حال انتظار
+                                            </p>
                                         {% elif candid.status == 'reject'%}
-                                            رد شد
+                                            <p class="project-status-reject">
+                                                رد شد
+                                            </p>
                                         {% else%}
-                                            تایید شد
+                                            <p class="project-status-accept">
+                                                تایید شد
+                                            </p>
                                         {% endif %}
-                                    </td>
-                                    
-                                    <td>
-
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="gray" stroke-width="2" width="20px">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                            </svg>                                            
-                                        <a>
-
-                                        <a href="{% if candid.project %}#{% else %}{% url 'account:candidate-profile' candid.user.username %}{% endif %} ">
-                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray" stroke-width="1" width="20px">
+                                    </td>                                    
+                                    <td class="actions">
+                                        <a href="#" title="مشاهد و پاسخ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#62aaff" stroke-width="2" width="20px">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                            </svg> 
-                                        <a>
+                                            </svg>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -90,7 +88,6 @@
                 {% include 'account/dashboard/inc/pagination.html' %}
             </div>
         </div>
-        <p class="sub-banner-2 text-center">© 2019 Theme Vessel. Trademarks and brands are the property of their respective owners.</p>
     </div>
 </div>
 {% endblock content %}

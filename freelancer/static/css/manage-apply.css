@@ -1,0 +1,48 @@
+p {
+    font-size: 15px;
+}
+
+th {
+    background-color: #92ffdc;
+    color: #333333;
+}
+
+thead {
+    height: 55px;
+    font-family: sans-serif;
+}
+
+tbody {
+    font-family: sans-serif;
+
+}
+
+thead > tr > th {
+    text-align: start;
+    padding: 0 20px;
+}
+
+table {
+    width: 100%;
+}
+
+.project-status-wait {
+    color: #ff9645;
+}
+
+.project-status-accept {
+    color: #34e12c;
+}
+
+.project-status-reject {
+    color: #ff4545;
+    font-size: 16px;
+}
+
+.show-project {
+    color:#8558ff;
+}
+
+.show-project:hover {
+    color: #5021cf;
+}
