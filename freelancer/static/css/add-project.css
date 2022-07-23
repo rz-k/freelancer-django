@@ -4,13 +4,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 13px solid #00ffb8;
+    border-bottom: 6px solid #00ffb8;
     padding-bottom: 13px;
     margin: 60px 400px;
     font-size: 19px;
     gap: 10px;
-    font-family: emoji;
-
+    font-family: sans-serif;
 }
 
 
