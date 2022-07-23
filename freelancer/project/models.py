@@ -141,12 +141,12 @@ class ApplyProject(models.Model):
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
-        related_name="user_project_applay")
+        related_name="user_apply_project")
 
     project = models.ForeignKey(
         to=Project,
         on_delete=models.CASCADE,
-        related_name="project_applay")
+        related_name="apply_project")
 
     status = models.CharField(
         max_length=20,
