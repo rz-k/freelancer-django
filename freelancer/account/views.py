@@ -16,7 +16,8 @@ def Home(request):
     return render(request=request, template_name='account/home/index.html', context={"projects": projects})
 
 
-def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, template_name="account/login.html"):
+def login_user(request, next_url='account:dashboard',
+               form_class=UserLoginForm, template_name="account/login.html"):
     """
     Login user to the account
 
@@ -62,7 +63,8 @@ def login_user(request, next_url='account:dashboard', form_class=UserLoginForm, 
         context=context)
 
 
-def register_user(request, next_url='account:dashboard', form_class=UserRegisterForm, template_name='account/register.html'):
+def register_user(request, next_url='account:dashboard',
+                form_class=UserRegisterForm, template_name='account/register.html'):
     """
     Register new user(sign up).
 
@@ -112,6 +114,7 @@ def register_user(request, next_url='account:dashboard', form_class=UserRegister
         context=context)
 
 
+@login_required
 def logout_user(request):
     """
     Logged out the user and redirect to the home page
@@ -143,12 +146,14 @@ def pagination(object_list, per_page: int, page_number: int):
     return context
 
 
+@login_required
 def dashboard(request, template_name='account/dashboard/dashboard.html'):
     """ Not completed """
     return render(request=request, template_name=template_name)
 
 
-def manage_candidate(request, template_name='account/dashboard/manage-candidate.html'):
+@login_required
+def manage_candidate(request, template_name='account/dashboard/manage-received-apply.html'):
     """ Not completed """
     page_number = request.GET.get('page')
     applay_project = ApplyProject.objects.filter(project__user=request.user)
@@ -156,7 +161,8 @@ def manage_candidate(request, template_name='account/dashboard/manage-candidate.
     return render(request, template_name=template_name, context=applays)
 
 
-def manage_applay_send(request, template_name='account/dashboard/manage-applay-send.html'):
+@login_required
+def manage_applay_send(request, template_name='account/dashboard/manage-send-apply.html'):
     """ Not completed """
     page_number = request.GET.get('page')
     applay_project = ApplyProject.objects.filter(user=request.user)
@@ -164,6 +170,7 @@ def manage_applay_send(request, template_name='account/dashboard/manage-applay-s
     return render(request, template_name=template_name, context=applays)
 
 
+@login_required
 def candidate_profile(request, username, template_name='account/dashboard/candidate-profile.html'):
     """ Not completed """
     user = get_object_or_404(get_user_model(), username=username)
@@ -171,6 +178,7 @@ def candidate_profile(request, username, template_name='account/dashboard/candid
     return render(request, template_name=template_name, context=context)
 
 
+@login_required
 def user_messages(request, template_name='account/dashboard/user-messages.html'):
     """ Not completed """
     return render(request, template_name=template_name)
