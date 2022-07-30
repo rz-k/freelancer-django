@@ -15,8 +15,8 @@ urlpatterns = [
     path('dashboard/messages/', user_messages, name='messages'),
     path('dashboard/edit-profile/', edit_profile, name='edit-profile'),
     path('dashboard/manage-project/', manage_project, name='manage-project'),
-    path('dashboard/manage-candidate/', manage_candidate, name='manage-candidate'),
-    path('dashboard/manage-applays/', manage_applay_send, name='manage-applays'),
+    path('dashboard/manage-received-applys/', manage_received_apply, name='manage-received-apply'),
+    path('dashboard/manage-send-applys/', manage_send_apply, name='manage-send-apply'),
 
 
     path('profile/<str:username>/', candidate_profile, name='candidate-profile'),
