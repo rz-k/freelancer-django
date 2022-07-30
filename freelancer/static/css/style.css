@@ -4325,7 +4325,7 @@ td {
     
 }
 
-.delete-action:hover, .edit-action:hover , .action-show{
+.delete-action:hover, .edit-action:hover, .show-action:hover, .action-show{
     transform: scale(1.5);
 }
  
