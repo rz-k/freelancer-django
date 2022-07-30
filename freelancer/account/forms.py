@@ -180,3 +180,20 @@ class EditProfileForm(forms.Form):
 
         user.user_cv.skills = data["skills"]
         user.user_cv.save()
+
+
+class ConversationForm(forms.Form):
+    message = forms.CharField(
+        label_suffix="توضیحات",
+        max_length=500,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"class": "input-text",
+                    "placeholder": "نوشتن پیام..."}))
+
+    file = forms.FileField(
+        label="فایل",
+        required=False,
+        allow_empty_file=True,
+        widget=forms.FileInput(attrs={
+            "class":"uploadProfileInput"}))
