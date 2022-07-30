@@ -1,15 +1,193 @@
 {% extends 'base/base_dashboard.html' %}
+
 {% load static %}
 {% load humanize %}
 {% load jformat %}
 
-
 {% block custom_tag %}
     {{ forms.media }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/manage-apply.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/apply-to.css' %}">
 {% endblock custom_tag %}
 
 {% block content %}
+<style>
+    
+    .modal.left .modal-dialog {
+		position: fixed;
+		margin: auto;
+		width: 320px;
+		height: 100%;
+		-webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+	}
+
+	.modal.left .modal-content {
+		height: 100%;		
+	}
+	
+	.modal.left .modal-body {
+		padding: 15px 15px;
+	}        
+
+    .modal.custom .modal-dialog {
+        min-width: 400px;
+        height: 600px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+    }
+
+    .modal-confirm, .modal-content {
+        padding: 0
+    }
+    
+    .modal-body {
+        display: grid;
+        grid-template-rows: 90% 100px;
+        grid-template-columns: 1fr;
+        overflow-y: scroll;
+    }
+
+    .modal-body::-webkit-scrollbar {
+        width: 18px;
+    }
+    
+    .modal-body::-webkit-scrollbar-track {
+        background-color: #F5F5F5;
+        border-radius: 100px;
+    }
+    
+    .modal-body::-webkit-scrollbar-thumb {
+        border-radius: 120px;
+        border: 5px solid transparent;
+        background-clip: content-box;
+        background-color: #a6a6a6;
+    }
+
+
+
+    .modal-footer {
+        border-top: 7px solid #e9ecef;
+    }
+
+    #chat-text-base, 
+    #chat-text-right,
+    #chat-text-left {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #chat-text-right > li, 
+    #chat-text-left > li,
+    #chat-text-base > li {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #chat-text-base > li > span {
+        align-self: flex-start;
+        margin: 7px 10px 0 0;
+    }
+    
+    #chat-text-right > li > span,
+    #chat-text-left > li > span {
+        align-self: flex-start;        
+        margin: 10px 5px 0 0;
+        text-align: right;
+        font-size: 13px;
+        line-height: 1.7em !important;
+    }
+
+    #chat-text-right > li > .created-time,
+    #chat-text-left > li > .created-time {
+        column-gap: 3px;
+    }
+
+    #chat-text-right > li > .created-time > i > .overlap, 
+    #chat-text-left > li > .created-time > i > .overlap {
+        position: absolute;    
+        left: -4px;
+    }
+    
+    #chat-text-right > li > .created-time > i,
+    #chat-text-left > li > .created-time > i {
+        position: relative;
+    }
+    
+    #chat-text-base > li > .created-time {
+        align-self: flex-end;
+        margin: 6px 0 5px 8px;
+        font-size: 0.8em !important;
+    }
+
+    #chat-text-right > li > .created-time, 
+    #chat-text-left > li > .created-time {
+        align-self: flex-end;
+        margin: 6px 0 0 4px;
+        font-size: 0.8em !important;
+    }
+
+    #chat-text-base > li > .created-time > span {
+        color: #999999;
+    }
+
+    #chat-text-right, 
+    #chat-text-left {
+        margin-top: 20px;
+    }
+    
+    #chat-text-left {
+        align-items: flex-end;
+    }
+
+    #chat-text-base > li {
+        background: #f5f5f5;
+    }
+
+    #chat-text-left > li {
+        background: #ffffca;
+        width: 320px;
+        padding: 0 3px;
+        border-radius: 4px;
+    }
+
+    #chat-text-right > li {
+        background: #caffd2;
+        width: 320px;
+        padding: 0 3px;
+        border-radius: 4px;
+    }   
+
+    .base-chat {        
+        padding: 30px;
+        margin-top: 20px;
+    }
+    
+    #id_message {
+        border: 0;
+    }
+    
+    #id_message:focus-visible {
+        border: 0 !important;
+        border-radius: 0 !important;
+        border-bottom: 2px #8d6cef solid !important;
+    }
+
+    .upload-file-block {
+        margin: 0 10px !important;
+        border: 0
+    }
+
+    .submit-address.dashboard-list {
+        margin: 0;
+        box-shadow: unset;
+    }
+</style>
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
     <div class="content-area5">
         <div class="dashboard-content">
@@ -29,6 +207,37 @@
             </div>
             <div class="dashboard-list">
                 <div class="job-info">
+                    <!-- Modal -->
+                    <div class="modal custom left fade" id="show-apply-conversetion" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="modal-header"></h5>
+                            <button type="button" class="btn close-apply-btn" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>                            
+                            <div class="modal-body">
+                                <ul class="chat-text"></ul>
+                            </div>                        
+                            <div class="modal-footer">
+                                <div class="submit-address dashboard-list">
+                                    <form method="POST" action="" class="d-flex align-items-center">
+                                        {% csrf_token %}
+                                        {{reply_form.message}}
+                                        <label for="id_avatar" class="upload-file-block">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="26px">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                            </svg>                                            
+                                        </label>                                   
+                                        <button type="submit" class="btn btn-primary" id="submit-button" style="display:none">ارسال پیام</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -42,23 +251,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for sender in obj_list %}
+                            {% for apply in applys.obj_list %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>
-                                        {{sender.project.title|truncatechars:30}}
+                                        <a href="{% url 'project:detail-project' apply.project.id %}">
+                                            {{apply.project.title|truncatechars:30}}
+                                        </a>
                                     </td>
-                                    <td>{{sender.project.apply_project.count}}</td>
-                                    <td>{{sender.bid_amount|intcomma}}</td>
+                                    <td>{{apply.project.apply_project.count}}</td>
+                                    <td>{{apply.bid_amount|intcomma}}</td>
                                     <td>
-                                        {{ sender.created|jformat:"%Y/%m/%d"}}
+                                        {{ apply.created|jformat:"%Y/%m/%d"}}
                                     </td>
                                     <td>
-                                        {% if sender.status == 'wait' %}
+                                        {% if apply.status == 'wait' %}
                                             <p class="project-status-wait">
                                                 در حال انتظار
                                             </p>
-                                        {% elif sender.status == 'reject'%}
+                                        {% elif apply.status == 'reject'%}
                                             <p class="project-status-reject">
                                                 رد شد
                                             </p>
@@ -69,8 +280,8 @@
                                         {% endif %}
                                     </td>
                                     <td class="actions">
-                                        <a class="show-project" href="{% url 'project:detail-project' sender.project.id %}" title="مشاهد پروژه">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="edit-action" fill="none" viewBox="0 0 24 24" stroke="#7d65ff" stroke-width="2" width="20px">
+                                        <a onclick="testa('{{forloop.counter}}', '{{apply.project.title|truncatechars:30}}')" title="مشاهد درخواست">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="show-action" data-toggle="modal" data-target="#show-apply-conversetion-{{forloop.counter}}" fill="none" viewBox="0 0 24 24" stroke="#7d65ff" stroke-width="2" width="20px">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg> 
@@ -87,13 +298,111 @@
                                         </a>
                                     </td>
                                 </tr>
+                                <script type="text/javascript">
+                                    var modal_element = document.getElementById("show-apply-conversetion");
+                                    var new_modal_element = modal_element.cloneNode(true);
+                                    new_modal_element.id = "show-apply-conversetion-{{forloop.counter}}"
+                                    document.getElementsByClassName("job-info")[0].appendChild(new_modal_element);
+
+                                    var chat_text = new_modal_element.getElementsByClassName("chat-text")[0];
+                                    chat_text.innerHTML += `
+                                        <div id="chat-text-base"></div>
+                                        <div id="chat-text-right"></div>
+                                        <div id="chat-text-left"></div>
+                                    `;
+                                    var chat_base = new_modal_element.querySelector("#chat-text-base");
+                                    var chat_sender = new_modal_element.querySelector("#chat-text-right");
+                                    var chat_reciver = new_modal_element.querySelector("#chat-text-left");
+                                    chat_base.innerHTML += `
+                                        <li>
+                                            <span>تاریخ ایجاد پروژه {{apply.created}}</span>
+                                            <div class="created-time">
+                                                <span>ب.ظ 03:27 - 23 تیر 1401</span>
+                                            </div>
+                                        </li>
+                                        <li class="pb-4">
+                                            <span class="align-self-center">پیشنهاد {{apply.bid_amount}} در {{apply.bid_date}} روز</span>
+                                        </li>
+                                    `;
+
+                                    chat_sender.innerHTML += `
+                                        <li>
+                                            <span>{{apply.description}}</span>
+                                            <div class="created-time d-flex">
+                                                <span>ب.ظ 03:27 - 23 تیر 1401</span>
+                                                <i>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#2e8900" stroke-width="1" width="20">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="overlap" fill="none" viewBox="0 0 24 24" stroke="#2e8900" stroke-width="1" width="20">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </i>
+                                            </div>
+                                        </li>
+                                    `
+
+                                    // loo on conversation messages.
+                                    {% for conversation in apply.conversation.all %}                                     
+                                        {% if conversation.message %}
+                                            data = `
+                                                <li>
+                                                    <span>{{conversation.message}}</span>
+                                                    <div class="created-time d-flex">
+                                                        <span>ب.ظ 03:27 - 23 تیر 1401</span>
+                                                        <i>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#2e8900" stroke-width="1" width="20">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            {% if conversation.is_seen %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="overlap" fill="none" viewBox="0 0 24 24" stroke="#2e8900" stroke-width="1" width="20">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                                                </svg>
+                                                            {% endif %}
+                                                        </i>
+                                                    </div>
+                                                </li>
+                                            `
+                                            {% if conversation.user == request.user %}
+                                                chat_sender.innerHTML += data
+                                            {% else %}
+                                                chat_reciver.innerHTML += data
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </script>
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
                 {% include 'account/dashboard/inc/pagination.html' %}
             </div>
         </div>
     </div>
 </div>
+<input placeholder="Enter some text" id="message" name="message">
+<p id="result"></p>
+<script>
+    const message = document.querySelector('#message');
+    const result = document.querySelector('#result');
+    message.addEventListener('input', function () {
+        result.textContent = this.value;
+    });
+</script>
+
+<script  type="text/javascript">
+    function testa(apply_id, project_title) {
+        var modal_element = document.getElementById("show-apply-conversetion-" + apply_id);
+        var modal_header = modal_element.querySelector("#modal-header")
+        modal_header.innerText = project_title;
+    };
+   
+    const element = document.querySelector("#id_message");
+    console.log(element);
+    element.addEventListener('input', function () {
+        console.log("AAAAAAAAAAAAAAAAAA");
+        document.getElementById("input-file-chat").className = "hide-submit";
+        document.getElementById("id_message").className = "show-submit";
+    });
+   
+</script>
 {% endblock content %}
