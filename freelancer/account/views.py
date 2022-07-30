@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from freelancer.project.models import Project, ApplyProject
 from freelancer.account.models import Profile
 
-from .forms import UserLoginForm, UserRegisterForm, EditProfileForm
+from .forms import UserLoginForm, UserRegisterForm, EditProfileForm, ConversationForm
 
 
 def Home(request):
@@ -153,21 +153,31 @@ def dashboard(request, template_name='account/dashboard/dashboard.html'):
 
 
 @login_required
-def manage_candidate(request, template_name='account/dashboard/manage-received-apply.html'):
+def manage_received_apply(request, model_form=ConversationForm, template_name='account/dashboard/manage-received-apply.html'):
     """ Not completed """
     page_number = request.GET.get('page')
     applay_project = ApplyProject.objects.filter(project__user=request.user)
     applays = pagination(applay_project, 10, page_number)
-    return render(request, template_name=template_name, context=applays)
+
+    context = {
+        "applys": applys,
+        "reply_form": model_form()
+    }
+    return render(request, template_name=template_name, context=context)
 
 
 @login_required
-def manage_applay_send(request, template_name='account/dashboard/manage-send-apply.html'):
+def manage_send_apply(request, model_form=ConversationForm, template_name='account/dashboard/manage-send-apply.html'):
     """ Not completed """
     page_number = request.GET.get('page')
-    applay_project = ApplyProject.objects.filter(user=request.user)
-    applays = pagination(applay_project, 10, page_number)
-    return render(request, template_name=template_name, context=applays)
+    applay_project = ApplyProject.objects.filter(user=request.user).prefetch_related("conversation")
+    applys = pagination(applay_project, 10, page_number)
+
+    context = {
+        "applys": applys,
+        "reply_form": model_form()
+    }
+    return render(request=request, template_name=template_name, context=context)
 
 
 @login_required
