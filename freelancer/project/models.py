@@ -169,6 +169,9 @@ class ApplyProject(models.Model):
 
     created = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.user.username} : {self.project.title}"
+
 
 class EmployersComment(models.Model):
     apply_project = models.OneToOneField(
@@ -186,3 +189,23 @@ class EmployersComment(models.Model):
             MinValueValidator(0)])
 
     comment = models.TextField(max_length=200)
+    
+
+class ConversationMessage(models.Model):
+    User = get_user_model()
+
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name="apply_conversation_messages",
+        verbose_name="فرستنده پیام"
+    )
+    apply_project = models.ForeignKey(
+        to=ApplyProject,
+        on_delete=models.CASCADE,
+        related_name="conversation_messages",
+        verbose_name="پروژه مربوط به پیام"
+    )
+    message = models.TextField(verbose_name="متن پیام")
+    created = models.DateTimeField(auto_now=True)
+    is_seen = models.BooleanField(default=False)

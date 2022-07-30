@@ -1,7 +1,7 @@
 from django.contrib.admin import SimpleListFilter
 from django.contrib import admin
 
-from .models import ApplyProject, Project,  Category
+from .models import ApplyProject, Project, Category, ConversationMessage
 
 
 class CategoryFilter(SimpleListFilter):
@@ -52,3 +52,9 @@ class ApplyJobAdmin(admin.ModelAdmin):
     list_editable = ("status", )
     list_filter = ("status", )
     list_display_links = ("project",)
+
+
+@admin.register(ConversationMessage)
+class ConversationMessageAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "apply_project")
+    list_display_links = ("apply_project", )
