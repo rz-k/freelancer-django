@@ -38,8 +38,23 @@
 }
 
 .close-apply-btn {
+    background-color: #cafff8;
     border-radius: 5px;
-    background-color: #9e95f4;
+    width: 10px;
+    position: relative;
+    height: 23px;
+}
+
+.close-apply-btn > span {
+    position: absolute;
+    top: -13px;
+    left: 5px;
+    font-size: 30px;
+    color: #5d03ff;
+}
+
+.close-apply-btn:hover {
+    transform: scale(1.1, 1.2);
 }
 
 
