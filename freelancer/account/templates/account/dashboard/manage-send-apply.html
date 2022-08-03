@@ -12,7 +12,10 @@
 
 {% block content %}
 <style>
-    
+    .modal-header {
+        background-color: #867bf1;
+    }
+
     .modal.left .modal-dialog {
 		position: fixed;
 		margin: auto;
@@ -30,7 +33,7 @@
 	
 	.modal.left .modal-body {
 		padding: 15px 15px;
-	}        
+	}
 
     .modal.custom .modal-dialog {
         min-width: 400px;
@@ -44,12 +47,13 @@
     .modal-confirm, .modal-content {
         padding: 0
     }
-    
+
     .modal-body {
         display: grid;
         grid-template-rows: 90% 100px;
         grid-template-columns: 1fr;
         overflow-y: scroll;
+        background: url(https://cdn.goftino.com/static/assets/img/bgchat.png);
     }
 
     .modal-body::-webkit-scrollbar {
@@ -68,21 +72,43 @@
         background-color: #a6a6a6;
     }
 
-
-
     .modal-footer {
-        border-top: 7px solid #e9ecef;
+        background-color: #fff;
+        box-shadow: 0 0 40px 0 rgb(150 165 190 / 40%);
     }
 
-    #chat-text-base, 
+    .close-conversation-btn:hover {
+        background-color: #ec6e6e;
+    }
+
+    .close-conversation-btn {
+        position: relative;
+        background-color: #f07b7b;
+        border-radius: 50%;
+        width: 10px;
+        height: 23px;
+        cursor: pointer
+    }
+
+    .close-conversation-btn > span {
+        position: absolute;
+        color: #fff;
+        top: -13px;
+        left: 5px;
+        font-size: 30px;
+    }
+    
+
+    #chat-text-base,
     #chat-text-right,
     #chat-text-left {
         display: flex;
         flex-direction: column;
         gap: 15px;
+        width: 100%;
     }
 
-    #chat-text-right > li, 
+    #chat-text-right > li,
     #chat-text-left > li,
     #chat-text-base > li {
         display: flex;
@@ -96,7 +122,7 @@
     
     #chat-text-right > li > span,
     #chat-text-left > li > span {
-        align-self: flex-start;        
+        align-self: flex-start;
         margin: 10px 5px 0 0;
         text-align: right;
         font-size: 13px;
@@ -110,7 +136,7 @@
 
     #chat-text-right > li > .created-time > i > .overlap, 
     #chat-text-left > li > .created-time > i > .overlap {
-        position: absolute;    
+        position: absolute;
         left: -4px;
     }
     
@@ -146,30 +172,31 @@
     }
 
     #chat-text-base > li {
-        background: #f5f5f5;
+        background-color: #e5e7ff;
     }
 
     #chat-text-left > li {
-        background: #ffffca;
+        background-color: #ffffca;
         width: 320px;
         padding: 0 3px;
         border-radius: 4px;
     }
 
     #chat-text-right > li {
-        background: #caffd2;
+        background-color: #caffd2;
         width: 320px;
         padding: 0 3px;
         border-radius: 4px;
     }   
 
-    .base-chat {        
+    .base-chat {
         padding: 30px;
         margin-top: 20px;
     }
     
     #id_message {
         border: 0;
+        font-family: system-ui;
     }
     
     #id_message:focus-visible {
@@ -178,14 +205,34 @@
         border-bottom: 2px #8d6cef solid !important;
     }
 
-    .upload-file-block {
+    .submit-address form label  {
+        display : flex
+    }
+
+    .upload-file {
+        align-items: center;
         margin: 0 10px !important;
-        border: 0
+        border: 0;
+        width: 43.8px;
+        height: 35px;
     }
 
     .submit-address.dashboard-list {
         margin: 0;
         box-shadow: unset;
+    }
+
+    .btn.send-msg {
+        background: transparent;
+        font-size: 14px;
+        color: #6f6f6f;
+        width: 57px;
+        height: 35px;
+    }
+
+    .reply-btn {
+        margin-bottom: 8px;
+        display: none;
     }
 </style>
 <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
@@ -207,30 +254,34 @@
             </div>
             <div class="dashboard-list">
                 <div class="job-info">
-                    <!-- Modal -->
+                    <!-- Modal Conversation -->
                     <div class="modal custom left fade" id="show-apply-conversetion" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                             <h5 class="modal-title" id="modal-header"></h5>
-                            <button type="button" class="btn close-apply-btn" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="btn close-conversation-btn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            </div>                            
+                            </div>
                             <div class="modal-body">
                                 <ul class="chat-text"></ul>
-                            </div>                        
+                            </div>
                             <div class="modal-footer">
                                 <div class="submit-address dashboard-list">
                                     <form method="POST" action="" class="d-flex align-items-center">
                                         {% csrf_token %}
                                         {{reply_form.message}}
-                                        <label for="id_avatar" class="upload-file-block">
+                                        <label for="id_document" class="upload-file">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="26px">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                                            </svg>                                            
-                                        </label>                                   
-                                        <button type="submit" class="btn btn-primary" id="submit-button" style="display:none">ارسال پیام</button>
+                                            </svg>
+                                        </label>
+                                        <a class="btn send-msg" style="display: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="23" height="23" fill="rgb(0,188,212)">
+                                                <path d="M22,3,1,12l21,9V14L7,12l15-2Z"></path>
+                                            </svg>
+                                        </a>
                                         </div>
                                     </form>
                                 </div>
@@ -341,9 +392,8 @@
                                             </div>
                                         </li>
                                     `
-
                                     // loo on conversation messages.
-                                    {% for conversation in apply.conversation.all %}                                     
+                                    {% for conversation in apply.conversation.all %}
                                         {% if conversation.message %}
                                             data = `
                                                 <li>
@@ -379,15 +429,6 @@
         </div>
     </div>
 </div>
-<input placeholder="Enter some text" id="message" name="message">
-<p id="result"></p>
-<script>
-    const message = document.querySelector('#message');
-    const result = document.querySelector('#result');
-    message.addEventListener('input', function () {
-        result.textContent = this.value;
-    });
-</script>
 
 <script  type="text/javascript">
     function testa(apply_id, project_title) {
@@ -395,14 +436,15 @@
         var modal_header = modal_element.querySelector("#modal-header")
         modal_header.innerText = project_title;
     };
-   
-    const element = document.querySelector("#id_message");
-    console.log(element);
-    element.addEventListener('input', function () {
-        console.log("AAAAAAAAAAAAAAAAAA");
-        document.getElementById("input-file-chat").className = "hide-submit";
-        document.getElementById("id_message").className = "show-submit";
+
+    $(".input-text").on("keyup keypress paste", function(){
+        if (!this.value){
+            $(".btn.send-msg").hide();
+            $(".upload-file").show();
+        }else{
+            $(".upload-file").hide();
+            $(".btn.send-msg").show();
+        }
     });
-   
 </script>
 {% endblock content %}
