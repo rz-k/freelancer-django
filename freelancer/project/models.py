@@ -8,6 +8,18 @@ from django.utils.text import slugify
 from django_quill.fields import QuillField
 
 
+def document_directory_path(instance, filename: str) -> "File Path":
+    """"
+    File location to save the conversation document(
+        The file sent between the project owner and the freelancer).
+
+    Returns:
+        file_path: str
+    """
+    path = 'users/{0}/conversation/{1}'
+    return path.format(instance.user.id, uuid.uuid4())
+
+
 class Category(models.Model):
     parent = models.ForeignKey(
         to="self",
@@ -189,11 +201,10 @@ class EmployersComment(models.Model):
             MinValueValidator(0)])
 
     comment = models.TextField(max_length=200)
-    
+
 
 class Conversation(models.Model):
     User = get_user_model()
-
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
@@ -205,6 +216,12 @@ class Conversation(models.Model):
         on_delete=models.CASCADE,
         related_name="conversation",
         verbose_name="پروژه مربوط به پیام")
+
+    document = models.FileField(
+        upload_to=document_directory_path,
+        null=True,
+        blank=True,
+        verbose_name="فایل")
 
     message = models.TextField(verbose_name="متن پیام")
     created = models.DateTimeField(auto_now=True)
