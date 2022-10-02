@@ -3,6 +3,9 @@ from django.contrib.admin.sites import AdminSite
 # Account
 from freelancer.account.admin import ApprovedUserFilter, UserProfileAdmin
 from freelancer.account.models import Profile, User
+# Project
+from freelancer.project.admin import CategoryFilter
+from freelancer.project.models import Category
 
 
 class AccountAdminTestCase(TestCase):
@@ -54,3 +57,30 @@ class AccountAdminTestCase(TestCase):
         self.assertTrue(is_approved_user)
         self.assertFalse(is_unapproved_user)
 
+
+class ProjectAdminTestCase(TestCase):
+    fixtures = ["dev_initial_data.json"]
+
+    def setUp(self) -> None:
+        self.category = Category.objects.all()
+
+    def test_admin_category_parent(self):
+        children_list_filter = CategoryFilter(
+            request=None, params={"category_type": "parent"}, model=None, model_admin=None)
+        queryset = children_list_filter.queryset(
+            request=None, queryset=self.category)
+        self.assertGreaterEqual(queryset.count(), 1)
+
+    def test_admin_category_children(self):
+        parent_list_filter = CategoryFilter(
+            request=None, params={"category_type": "children"}, model=None, model_admin=None)
+        queryset = parent_list_filter.queryset(
+            request=None, queryset=self.category)
+        self.assertGreaterEqual(queryset.count(), 1)
+
+    def test_admin_category_all(self):
+        parent_list_filter = CategoryFilter(
+            request=None, params={"category_type": "all"}, model=None, model_admin=None)
+        queryset = parent_list_filter.queryset(
+            request=None, queryset=self.category)
+        self.assertGreaterEqual(queryset.count(), 1)
