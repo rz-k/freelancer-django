@@ -3,9 +3,9 @@
       "model": "project.Category",
       "pk": 1,
       "fields": {
-        "parent": 1,
+        "parent": null,
         "name": "برنامه نویسی",
-        "slug": "python-programing",
+        "slug": "programing",
         "status": true,
         "created": "2022-07-20T16:05:00+00:00"
       }
@@ -14,9 +14,31 @@
       "model": "project.Category",
       "pk": 2,
       "fields": {
-        "parent": 1,
-        "name": "برنامه های GUI",
+        "parent": null,
+        "name": "برنامه های گرافیکی",
         "slug": "GUI-application",
+        "status": true,
+        "created": "2022-07-20T16:05:00+00:00"
+      }
+    },
+    {
+      "model": "project.Category",
+      "pk": 3,
+      "fields": {
+        "parent": 1,
+        "name": "python",
+        "slug": "python",
+        "status": true,
+        "created": "2022-07-20T16:05:00+00:00"
+      }
+    },
+    {
+      "model": "project.Category",
+      "pk": 4,
+      "fields": {
+        "parent": 2,
+        "name": "QT6",
+        "slug": "QT6",
         "status": true,
         "created": "2022-07-20T16:05:00+00:00"
       }
