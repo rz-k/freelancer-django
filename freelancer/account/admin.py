@@ -22,16 +22,13 @@ class ApprovedUserFilter(SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
-        if not self.value():
-            return queryset
-        
-        if self.value().lower() == 'approved':
-            verified_users = User.objects.filter(user_profile__approved=True)
-            return verified_users
-            
-        elif self.value().lower() == 'unverified':
-            unverified_users = User.objects.filter(user_profile__approved=False)
-            return unverified_users
+        match self.value().__str__().lower():
+            case "approved":
+                return User.objects.filter(user_profile__approved=True)
+            case "unapproved":
+                return User.objects.filter(user_profile__approved=False)
+            case _:
+                return queryset
 
 
 @admin.register(User)
