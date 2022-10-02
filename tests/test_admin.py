@@ -52,7 +52,8 @@ class AccountAdminTestCase(TestCase):
         self.profile.approved = True
         self.profile.save()
 
-        is_approved_user = self.app_admin.is_verified(self.users.get(id=1))
-        is_unapproved_user = self.app_admin.is_verified(self.users.get(id=2))
+        is_approved_user = self.app_admin.is_approved(self.users.get(id=1))
+        is_unapproved_user = self.app_admin.is_approved(self.users.get(id=2))
         self.assertTrue(is_approved_user)
         self.assertFalse(is_unapproved_user)
+
