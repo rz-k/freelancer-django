@@ -11,3 +11,7 @@ venv/
 .env
 
 *.spec
+
+#> Coverage
+htmlcov/
+.coverage
