@@ -1,0 +1,10 @@
+[run]
+source = .
+omit =
+ */venv/*
+ */migrations/*
+  manage.py
+
+
+[report]
+skip_covered = True
