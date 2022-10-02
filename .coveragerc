@@ -3,7 +3,9 @@ source = .
 omit =
  */venv/*
  */migrations/*
+ */config/*
   manage.py
+
 
 
 [report]

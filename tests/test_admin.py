@@ -23,8 +23,7 @@ class AccountAdminTestCase(TestCase):
             request=None, params={"user_status": "unapproved"}, model=None, model_admin=None)
         queryset = unapproved_list_filter.queryset(
             request=None, queryset=self.users)
-        unapproved_users = queryset.filter(user_profile__approved=False)
-        self.assertGreaterEqual(unapproved_users.count(), 1)
+        self.assertGreaterEqual(queryset.count(), 1)
 
     def test_admin_approved_users(self):
         """Test approved users"""
@@ -35,8 +34,7 @@ class AccountAdminTestCase(TestCase):
             request=None, params={"user_status": "approved"}, model=None, model_admin=None)
         queryset = approved_list_filter.queryset(
             request=None, queryset=self.users)
-        approved_users = queryset.filter(user_profile__approved=True)
-        self.assertEqual(approved_users.count(), 1)
+        self.assertEqual(queryset.count(), 1)
 
     def test_admin_all_users(self):
         """Test all users(approved and unapproved)"""
@@ -44,8 +42,7 @@ class AccountAdminTestCase(TestCase):
             request=None, params={"user_status": ""}, model=None, model_admin=None)
         queryset = none_list_filter.queryset(
             request=None, queryset=self.users)
-        all_users = queryset.all()
-        self.assertGreaterEqual(all_users.count(), 1)
+        self.assertGreaterEqual(queryset.count(), 1)
 
     def test_admin_is_approved_user(self):
         """Test 'is_approved' method field in 'list_display'"""
