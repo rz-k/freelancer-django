@@ -9,17 +9,12 @@ class UserProfileInline(StackedInline):
 
 
 class ApprovedUserFilter(SimpleListFilter):
-    """
-       Filter approved user.
-    """
+    """Filter approved user."""
     title = "Approved User"
     parameter_name = "user_status"
 
     def lookups(self, request, model_admin):
-        return (
-            ("approved", "Approved"),
-            ("unapproved", "UnApproved")
-        )
+        return (("approved", "Approved"), ("unapproved", "UnApproved"))
 
     def queryset(self, request, queryset):
         match self.value().__str__().lower():
