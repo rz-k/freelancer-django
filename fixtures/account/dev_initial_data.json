@@ -33,14 +33,14 @@
             "is_staff": true,
             "is_active": true,
             "date_joined": "2022-07-10T10:50:06.291Z",
-            "email": "zanko@gmail.com",
+            "email": "zankoan4@gmail.com",
             "phone": null,
             "score": 0,
             "balance": 0,
             "groups": [],
             "user_permissions": []
         }
-    },    
+    },
     {
         "model": "account.user",
         "pk": 3,
@@ -123,6 +123,46 @@
             "balance": 0,
             "groups": [],
             "user_permissions": []
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Adding a little sparkle to your day ✨",
+            "avatar": "",
+            "approved": true
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "bio": "Less talking, more action. Take a look at my pictures if you don’t believe me",
+            "avatar": "",
+            "approved": true
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 3,
+        "fields": {
+            "user": 6,
+            "bio": "Be young. Be dope. Run the show.",
+            "avatar": "",
+            "approved": false
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "bio": "Always be yourself because an original is always more valuable than a copy",
+            "avatar": "",
+            "approved": false
         }
     }
 ]
