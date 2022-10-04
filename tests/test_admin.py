@@ -37,7 +37,7 @@ class AccountAdminTestCase(TestCase):
             request=None, params={"user_status": "approved"}, model=None, model_admin=None)
         queryset = approved_list_filter.queryset(
             request=None, queryset=self.users)
-        self.assertEqual(queryset.count(), 1)
+        self.assertEqual(queryset.count(), 2)
 
     def test_admin_all_users(self):
         """Test all users(approved and unapproved)"""
@@ -53,7 +53,7 @@ class AccountAdminTestCase(TestCase):
         self.profile.save()
 
         is_approved_user = self.app_admin.is_approved(self.users.get(id=1))
-        is_unapproved_user = self.app_admin.is_approved(self.users.get(id=2))
+        is_unapproved_user = self.app_admin.is_approved(self.users.get(id=3))
         self.assertTrue(is_approved_user)
         self.assertFalse(is_unapproved_user)
 
