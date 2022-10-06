@@ -19,9 +19,9 @@ class ApprovedUserFilter(SimpleListFilter):
     def queryset(self, request, queryset):
         match self.value().__str__().lower():
             case "approved":
-                return User.objects.filter(user_profile__approved=True)
+                return User.objects.filter(profile__approved=True)
             case "unapproved":
-                return User.objects.filter(user_profile__approved=False)
+                return User.objects.filter(profile__approved=False)
             case _:
                 return queryset
 
