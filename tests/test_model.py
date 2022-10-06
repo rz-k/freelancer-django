@@ -1,5 +1,12 @@
 from django.test import TestCase
+# Account
 from freelancer.account.models import User, Profile, avatar_directory_path
+
+# FAQ
+from freelancer.faq.models import Faq
+
+# Payment
+from freelancer.payment.models import Payment
 
 
 class AccountModelTestCase(TestCase):
@@ -30,3 +37,25 @@ class AccountModelTestCase(TestCase):
         profile_username = str(self.profile)
         username = self.user.username
         self.assertEqual(profile_username, username)
+
+
+class FAQModelTestCase(TestCase):
+    fixtures = ["dev_initial_data.json"]
+
+    def setUp(self) -> None:
+        self.faq = Faq.objects.first()
+
+    def test_str_faq_question_txt(self):
+        self.assertEqual(str(self.faq), self.faq.question)
+
+
+class PaymentModelTestCase(TestCase):
+    fixtures = ["dev_initial_data.json"]
+
+    def setUp(self) -> None:
+        self.payment = Payment.objects.first()
+
+    def test_str_payment(self):
+        username = self.payment.user.username
+        payment_type = self.payment.payment_type
+        self.assertEqual(f"{payment_type} | {username}", str(self.payment))
