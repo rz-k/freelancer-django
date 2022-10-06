@@ -4,7 +4,7 @@ from django_quill.fields import QuillField
 
 class Faq(models.Model):
     question = models.CharField(
-        max_length=100,
+        max_length=2000,
         verbose_name="متن سوال")
 
     answer = QuillField(
