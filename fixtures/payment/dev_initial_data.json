@@ -1,0 +1,50 @@
+[
+    {
+        "model": "payment.Payment",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "payment_type": 1,
+            "authority": "A00000000000000000000000000217885159",
+            "object_id": 1,
+            "price": 650000,
+            "card_pan": "1256********82399",
+            "ref_id": 1000000001,
+            "fee": 10000,
+            "paid": false,
+            "created": "2022-10-05T18:00:23+00:00"
+        }
+    },
+    {
+        "model": "payment.Payment",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "payment_type": 10,
+            "authority": "A00000000000000000000000000217881152",
+            "object_id": 2,
+            "price": 100000,
+            "card_pan": "1356********89899",
+            "ref_id": 1000000002,
+            "fee": 0,
+            "paid": true,
+            "created": "2022-10-06T12:11:23+00:00"
+        }
+    },
+    {
+        "model": "payment.Payment",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "payment_type": 14,            
+            "authority": "A00000000000000000000000000257883159",
+            "object_id": 3,
+            "price": 250000,
+            "card_pan": "1553********29819",
+            "ref_id": 1000000005,
+            "fee": 500000,
+            "paid": true,
+            "created": "2022-10-05T10:00:23+00:00"
+        }
+    }
+]
