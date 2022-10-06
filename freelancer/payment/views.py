@@ -8,8 +8,7 @@ from django.http import JsonResponse
 from django.views import View
 from freelancer.project.models import Project
 
-from .models import PaymentAccount, PaymentProject
-
+from .models import Payment
 
 class ZarinpalInfo:
     amount = "1000"
@@ -55,7 +54,7 @@ class ZarinpalSendPayRequest(LoginRequiredMixin,View, ZarinpalInfo):
             #=> Create a successful payment for the job.
             authority = response['data']['authority']
             success_url = self.zarinpal_api_startpay.format(authority=authority)
-            payment = PaymentProject(user=request.user,
+            payment = Payment(user=request.user,
                 project=project,
                 price=self.amount,
                 authority=authority).save()
@@ -90,7 +89,7 @@ class ZarinpalVerify(View, ZarinpalInfo):
         status = str(request.GET.get("Status")).lower()
         authority = request.GET.get("Authority")
 
-        paying_project = PaymentProject.objects.filter(authority=authority).first()
+        paying_project = Payment.objects.filter(authority=authority).first()
         
         if status == 'ok':
             data = {
@@ -122,7 +121,7 @@ class ZarinpalVerify(View, ZarinpalInfo):
                 template_name=self.error_template_name, context={"result": context})
 
 
-    def handel_verify_response(self, response: "json", authority: str, rel: str, payment: [PaymentAccount, PaymentProject]):
+    def handel_verify_response(self, response: "json", authority: str, rel: str, payment: Payment):
         """
         Handel the success verification responses and errors.
         
