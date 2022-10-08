@@ -71,7 +71,7 @@ class PaymentModelTestCase(TestCase):
         self.assertEqual(str(self.payment), f"{payment_type} | {username}")
 
 
-class PricingTagTestCase(TestCase):
+class PricingTestCase(TestCase):
     fixtures = ["dev_initial_data.json"]
 
     def setUp(self) -> None:
