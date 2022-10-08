@@ -164,5 +164,45 @@
             "avatar": "",
             "approved": false
         }
+    },
+    {
+        "model": "pricing.ActivePricingPanel",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "active_panel": 1,
+            "apply_counter": 1,
+            "expire_time": "2022-11-07T16:02:00+00:00"
+        }
+    },
+    {
+        "model": "pricing.ActivePricingPanel",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "active_panel": 4,
+            "apply_counter": 230,
+            "expire_time": "2022-11-07T16:03:00+00:00"
+        }
+    },
+    {
+        "model": "pricing.ActivePricingPanel",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "active_panel": 1,
+            "apply_counter": 1,
+            "expire_time": "2022-09-07T16:02:00+00:00"
+        }
+    },
+    {
+        "model": "pricing.ActivePricingPanel",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "active_panel": 4,
+            "apply_counter": 230,
+            "expire_time": "2022-09-07T16:03:00+00:00"
+        }
     }
 ]
