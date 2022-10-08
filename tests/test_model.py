@@ -1,5 +1,7 @@
 from django.test import TestCase
+from django.utils import timezone
 from datetime import timedelta
+from django.utils.text import slugify
 
 # Account
 from freelancer.account.models import User, Profile, avatar_directory_path
@@ -12,6 +14,9 @@ from freelancer.payment.models import Payment
 
 # Pricing
 from freelancer.pricing.models import PricingTag, PricingPanel, ActivePricingPanel
+
+# Project
+from freelancer.project.models import Category, Project, ApplyProject, Conversation, document_directory_path
 
 
 class AccountModelTestCase(TestCase):
@@ -104,3 +109,44 @@ class PricingTagTestCase(TestCase):
     def test_user_does_not_have_an_apply(self):
         self.active_panel.apply_counter = 500
         self.assertLessEqual(self.active_panel.has_apply(), 0)
+
+
+class ProjectTestCase(TestCase):
+    fixtures = ["dev_initial_data.json"]
+
+    def setUp(self) -> None:
+        self.user = User.objects.first()
+        self.category = Category.objects.first()
+        self.project = Project.objects.first()
+        self.conversation = Conversation.objects.first()
+        self.apply_project = ApplyProject.objects.first()
+
+    def test_document_dir_path(self):
+        file_name = "cv.pdf"
+        path = "users/1/conversation/"
+        dir_path = document_directory_path(self, file_name)
+        self.assertIn(path, dir_path)
+
+    def test_category_str(self):
+        name = self.category.name
+        self.assertEqual(str(self.category), name)
+
+    def test_project_str(self):
+        title = self.project.title
+        self.assertEqual(str(self.project), title)
+
+    def test_save_project(self):
+        title = "Test slug"
+        self.project.title = title
+        self.project.save()
+        slugify_title = slugify(title)
+        self.assertEqual(self.project.slug, slugify_title)
+
+    def test_get_tags_project(self):
+        tags = self.project.tags
+        join_tags = " ,".join(tags)
+        self.assertEqual(self.project.get_tags(), join_tags)
+
+    def test_str_apply_project(self):
+        username_title = f"{self.apply_project.user.username} : {self.apply_project.project.title}"
+        self.assertEqual(str(self.apply_project), username_title)
