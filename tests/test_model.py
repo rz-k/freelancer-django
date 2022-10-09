@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.utils import timezone
 from datetime import timedelta
 from django.utils.text import slugify
 
@@ -17,6 +16,9 @@ from freelancer.pricing.models import PricingTag, PricingPanel, ActivePricingPan
 
 # Project
 from freelancer.project.models import Category, Project, ApplyProject, Conversation, document_directory_path
+
+# Resume
+from freelancer.resume.models import CV, max_value_current_year
 
 
 class AccountModelTestCase(TestCase):
@@ -150,3 +152,20 @@ class ProjectTestCase(TestCase):
     def test_str_apply_project(self):
         username_title = f"{self.apply_project.user.username} : {self.apply_project.project.title}"
         self.assertEqual(str(self.apply_project), username_title)
+
+
+class ResumeTestCase(TestCase):
+    fixtures = ["dev_initial_data.json"]
+
+    def setUp(self) -> None:
+        self.cv = CV.objects.first()
+
+    def test_max_start_work_experience_year(self):
+        self.assertIsNone(max_value_current_year(2022))
+
+    def test_max_end_work_experience_year(self):
+        self.assertIsNone(max_value_current_year(2022))
+
+    def test_str_cv_email(self):
+        email = self.cv.user.email
+        self.assertEqual(str(self.cv), email)
