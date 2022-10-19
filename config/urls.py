@@ -11,6 +11,7 @@ urlpatterns = [
     path('pay/', include('freelancer.payment.urls', namespace='pay')),
     path('project/', include('freelancer.project.urls', namespace='project')),
     path('faq/', include('freelancer.faq.urls', namespace='faq')),
+    path("api/", include("freelancer.api.urls", namespace="api")),
 ]
 
 if settings.DEBUG:
