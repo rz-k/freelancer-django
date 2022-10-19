@@ -11,11 +11,10 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 DEBUG = os.environ.get("DEBUG") == "True"
 BASE_SITE_URL = os.environ.get("BASE_SITE_URL")
 
-#=> Zarinpal
+# Zarinpal
 MERCHANT = os.environ.get("MERCHANT")
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS').split(',')
-
 
 
 INSTALLED_APPS = [
@@ -26,11 +25,12 @@ INSTALLED_APPS = [
     'freelancer.project',
     'freelancer.faq',
     'freelancer.pricing',
-
+    'freelancer.api',
 
     # 3rd party
     'django_quill',
-	'django_jalali',
+    'django_jalali',
+    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,7 +71,7 @@ TEMPLATES = [
 ]
 
 JALALI_DATE_DEFAULTS = {
-   'Strftime': {
+    'Strftime': {
         'date': '%y/%m/%d',
         'datetime': '%H:%M:%S _ %y/%m/%d',
     },
@@ -93,7 +93,6 @@ JALALI_DATE_DEFAULTS = {
         }
     },
 }
-
 
 
 WSGI_APPLICATION = 'config.wsgi.application'
@@ -126,7 +125,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -142,9 +142,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
 
 
-#> QUILL CONFIGS
+# QUILL CONFIGS
 QUILL_CONFIGS = {
-    'default':{
+    'default': {
         'theme': 'snow',
         'modules': {
             'syntax': True,
@@ -160,18 +160,17 @@ QUILL_CONFIGS = {
                     {'size': []}
                 ],
                 [
-                    { 'font': [] }
+                    {'font': []}
                 ],
                 [
-                    { 'header': [1, 2, 3, 4, 5, 6, 3] }
+                    {'header': [1, 2, 3, 4, 5, 6, 3]}
                 ],
             ]
         },
     }
 }
 
-#> Fixture
-FIXTURE_DIRS = [
-    Path.joinpath(BASE_DIR_OLD, "fixtures/" + directory)
-    for directory in os.listdir("fixtures")
-]
+
+# # Fixture
+FIXTURE_DIRS = [Path.joinpath(BASE_DIR_OLD, "fixtures/" + directory)
+                for directory in os.listdir("fixtures")]
