@@ -8,7 +8,6 @@ from django.db import models
 User = get_user_model()
 
 
-
 def current_year():
     return datetime.date.today().year
 
@@ -19,13 +18,13 @@ def max_value_current_year(value):
 
 class CV(models.Model):
     GENDER = (
-        ("مرد","man"),
-        ("زن","female"),
+        ("مرد", "man"),
+        ("زن", "female"),
     )
 
     MARITAL = (
-        ("متاهل","married"),
-        ("مجرد","single"),
+        ("متاهل", "married"),
+        ("مجرد", "single"),
     )
 
     user = models.OneToOneField(
@@ -50,7 +49,7 @@ class CV(models.Model):
         verbose_name="مهارت ها")
 
     country = models.CharField(
-        max_length=50, 
+        max_length=50,
         null=True,
         blank=True,
         verbose_name="کشور")
@@ -65,7 +64,7 @@ class CV(models.Model):
         blank=True,
         null=True,
         verbose_name="تاریخ تولد")
-    
+
     gender = models.CharField(
         max_length=50,
         choices=GENDER,
@@ -89,7 +88,7 @@ class CV(models.Model):
         null=True,
         size=10,
         verbose_name="زبان ها")
-    
+
     def __str__(self):
         return self.user.email
 
@@ -119,7 +118,7 @@ class WorkExperience(models.Model):
         verbose_name="تاریخ شروع به کار")
 
     end_year = models.PositiveIntegerField(
-        default=current_year(), 
+        default=current_year(),
         validators=[MinValueValidator(1984), max_value_current_year],
         verbose_name="تاریخ پایان کار")
 

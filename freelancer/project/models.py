@@ -8,7 +8,7 @@ from django.utils.text import slugify
 from django_quill.fields import QuillField
 
 
-def document_directory_path(instance, filename: str) -> "File Path":
+def document_directory_path(instance, filename: str) -> str("File Path"):
     """"
     File location to save the conversation document(
         The file sent between the project owner and the freelancer).
