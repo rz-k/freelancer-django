@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from freelancer.account.models import User
+from freelancer.account.models import User, Profile
+from freelancer.resume.models import CV, Education, WorkExperience, Contact
 from django.contrib.auth import login
 from django.contrib.auth import authenticate
+from django.forms.models import model_to_dict
 
 
 class LoginUserSerializer(serializers.Serializer):
@@ -32,3 +34,66 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop("confirm_password")
         return User.objects.create(**validated_data)
+
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        exclude = ("cv",)
+
+
+class WorkExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkExperience
+        exclude = ("cv",)
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ("id", "image", "link")
+
+
+class ResumeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CV
+        fields = ("id", "title", "skills", "country", "city",
+                  "birthday", "gender", "marital_status", "languages")
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("bio", "avatar", "approved")
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("email", "username")
+
+
+class UserInfoSerializer(serializers.Serializer):
+    user = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ("email", "username", "user")
+
+    def get_user(self, obj):
+        user_data = UserSerializer(obj).data
+        profile_data = ProfileSerializer(obj.profile).data
+        resume_data = ResumeSerializer(obj.user_cv).data
+        experience_data = WorkExperienceSerializer(obj.user_cv.cv_experience, many=True).data
+        education_data = EducationSerializer(obj.user_cv.cv_education, many=True).data
+        contact_data = ContactSerializer(obj.user_cv.cv_contact, many=True).data
+        user_data.update({
+            "profile": profile_data,
+            "resume": {
+                **resume_data,
+                "work-experience": experience_data,
+                "education": education_data,
+                "contact": contact_data
+            }
+        })
+        return user_data
