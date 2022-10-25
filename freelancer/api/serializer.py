@@ -57,8 +57,7 @@ class ContactSerializer(serializers.ModelSerializer):
 class ResumeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CV
-        fields = ("id", "title", "skills", "country", "city",
-                  "birthday", "gender", "marital_status", "languages")
+        exclude = ("user",)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
