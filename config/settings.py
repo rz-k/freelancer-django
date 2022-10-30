@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_quill',
     'django_jalali',
     'rest_framework',
+    'drf_spectacular',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -168,6 +169,17 @@ QUILL_CONFIGS = {
             ]
         },
     }
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Freelancer',
+    'DESCRIPTION': 'Freelancer website to help people find or post jobs',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
