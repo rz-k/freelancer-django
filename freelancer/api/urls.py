@@ -22,6 +22,16 @@ urlpatterns = [
     path('users/<str:username>/resume/educations/', UpdateResumeEducations.as_view(), name='update-resume-educations'),
     path('users/<str:username>/resume/contacts/', UpdateResumeContacts.as_view(), name='update-resume-contacts'),
 
+    # Project
+    path("projects/", UserProjects.as_view(), name="list-user-projet"),
+    path("projects/<int:project_id>/", ProjectDetail.as_view(), name="project-details"),
+
+    # path("project/categorys/", RetrieveCategorys.as_view(), name="retrieve-categorys"),
+    # path("project/categorys/", AddCategorys.as_view(), name="retrieve-categorys"),
+    # path("project/<int:pk>/employers-comment/", RetrieveEmployersComment.as_view(), name="retrieve-employers-comment"),
+    # path("project/<int:pk>/employers-comment/", UpdateEmployersComment.as_view(), name="update-employers-comment"),
+    # path("project/<int:pk>/conversation/", RetrieveProjectConversation.as_view(), name="retrieve-project-conversation"),
+    # path("project/<int:pk>/conversation/", UpdateProjectConversation.as_view(), name="update-project-conversation"),
     # path('dashboard/manage-project/', manage_project, name='manage-project'),
     # path('dashboard/manage-received-applys/', manage_received_apply, name='manage-received-apply'),
     # path('dashboard/manage-send-applys/', manage_send_apply, name='manage-send-apply'),
