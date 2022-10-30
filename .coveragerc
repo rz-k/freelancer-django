@@ -4,6 +4,7 @@ omit =
  */venv/*
  */migrations/*
  */config/*
+ */forms.py
   manage.py
 
 
