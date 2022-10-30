@@ -105,3 +105,15 @@ class UserInfoSerializer(serializers.Serializer):
             }
         })
         return user_data
+
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    description = serializers.SerializerMethodField()
+    class Meta:
+        model = Project
+        fields = "__all__"
+        extra_field_kwargs = ("description",)
+
+    def get_description(self, obj):
+        return obj.description.html
