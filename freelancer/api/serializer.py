@@ -1,6 +1,8 @@
+from drf_spectacular.utils import extend_schema_field, inline_serializer
 from rest_framework import serializers
 from freelancer.account.models import User, Profile
 from freelancer.resume.models import CV, Education, WorkExperience, Contact
+from freelancer.project.models import Project
 from django.contrib.auth import login
 from django.contrib.auth import authenticate
 from django.forms.models import model_to_dict
@@ -75,10 +77,17 @@ class UserSerializer(serializers.ModelSerializer):
 class UserInfoSerializer(serializers.Serializer):
     user = serializers.SerializerMethodField()
 
-    class Meta:
-        model = User
-        fields = ("email", "username", "user")
-
+    @extend_schema_field(inline_serializer(
+        name='User Data',
+        fields={
+            "user": UserSerializer(),
+            "profile": ProfileSerializer(),
+            "resume": ResumeSerializer(),
+            "work-experience": WorkExperienceSerializer(many=True),
+            "education": EducationSerializer(many=True),
+            "contact": ContactSerializer(many=True),
+        }
+    ))
     def get_user(self, obj):
         user_data = UserSerializer(obj).data
         profile_data = ProfileSerializer(obj.profile).data
