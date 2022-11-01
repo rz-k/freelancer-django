@@ -1,3 +1,4 @@
+from .filters import ProjectFilter
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet, ModelViewSet
 from rest_framework.response import Response
@@ -6,6 +7,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from .permissions import IsOwnerOrReadOnly
 from rest_framework import status
 from django.contrib.auth import login, logout
+
+# Filters
+from django_filters import rest_framework as filters
+
 
 # Api Doc
 from drf_spectacular.utils import extend_schema_view, extend_schema
@@ -115,3 +120,26 @@ class UpdateResumeContacts(BaseUpdateView):
     """Update the full resume contacts or partial update"""
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
+
+
+@extend_schema(methods=["get", "post"], summary="Create and list User Project", tags=["projects"])
+class ListProject(ListAPIView, CreateAPIView):
+    """Get list of projects"""
+    http_method_names = ("get", "post")
+    permission_classes = (IsOwnerOrReadOnly, )
+    serializer_class = ProjectSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProjectFilter
+    queryset = Project.objects.all()
+
+
+@extend_schema(methods=["get", "post", "put", "patch", "delete"], summary="CRUD specific Project", tags=["projects"])
+class ProjectDetail(RetrieveUpdateDestroyAPIView):
+    """CRUD specific Project with id"""
+    http_method_names = ("get", "put", "patch", "delete")
+    permission_classes = (IsOwnerOrReadOnly,)
+    serializer_class = ProjectSerializer
+    lookup_url_kwarg = "project_id"
+
+    def get_queryset(self):
+        return Project.objects.filter(pk=self.kwargs["project_id"])
