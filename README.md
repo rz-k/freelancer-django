@@ -49,7 +49,7 @@ The freelancer website is written by Django to help freelancers and employers to
  - [x] Create project categorys.
  - [x] Create project tags.
  - [x] Create apply models, views and urls.
- - [ ] Create payment models, views and urls.
+ - [x] Create payment models, views and urls.
  
  - [ ] Update payment models(handel the pricing-panel, immediate project, etc..).
  - [ ] Handel Home Page url and view.
@@ -61,10 +61,10 @@ The freelancer website is written by Django to help freelancers and employers to
  - [ ] Handel WebServer security configurations.
  - [ ] Handel WebServer other configurations. 
 
- - [ ] Make TestCase for project models, views and urls.
+ - [x] Make TestCase for project models, views and urls.
  - [ ] Make TestCase for apply models, views and urls.
- - [ ] Make TestCase for account models, views and urls.
+ - [x] Make TestCase for account models, views and urls.
  
- - [ ] Create Rest-Api by DRF.
+ - [x] Create Rest-Api by DRF.
  - [ ] Make TestCase for Rest-Api.
- - [ ] Make Api documentation
+ - [x] Make Api documentation
