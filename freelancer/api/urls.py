@@ -25,6 +25,7 @@ urlpatterns = [
     # Project
     path("projects/", ListProject.as_view(), name="list-projet"),
     path("projects/<int:project_id>/", ProjectDetail.as_view(), name="project-details"),
+    path("categories/", ListCategory.as_view(),name="list-categories"),
 
     # path("project/categorys/", RetrieveCategorys.as_view(), name="retrieve-categorys"),
     # path("project/categorys/", AddCategorys.as_view(), name="retrieve-categorys"),
