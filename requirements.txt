@@ -6,3 +6,4 @@ django-quill-editor==0.1.40
 requests==2.28.1
 django-jalali==6.0.0
 djangorestframework==3.13.1
+django-filter==22.1
