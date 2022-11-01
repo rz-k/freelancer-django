@@ -2,7 +2,7 @@ from drf_spectacular.utils import extend_schema_field, inline_serializer
 from rest_framework import serializers
 from freelancer.account.models import User, Profile
 from freelancer.resume.models import CV, Education, WorkExperience, Contact
-from freelancer.project.models import Project
+from freelancer.project.models import Project, Category
 from django.contrib.auth import login
 from django.contrib.auth import authenticate
 from django.forms.models import model_to_dict
@@ -107,7 +107,6 @@ class UserInfoSerializer(serializers.Serializer):
         return user_data
 
 
-
 class ProjectSerializer(serializers.ModelSerializer):
     description = serializers.SerializerMethodField()
     class Meta:
@@ -117,3 +116,9 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     def get_description(self, obj):
         return obj.description.html
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
