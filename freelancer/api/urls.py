@@ -23,7 +23,7 @@ urlpatterns = [
     path('users/<str:username>/resume/contacts/', UpdateResumeContacts.as_view(), name='update-resume-contacts'),
 
     # Project
-    path("projects/", UserProjects.as_view(), name="list-user-projet"),
+    path("projects/", ListProject.as_view(), name="list-projet"),
     path("projects/<int:project_id>/", ProjectDetail.as_view(), name="project-details"),
 
     # path("project/categorys/", RetrieveCategorys.as_view(), name="retrieve-categorys"),
