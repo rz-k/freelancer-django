@@ -18,12 +18,12 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 # Models
 from freelancer.account.models import User, Profile
 from freelancer.resume.models import CV, Education, WorkExperience, Contact
-from freelancer.project.models import Project
+from freelancer.project.models import Project, Category
 
 # Serializers
 from .serializer import (LoginUserSerializer, RegisterUserSerializer, UserInfoSerializer, UserSerializer,
                          ProfileSerializer, ResumeSerializer, WorkExperienceSerializer, EducationSerializer,
-                         ContactSerializer, ProjectSerializer)
+                         ContactSerializer, ProjectSerializer, CategorySerializer)
 
 
 @extend_schema_view(post=extend_schema(summary="Login User"))
@@ -143,3 +143,15 @@ class ProjectDetail(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Project.objects.filter(pk=self.kwargs["project_id"])
+
+
+class ListCategory(ListAPIView, CreateAPIView):
+    """Get the list of categories"""
+    http_method_names = ("get", "post")
+    permission_classes = (IsOwnerOrReadOnly, )
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+
+
+# class CategoryDetails(RetrieveUpdateDestroyAPIView):
+#     """CRUD specific Category with id"""
