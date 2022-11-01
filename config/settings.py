@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django_jalali',
     'rest_framework',
     'drf_spectacular',
+    'django_filters',
 
     'django.contrib.admin',
     'django.contrib.auth',
